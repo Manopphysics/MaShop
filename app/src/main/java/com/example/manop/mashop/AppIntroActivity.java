@@ -14,7 +14,7 @@ public class AppIntroActivity extends AppIntro {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_app_intro);
 
-        addSlide(AppIntroFragment.newInstance("First App Into", "First App Intro Details",
+        addSlide(AppIntroFragment.newInstance("First App Into", "Pollakit TEST UPDATE",
                 R.drawable.one, ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary)));
         addSlide(AppIntroFragment.newInstance("Second App Into", "Second App Intro Details",
                 R.drawable.one, ContextCompat.getColor(getApplicationContext(), R.color.colorAccent)));
