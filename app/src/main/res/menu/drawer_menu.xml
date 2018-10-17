@@ -4,7 +4,7 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/navmsg"
+            android:id="@+id/wishlist"
             android:icon="@drawable/ic_carttest"
             android:title="Message" />
         <item
