@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#9df7ff</color>
-    <color name="colorPrimaryDark">#00838f</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#00b08a</color>
+    <color name="colorPrimaryDark">#00835c</color>
+    <color name="colorAccent">#b00026</color>
     <color name="extraColor">#0acaff</color>
     <color name="extraColor2">#ff7300</color>
     <array name="dot_on_page_active">
-        <item>#231f1f</item>
-        <item>#101010</item>
-        <item>#000000</item>
-
+        <item>#ff7300</item>
+        <item>#18ffff</item>
+        <item>#b00026</item>
     </array>
 
     <array name="dot_on_page_not_active">
-        <item>#18ffff</item>
-        <item>#18ffff</item>
-        <item>#18ffff</item>
+        <item>#231f1f</item>
+        <item>#231f1f</item>
+        <item>#231f1f</item>
     </array>
 
 </resources>

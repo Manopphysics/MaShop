@@ -73,8 +73,8 @@ public class MainScreen extends AppCompatActivity {
         Layout_bars.removeAllViews();
         for (int i = 0; i < bottomBars.length; i++) {
             bottomBars[i] = new TextView(this);
-            bottomBars[i].setTextSize(25);
-            bottomBars[i].setText("◆");
+            bottomBars[i].setTextSize(40);
+            bottomBars[i].setText("•");
             Layout_bars.addView(bottomBars[i]);
             bottomBars[i].setTextColor(colorsInactive[thisScreen]);
         }
