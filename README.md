@@ -6,8 +6,8 @@ The shop that wants to place their products or services on this app will need to
 then the app will prompt the seller to enter the details of the shop which include Name, Address, Location and type of products / service
 which then the seller will have to agree to license and agreement that all the above information is true.
 The seller must have an actual shop which shall be verified to prevent fraud.
-The seller will have to manage the ways of delivery by themselves, it is 100% up to them 
-*We will not provide ANY delivery services*. Almost like a Facebook page, the seller will a have an e-shop of its own
+The seller will have to manage the ways of delivery by themselves, it is 100% up to them.
+**We will not provide ANY delivery services.** Almost like a Facebook page, the seller will a have an e-shop of its own
 where he could place as many products as possible and customize the layout of their page freely the shop can choose to accept followers 
 or no, if the shop accepts to have followers the buyers can follow their shop
 (and similar to youtube’s subscribe to a channel feature) and whenever the shop adds or updates products the followers
@@ -26,4 +26,4 @@ The user (customer/buyer) will also have to register and login and keep track of
   * APIs
   * git / github for remote working
   
-*This project will use mostly JAVA programming language (maybe a bit of XML etc).
+*This project will use mostly JAVA programming language (maybe a bit of XML etc)*
