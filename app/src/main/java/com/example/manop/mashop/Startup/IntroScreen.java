@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.widget.Button;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -17,7 +16,7 @@ import android.widget.TextView;
 import com.example.manop.mashop.Preference.PreferenceManager;
 import com.example.manop.mashop.R;
 
-public class MainScreen extends AppCompatActivity {
+public class IntroScreen extends AppCompatActivity {
 
     PreferenceManager preferenceManager;
     LinearLayout Layout_bars;
@@ -31,7 +30,14 @@ public class MainScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_screen);
+
+        preferenceManager = new PreferenceManager(this);
+        if (!preferenceManager.FirstLaunch()) {
+            launchMain();
+            finish();
+        }
+
+        setContentView(R.layout.activity_intro_screen);
         vp = (ViewPager) findViewById(R.id.view_pager);
         Layout_bars = (LinearLayout) findViewById(R.id.layoutBars);
         Skip = (Button) findViewById(R.id.skip);
@@ -43,12 +49,9 @@ public class MainScreen extends AppCompatActivity {
         };
         myvpAdapter = new MyViewPagerAdapter();
         vp.setAdapter(myvpAdapter);
-        preferenceManager = new PreferenceManager(this);
+
         vp.addOnPageChangeListener(viewPagerPageChangeListener);
-        if (!preferenceManager.FirstLaunch()) {
-            launchMain();
-            finish();
-        }
+
         ColoredBars(0);
     }
 
@@ -86,9 +89,16 @@ public class MainScreen extends AppCompatActivity {
         return vp.getCurrentItem() + i;
     }
 
+//  Try to redirect to log in screen after finishing intro but it's not efficient to
+//    private void launchLogIn(){
+//        preferenceManager.setFirstTimeLaunch(false);
+//        startActivity(new Intent(IntroScreen.this, LoginActivity.class));
+//        finish();
+//    }
+
     private void launchMain() {
         preferenceManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(MainScreen.this, MainActivity.class));
+        startActivity(new Intent(IntroScreen.this, MainActivity.class));
         finish();
     }
 
@@ -98,10 +108,10 @@ public class MainScreen extends AppCompatActivity {
         public void onPageSelected(int position) {
             ColoredBars(position);
             if (position == screens.length - 1) {
-                Next.setText("start");
+                Next.setText(R.string.intro_done);
                 Skip.setVisibility(View.GONE);
             } else {
-                Next.setText(getString(R.string.next));
+                Next.setText(getString(R.string.intro_next));
                 Skip.setVisibility(View.VISIBLE);
             }
         }
