@@ -4,26 +4,26 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/wishlist"
-            android:icon="@drawable/ic_carttest"
-            android:title="Message" />
+            android:id="@+id/nav1"
+            android:icon="@drawable/ic_round_home_24px"
+            android:title="@string/nav_1_title" />
         <item
             android:id="@+id/nav2"
-            android:icon="@drawable/ic_carttest"
-            android:title="U8" />
+            android:icon="@drawable/ic_round_face_24px"
+            android:title="@string/nav_2_title" />
         <item
             android:id="@+id/nav3"
             android:icon="@drawable/ic_carttest"
-            android:title="yes" />
+            android:title="@string/nav_3_title" />
         <item
             android:id="@+id/nav4"
             android:icon="@drawable/ic_carttest"
-            android:title="hahaha" />
+            android:title="@string/nav_4_title" />
         <item
             android:id="@+id/nav5"
             android:icon="@drawable/ic_carttest"
-            android:title="hohoho" />
-    </group>
+            android:title="@string/nav_5_title" />
+
     <item android:title="Communicate">
         <menu>
             <item
@@ -36,4 +36,5 @@
                 android:title="nav7" />
         </menu>
     </item>
+    </group>
 </menu>

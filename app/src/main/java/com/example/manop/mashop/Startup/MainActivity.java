@@ -1,5 +1,6 @@
 package com.example.manop.mashop.Startup;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                     new FragmentTest()).commit();
-            navigationView.setCheckedItem(R.id.nav2);
+            navigationView.setCheckedItem(R.id.nav1);
         }
     }
 
@@ -42,14 +43,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.nav2:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        new FragmentTest()).commit();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
             case R.id.nav3:
                 Toast.makeText(this,"NAV 3",Toast.LENGTH_SHORT).show();break;
+            case R.id.nav4:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                        new FragmentTest()).commit();
+                break;
         }
+        // set item as selected to persist highlight
+        item.setChecked(true);
+        // close drawer when item is tapped
+        drawer.closeDrawers();
         return true;
     }
+
 
     @Override
     public void onBackPressed() {

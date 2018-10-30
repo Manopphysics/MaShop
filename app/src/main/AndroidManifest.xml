@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.manop.mashop">
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.manop.mashop.Startup.SplashActivity">
+        <activity android:name=".Startup.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,11 +22,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.manop.mashop.Startup.MainScreen"
+            android:name=".Startup.IntroScreen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.manop.mashop.Startup.MainActivity"
+            android:name=".Startup.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".Startup.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".Startup.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.manop.mashop.Startup.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Startup.EmailLoginActivity"
+            android:label="@string/title_activity_email_login"></activity>
     </application>
 
 </manifest>
