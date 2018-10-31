@@ -13,9 +13,12 @@ import android.widget.Toast;
 
 import com.example.manop.mashop.Fragments.FragmentTest;
 import com.example.manop.mashop.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,19 +40,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new FragmentTest()).commit();
             navigationView.setCheckedItem(R.id.nav1);
         }
+        firebaseInit();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.nav2:
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                break;
             case R.id.nav3:
                 Toast.makeText(this,"NAV 3",Toast.LENGTH_SHORT).show();break;
             case R.id.nav4:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                         new FragmentTest()).commit();
+                break;
+            case R.id.nav_reg_shop:
+                Toast.makeText(this,"Will add this activity soon!",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_logout:
+                logout();
                 break;
         }
         // set item as selected to persist highlight
@@ -58,7 +65,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawers();
         return true;
     }
+    @Override
+    public void onStart(){
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    private void firebaseInit() {
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(loginIntent);
+                }//if there is no curreent user then only move to liginActivity
+            }
+        };
+    }
 
     @Override
     public void onBackPressed() {
@@ -67,6 +93,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else{
             super.onBackPressed();
         }
+
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    private void logout() {
+        mAuth.signOut();
 
     }
 }

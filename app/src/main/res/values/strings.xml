@@ -46,4 +46,31 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_email_login">Sign in with E-mail</string>
+    <string name="need_new_account">Need New ACCOUNT?</string>
+    <string name="e_mail_id">  E-mail ID </string>
+    <string name="name">Name</string>
+    <string name="uname">Username</string>
+    <string name="facebook_app_id">1847538918676730</string>
+    <string name="fb_login_protocol_scheme">fb1847538918676730</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">8exiccA9xOj9mSHAuelUSIXGk</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">roOLuJFxWNoTPxt5xinJC1Y044G5nQreQUkyluTtWSG71hT5sf</string>
+    <string name="phone">Phone</string>
+    <string name="go">go</string>
+    <string name="login">LOGIN</string>
+    <string name="password">  Password </string>
+    <string name="or">OR</string>
+    <string name="register">REGISTER</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="post_desc_goes_here">POST DESC GOES HERE</string>
+    <string name="post_title_goes_here">POST TITLE GOES HERE</string>
+    <string name="enter_yor_text">Enter Text</string>
+    <string name="logOut">Log Out</string>
+    <string name="log_in_as">Logged in as\n</string>
+    <string name="edit">Edit</string>
+    <string name="enter_your_dispaly_name">Enter your Dispaly Name</string>
+    <string name="finish_setup">Finish Setup</string>
+    <string name="post_title">Post Title..</string>
+    <string name="post_description">Post Description</string>
+    <string name="submit">Submit</string>
+    <string name="or_dash">----------------------OR----------------------</string>
 </resources>

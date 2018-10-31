@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#009688</color>
-    <color name="colorPrimaryDark">#00796b</color>
+    <color name="colorPrimary">#00af7b</color>
+    <color name="colorPrimaryDark">#0da305</color>
     <color name="colorAccent">#b71c1c</color>
     <color name="extraColor">#00b0ff</color>
     <color name="extraColor2">#ff6f00</color>
@@ -16,5 +16,7 @@
         <item>#9e9e9e</item>
         <item>#9e9e9e</item>
     </array>
+    <color name="greyColor">#c2c2c2</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>

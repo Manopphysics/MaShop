@@ -8,32 +8,24 @@
             android:icon="@drawable/ic_round_home_24px"
             android:title="@string/nav_1_title" />
         <item
-            android:id="@+id/nav2"
-            android:icon="@drawable/ic_round_face_24px"
-            android:title="@string/nav_2_title" />
-        <item
             android:id="@+id/nav3"
             android:icon="@drawable/ic_carttest"
-            android:title="@string/nav_3_title" />
+            android:title="wishlists" />
         <item
             android:id="@+id/nav4"
             android:icon="@drawable/ic_carttest"
-            android:title="@string/nav_4_title" />
-        <item
-            android:id="@+id/nav5"
-            android:icon="@drawable/ic_carttest"
-            android:title="@string/nav_5_title" />
+            android:title="followed shops" />
 
-    <item android:title="Communicate">
+    <item android:title="Account">
         <menu>
             <item
-                android:id="@+id/nav6"
+                android:id="@+id/nav_reg_shop"
                 android:icon="@drawable/ic_carttest"
-                android:title="nav6" />
+                android:title="Register as a shop!" />
             <item
-                android:id="@+id/nav7"
+                android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_carttest"
-                android:title="nav7" />
+                android:title="Log Out" />
         </menu>
     </item>
     </group>
