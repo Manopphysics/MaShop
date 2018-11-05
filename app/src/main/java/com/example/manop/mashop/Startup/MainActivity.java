@@ -8,17 +8,29 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.manop.mashop.Shop.CreateShop;
 import com.example.manop.mashop.Fragments.FragmentTest;
 import com.example.manop.mashop.R;
+import com.example.manop.mashop.Shop.Shop;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabaseUsers;
+    private FirebaseUser currentUser;
+    private String currentUserID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +53,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.nav1);
         }
         firebaseInit();
+        if(currentUserID != null) {
+            mDatabaseUsers.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child(currentUserID).child("seller").getValue(String.class).equals("false")) {
+                        //showItemReg();
+                        //hideItemShop();
+                        showItem(R.id.nav_reg_shop);
+                        hideItem(R.id.nav_my_shop);
+                    } else if (dataSnapshot.child(currentUserID).child("seller").getValue(String.class).equals("true")){
+                        showItem(R.id.nav_my_shop);
+                        hideItem(R.id.nav_reg_shop);
+                        //hideItemReg();
+                        //showItemShop();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     @Override
@@ -53,7 +88,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         new FragmentTest()).commit();
                 break;
             case R.id.nav_reg_shop:
-                Toast.makeText(this,"Will add this activity soon!",Toast.LENGTH_SHORT).show();
+                Intent createshop = new Intent(MainActivity.this,CreateShop.class);
+                startActivity(createshop);
+                //Toast.makeText(this,"Will add this activity soon!",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_my_shop:
+                Intent myshop = new Intent(MainActivity.this,Shop.class);
+                startActivity(myshop);
                 break;
             case R.id.nav_logout:
                 logout();
@@ -81,9 +122,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(loginIntent);
-                }//if there is no curreent user then only move to liginActivity
+                }
             }
         };
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabaseUsers.keepSynced(true);
+        currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            currentUserID = currentUser.getUid();
+        }
+
+        //Toast.makeText(this, "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -106,4 +155,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mAuth.signOut();
 
     }
+    private void showItem(final int id)
+    {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(id).setVisible(true);
+    }
+    private void hideItem(final int id)
+    {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(id).setVisible(false);
+    }
+//    private void showItemShop()
+//    {
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        Menu nav_Menu = navigationView.getMenu();
+//        nav_Menu.findItem(R.id.nav_my_shop).setVisible(true);
+//    }
+//    private void hideItemShop()
+//    {
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        Menu nav_Menu = navigationView.getMenu();
+//        nav_Menu.findItem(R.id.nav_my_shop).setVisible(false);
+//    }
 }

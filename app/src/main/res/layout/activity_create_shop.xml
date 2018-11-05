@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.manop.mashop.Shop.CreateShop"
+    tools:layout_editor_absoluteY="81dp">
+
+    <EditText
+        android:id="@+id/phonenum"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="33dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginTop="46dp"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/category_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cattv"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cattv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="28dp"
+        android:text="Phone Number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/phonenum"
+        app:layout_constraintEnd_toStartOf="@+id/phonenum"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/categorytv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="28dp"
+        android:text="Shop Category"
+        app:layout_constraintEnd_toStartOf="@+id/category_spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/category_spinner" />
+
+    <Spinner
+        android:id="@+id/category_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="37dp"
+        android:layout_marginEnd="49dp"
+        app:layout_constraintBottom_toTopOf="@+id/shname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/categorytv"
+        app:layout_constraintTop_toBottomOf="@+id/phonenum" />
+
+    <TextView
+        android:id="@+id/shname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="27dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginStart="28dp"
+        android:text="Shop name"
+        app:layout_constraintBottom_toTopOf="@+id/shdeesc"
+        app:layout_constraintEnd_toStartOf="@+id/shopname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category_spinner" />
+
+    <EditText
+        android:id="@+id/shopname"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="47dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginTop="48dp"
+        android:hint="Shop name"
+        android:inputType="text"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dsctv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/shname"
+        app:layout_constraintTop_toTopOf="@+id/category_spinner" />
+
+    <Button
+        android:id="@+id/submit_form"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="177dp"
+        android:layout_marginStart="16dp"
+        android:background="#00e18e"
+        android:text="Register as a shop!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shdeesc" />
+
+    <TextView
+        android:id="@+id/dsctv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:layout_marginStart="28dp"
+        android:text="Shop Description"
+        app:layout_constraintBaseline_toBaselineOf="@+id/shdeesc"
+        app:layout_constraintEnd_toStartOf="@+id/shdeesc"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/shdeesc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="39dp"
+        android:layout_marginEnd="41dp"
+        android:hint="Shop Description"
+        android:inputType="text"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/submit_form"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dsctv"
+        app:layout_constraintTop_toBottomOf="@+id/shname" />
+
+</android.support.constraint.ConstraintLayout>

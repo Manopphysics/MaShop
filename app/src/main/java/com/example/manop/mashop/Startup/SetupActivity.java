@@ -141,6 +141,7 @@ public class SetupActivity extends AppCompatActivity {
                             mDatabseUsers.child(user_id).child("name").setValue(name);
                             mDatabseUsers.child(user_id).child("image").setValue(downloadUri);
                             mDatabseUsers.child(user_id).child("token").setValue(tokenString);
+                            mDatabseUsers.child(user_id).child("seller").setValue("false");
                             Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             mProgress.dismiss();

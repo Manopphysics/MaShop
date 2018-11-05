@@ -23,6 +23,10 @@
                 android:icon="@drawable/ic_carttest"
                 android:title="Register as a shop!" />
             <item
+                android:id="@+id/nav_my_shop"
+                android:icon="@drawable/ic_carttest"
+                android:title="My Shop" />
+            <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_carttest"
                 android:title="Log Out" />

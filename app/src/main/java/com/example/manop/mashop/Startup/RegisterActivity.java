@@ -79,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         current_user_db.child("name").setValue(name);
                         current_user_db.child("image").setValue("default");
+                        current_user_db.child("seller").setValue("false");
 
                         mProgress.dismiss();
                         Intent mainIntent = new Intent(RegisterActivity.this, SetupActivity.class);
