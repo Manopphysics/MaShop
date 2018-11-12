@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.example.manop.mashop.R;
 import com.google.android.gms.auth.api.Auth;
@@ -79,9 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //AppEventsLogger.activateApp(getApplication());
-
         bindViews();
-
         onClicks();
 
     }

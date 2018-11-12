@@ -89,7 +89,7 @@ public class IntroScreen extends AppCompatActivity {
         return vp.getCurrentItem() + i;
     }
 
-//  Try to redirect to log in screen after finishing intro but it's not efficient to
+//  Try to redirect to log in screen after finishing intro but it's not efficient
 //    private void launchLogIn(){
 //        preferenceManager.setFirstTimeLaunch(false);
 //        startActivity(new Intent(IntroScreen.this, LoginActivity.class));

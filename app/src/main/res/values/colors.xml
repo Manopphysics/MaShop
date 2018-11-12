@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#00af7b</color>
-    <color name="colorPrimaryDark">#0da305</color>
+    <color name="colorPrimaryDark">#007e4f</color>
+    <color name="colorPrimaryLight">#57e2aa</color>
     <color name="colorAccent">#b71c1c</color>
-    <color name="extraColor">#00b0ff</color>
-    <color name="extraColor2">#ff6f00</color>
+    <color name="colorAccent2">#c6ff00</color>
+    <color name="extraColor">#00e5ff</color>
+    <color name="extraColor2">#ffa733</color>
     <array name="dot_on_page_active">
         <item>#ffffff</item>
         <item>#ffffff</item>
