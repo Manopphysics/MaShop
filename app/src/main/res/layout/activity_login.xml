@@ -56,7 +56,7 @@
             android:layout_below="@+id/loginpasswordfield"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
-            android:background="@drawable/emailLoginButtonBg"
+            android:background="@drawable/email_login_button_bg"
             android:text="@string/login_btn"
             android:textColor="@android:color/black" />
 
@@ -101,9 +101,9 @@
             android:text="Sign in with Google"
             android:textSize="20sp" />-->
         <com.shobhitpuri.custombuttons.GoogleSignInButton
+            android:id="@+id/google_signin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:text="@string/google_sign_in"
             app:isDarkTheme="false" />
 

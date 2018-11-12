@@ -53,8 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText mLoginEmailField;
     private EditText mLoginPasswordField;
-    private Button mNewAccount;
-    private Button mLoginButton;
+    private Button mNewAccount, googleSignInButton, mLoginButton;
     private ProgressDialog mProgressbar;
     private DatabaseReference mDatabaseUsers;
     //private SignInButton signInButton;
@@ -73,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-    private com.google.android.gms.common.SignInButton googleImg;
+//    private com.google.android.gms.common.SignInButton googleImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +97,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mLoginButton = (Button) findViewById(R.id.loginbtn);
         mNewAccount = (Button) findViewById(R.id.newaccount);
 
-        //signInButton = findViewById(R.id.google_sign_in_button);
+        googleSignInButton = findViewById(R.id.google_signin);
         //twitterLoginButton = findViewById(R.id.t_login_button);
 
-        googleImg = (com.google.android.gms.common.SignInButton) findViewById(R.id.google_sign_in);
+//        googleImg = (com.google.android.gms.common.SignInButton) findViewById(R.id.google_sign_in);
 
     }
 
@@ -125,7 +124,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         googleInit();
 
-        googleImg.setOnClickListener(new View.OnClickListener() {
+        googleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUpGoogle();
