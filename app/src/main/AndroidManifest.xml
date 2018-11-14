@@ -30,10 +30,10 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name=".Startup.IntroScreen"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBarTransparent" />
         <activity
             android:name=".Startup.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBarTransparent" />
 
         <service android:name=".Preference.MyfirebaseInstanceServices">
             <intent-filter>

@@ -13,7 +13,7 @@
 
     <EditText
         android:id="@+id/name"
-        android:drawableLeft="@drawable/ic_person_black_24dp"
+        android:drawableLeft="@drawable/ic_person_white_24dp"
         android:drawablePadding="20dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -24,7 +24,7 @@
 
     <EditText
         android:id="@+id/email"
-        android:drawableLeft="@drawable/ic_email_green_24dp"
+        android:drawableLeft="@drawable/ic_email_white_24dp"
         android:drawablePadding="20dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"

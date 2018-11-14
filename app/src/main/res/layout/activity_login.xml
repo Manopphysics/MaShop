@@ -20,9 +20,15 @@
         android:padding="10dp"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/email_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="E-mail" />
+
         <EditText
             android:id="@+id/loginemailfield"
-            android:drawableStart="@drawable/ic_email_green_24dp"
+            android:drawableStart="@drawable/ic_email_white_24dp"
             android:drawablePadding="20dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -50,11 +56,18 @@
             android:textColor="@android:color/black" />
 
         <Button
-            android:id="@+id/loginbtn"
+            android:id="@+id/forgetPassBtn"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="#ffffff"
+            android:text="@string/forget_pass" />
+
+        <Button
+            android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/loginpasswordfield"
-            android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             android:background="@drawable/email_login_button_bg"
             android:text="@string/login_btn"
@@ -64,8 +77,6 @@
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/loginbtn"
-            android:layout_centerHorizontal="true"
             android:text="" />
     </LinearLayout>
 
@@ -76,7 +87,6 @@
         android:layout_below="@+id/signInLinear1"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:layout_alignParentBottom="true"
         android:padding="10dp"
         android:orientation="vertical">
 
@@ -100,15 +110,6 @@
             android:layout_marginStart="5dp"
             android:text="Sign in with Google"
             android:textSize="20sp" />-->
-        <com.shobhitpuri.custombuttons.GoogleSignInButton
-            android:id="@+id/google_signin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/google_sign_in"
-            app:isDarkTheme="false" />
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -118,22 +119,37 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/newAccountTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="No account?\t" />
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="No account?\t"
+                android:textColor="#bdbdbd"/>
+
             <Button
-                android:id="@+id/newaccount"
+                android:id="@+id/newAccountBtn"
                 android:layout_width="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_height="20dp"
+                android:layout_margin="5dp"
                 android:background="@android:color/transparent"
+                android:fontFamily="@font/open_sans_bold"
                 android:text="@string/need_new_account"
-                android:textColor="#0d47a1" />
+                android:textColor="#ffffff" />
 
 
         </LinearLayout>
+
+        <com.shobhitpuri.custombuttons.GoogleSignInButton
+            android:id="@+id/googleSigninBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:isDarkTheme="false" />
+
+
+
+
 
     </LinearLayout>
 
