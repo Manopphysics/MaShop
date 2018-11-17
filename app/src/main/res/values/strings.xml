@@ -76,4 +76,8 @@
     <string name="title_activity_shop">Shop</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string-array name="sort_by">
+        <item>Low to high price</item>
+        <item>High to low price</item>
+    </string-array>
 </resources>

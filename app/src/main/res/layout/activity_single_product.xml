@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/singleImageview"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop" />
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/delete_bin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp"
+        android:background="#FFEA0404"
+        android:text="delete product"
+        android:textColor="#fff"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/singleTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/product_discount"
+        android:layout_marginTop="12dp"
+        android:text="Post Title"
+        android:textColor="#100d0d"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/singleDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/deleteBtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="12dp"
+        android:text="Post Description" />
+
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/singleImageview"
+        android:layout_marginTop="15dp"
+        android:text="฿0"
+        android:textColor="@color/orange_red"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/product_discount"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="2.5dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/product_price"
+        android:layout_below="@+id/product_price"
+        android:text="฿0" />
+
+    <TextView
+        android:id="@+id/like_count"
+        android:layout_width="wrap_content"
+        android:textColor="@color/green"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/singleDesc"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="18dp"
+        android:text="0 Likes" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/product_price"
+        android:layout_marginEnd="30dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_no_heart_gray" />
+
+
+</RelativeLayout>

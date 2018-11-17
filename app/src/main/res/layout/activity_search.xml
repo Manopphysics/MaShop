@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".Function.SearchActivity">
+
+
+
+    <EditText
+        android:id="@+id/search_field"
+        android:layout_width="275dp"
+        android:layout_marginLeft="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/search_layout"
+        android:ems="10"
+        android:fontFamily="@font/nunito_semibold"
+        android:hint="Search here"
+        android:inputType="textPersonName"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:textColor="#999999"
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/search_field"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/search_field"
+        android:layout_marginRight="20dp"
+        android:background="@android:color/background_light"
+        app:srcCompat="@mipmap/search_button" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/result_list"
+        android:background="#dedede"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_field"
+        android:padding="@dimen/item_offset"
+        android:layout_marginTop="52dp"/>
+
+    <Spinner
+        android:id="@+id/sort_spinner"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/search_field"
+        android:layout_marginTop="11dp" />
+
+</RelativeLayout>

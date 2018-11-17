@@ -12,6 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.example.manop.mashop.Fragments.HomeFragment;
+import com.example.manop.mashop.Function.SearchActivity;
 import com.example.manop.mashop.Shop.CreateShop;
 import com.example.manop.mashop.Fragments.FragmentTest;
 import com.example.manop.mashop.R;
@@ -24,7 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
+
     private DrawerLayout drawer;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
@@ -38,18 +43,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+//
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         if(savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                    new FragmentTest()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,
+                    new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav1);
         }
         firebaseInit();
@@ -84,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav3:
                 Toast.makeText(this,"NAV 3",Toast.LENGTH_SHORT).show();break;
             case R.id.nav4:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        new FragmentTest()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,
+                        new HomeFragment()).commit();
                 break;
             case R.id.nav_reg_shop:
                 Intent createshop = new Intent(MainActivity.this,CreateShop.class);
@@ -134,7 +138,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Toast.makeText(this, "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
+        return true;
+    }
+@Override
+public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if(id == R.id.action_search){
+            Toast.makeText(this,"WILL SEARCH",Toast.LENGTH_SHORT).show();
+            Intent search = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(search);
+        }
+        return super.onOptionsItemSelected(item);
+}
     @Override
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
