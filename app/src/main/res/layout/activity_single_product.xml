@@ -92,5 +92,14 @@
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_no_heart_gray" />
 
+    <ImageButton
+        android:id="@+id/chat_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/singleTitle"
+        android:layout_alignEnd="@+id/imageButton"
+        android:background="@color/transparent"
+        app:srcCompat="@drawable/ic_chat_black_24dp" />
+
 
 </RelativeLayout>

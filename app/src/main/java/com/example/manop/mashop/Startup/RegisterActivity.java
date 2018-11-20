@@ -11,7 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.manop.mashop.Chat.User;
 import com.example.manop.mashop.R;
+import com.example.manop.mashop.Utils.Constants;
+import com.example.manop.mashop.Utils.SharedPrefUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -76,10 +79,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                         String user_id = mAuth.getCurrentUser().getUid();
                         DatabaseReference current_user_db = mDatabase.child(user_id);
-
-                        current_user_db.child("name").setValue(name);
-                        current_user_db.child("image").setValue("default");
-                        current_user_db.child("seller").setValue("false");
+                        User user = new User(name,"default","false",mAuth.getCurrentUser().getEmail(),
+                                mAuth.getCurrentUser().getUid(),
+                                new SharedPrefUtil(RegisterActivity.this).getString(Constants.ARG_FIREBASE_TOKEN));
+                        current_user_db.setValue(user);
+//                        current_user_db.child("name").setValue(name);
+//                        current_user_db.child("image").setValue("default");
+//                        current_user_db.child("seller").setValue("false");
+//                        current_user_db.child("email").setValue(mAuth.getCurrentUser().getEmail());
 
                         mProgress.dismiss();
                         Intent mainIntent = new Intent(RegisterActivity.this, SetupActivity.class);

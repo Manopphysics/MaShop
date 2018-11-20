@@ -10,6 +10,15 @@ import android.support.multidex.MultiDex;
  */
 
 public class MyApplication extends Application {
+    private static boolean sIsChatActivityOpen = false;
+
+    public static boolean isChatActivityOpen() {
+        return sIsChatActivityOpen;
+    }
+
+    public static void setChatActivityOpen(boolean isChatActivityOpen) {
+        MyApplication.sIsChatActivityOpen = isChatActivityOpen;
+    }
 
     @Override
     protected void attachBaseContext(Context base){

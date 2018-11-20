@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment{
         slider_image_list.add(R.drawable.slider2);
         slider_image_list.add(R.drawable.slider3);
         slider_image_list.add(R.drawable.slider4);
+        //slider_image_list.add(R.drawable.one);
 
         sliderPagerAdapter = new Slider_Pager_Adapter(getActivity(), slider_image_list);
         images_slider.setAdapter(sliderPagerAdapter);
@@ -131,7 +132,7 @@ public class HomeFragment extends Fragment{
             public void run() {
                 handler.post(update);
             }
-        }, 500, 4000);
+        }, 200, 3000);
     }
 
     public void addBottomDots(int currentPage) {

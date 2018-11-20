@@ -62,7 +62,14 @@
         <activity android:name=".Product.AddProduct" />
         <activity android:name=".Product.MyProducts" />
         <activity android:name=".Product.SingleProductActivity" />
-        <activity android:name=".Function.SearchActivity"></activity>
+        <activity android:name=".Function.SearchActivity" />
+        <activity
+            android:name=".Chat.ChatActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Chat.UserListingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Function.AccountSettings"></activity>
     </application>
 
 </manifest>

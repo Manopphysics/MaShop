@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.manop.mashop.Chat.User;
 import com.example.manop.mashop.R;
 import com.example.manop.mashop.Startup.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,6 +76,24 @@ public class CreateShop extends AppCompatActivity {
                 shopdb.child("category").setValue(String.valueOf(categorySpinner.getSelectedItem()));
                 shopdb.child("name").setValue(shopname.getText().toString());
                 shopdb.child("description").setValue(shopdesc.getText().toString());
+                DatabaseReference userdb = mDatabaseUsers.child(currentUser.getUid());
+                userdb.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User user = new User(dataSnapshot.child("name").getValue(String.class),
+                                        dataSnapshot.child("image").getValue(String.class),
+                                        dataSnapshot.child("seller").getValue(String.class),
+                                        dataSnapshot.child("email").getValue(String.class),
+                                        dataSnapshot.child("uid").getValue(String.class),
+                                        dataSnapshot.child("firebaseToken").getValue(String.class));
+                        shopdb.child("user").setValue(user);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 mDatabaseUsers.child(currentUser.getUid()).child("seller").setValue("true");
                 Intent main = new Intent(CreateShop.this, Shop.class);
                 startActivity(main);

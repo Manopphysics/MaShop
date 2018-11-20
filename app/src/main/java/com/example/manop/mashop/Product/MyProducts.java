@@ -28,11 +28,14 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +65,7 @@ public class MyProducts extends AppCompatActivity {
     private RecyclerView mProductList;
     private DatabaseReference mDatabaseProduct;
     private FirebaseAuth mAuth;
+    private FirebaseUser mCurrentUser;
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDBRefSetup;
     private DatabaseReference mDatabaseLike;
@@ -136,6 +140,26 @@ public class MyProducts extends AppCompatActivity {
                         startActivity(singleActivity);
                     }
                 });
+                mDatabaseProduct.child(post_key).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String getuid = mCurrentUser.getUid();
+                        try{
+                        if(dataSnapshot.child("uid").getValue(String.class).equals(getuid)){
+                            viewHolder.setVisible(true);
+                        }
+                        else {
+                            viewHolder.setVisible(false);
+                            //viewHolder.itemView.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+                        }
+                    }catch(Exception e){ e.printStackTrace();}
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 //viewHolder.setLikeBtn(post_key);
 //                viewHolder.mLikebtn.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -187,11 +211,13 @@ public class MyProducts extends AppCompatActivity {
                 }//if there is no curreent user then only move to liginActivity
             }
         };
+        mCurrentUser = mAuth.getCurrentUser();
         mDatabaseProduct= FirebaseDatabase.getInstance().getReference().child("Product");
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDBRefSetup = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseUsers.keepSynced(true);
         mDatabaseProduct.keepSynced(true);
+
     }
 
     private void productList() {
@@ -224,6 +250,7 @@ public class MyProducts extends AppCompatActivity {
             mView = itemView;
 //            mLikebtn = (ImageButton) mView.findViewById(R.id.post_like);
 //            delPost = (ImageButton) mView.findViewById(R.id.delete_post);
+
             context = mView.getContext();
             mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
             mDatabaseLike.keepSynced(true);
@@ -237,6 +264,14 @@ public class MyProducts extends AppCompatActivity {
 //                    Log.d("MAinactivity", "someText");
 //                }
 //            });
+        }
+        public void setVisible(boolean isVisible){
+            if(isVisible){
+                mView.setVisibility(View.VISIBLE);
+            }
+            else {
+                mView.setVisibility(View.GONE);
+            }
         }
         public void setLikeBtn(final String post_key) {
             Log.d("MAINLIKE",mDatabaseLike.toString());

@@ -15,6 +15,10 @@
             android:id="@+id/nav4"
             android:icon="@drawable/ic_carttest"
             android:title="followed shops" />
+        <item
+            android:id="@+id/nav_chats"
+            android:icon="@drawable/ic_chat_black_24dp"
+            android:title="Chats" />
 
     <item android:title="Account">
         <menu>
@@ -26,6 +30,10 @@
                 android:id="@+id/nav_my_shop"
                 android:icon="@drawable/ic_carttest"
                 android:title="My Shop" />
+            <item
+                android:id="@+id/nav_account_settings"
+                android:icon="@drawable/ic_account_circle_black_24dp"
+                android:title="Account Settings" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_carttest"
