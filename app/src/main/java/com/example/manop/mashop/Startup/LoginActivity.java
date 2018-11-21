@@ -45,7 +45,8 @@ import com.google.firebase.database.ValueEventListener;
 //import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,
+        GoogleApiClient.OnConnectionFailedListener {
 
     private EditText mLoginEmailField;
     private EditText mLoginPasswordField;
@@ -66,8 +67,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private GoogleApiClient mGoogleApiClient;
 
-
-
 //    private com.google.android.gms.common.SignInButton googleImg;
 
     @Override
@@ -77,7 +76,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //AppEventsLogger.activateApp(getApplication());
         bindViews();
         onClicks();
-
     }
 
     private void bindViews() {
@@ -88,8 +86,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mProgressbar = new ProgressDialog(this);
 
-        mLoginEmailField = (EditText) findViewById(R.id.loginemailfield);
-        mLoginPasswordField = (EditText) findViewById(R.id.loginpasswordfield);
+        mLoginEmailField = (EditText) findViewById(R.id.loginEmailField);
+        mLoginPasswordField = (EditText) findViewById(R.id.loginPasswordField);
         mLoginButton = (Button) findViewById(R.id.loginBtn);
         mNewAccount = (Button) findViewById(R.id.newAccountBtn);
 
@@ -145,14 +143,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
             startActivityForResult(signInIntent, RC_SIGN_IN);
         } catch (Exception e) {
+
         }
     }
 
 
-    private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
+//    private void signIn() {
+//        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+//        startActivityForResult(signInIntent, RC_SIGN_IN);
+//    }
 
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {

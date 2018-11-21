@@ -4,8 +4,8 @@
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!--<uses-permission android:name="android.permission.READ_PROFILE" />-->
+    <!--<uses-permission android:name="android.permission.READ_CONTACTS" />-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -18,7 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         >
-        <activity android:name=".Startup.SplashActivity">
+        <activity
+            android:name=".Startup.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBarTransparent"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,12 +50,12 @@
 
         <activity
             android:name=".Startup.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:parentActivityName=".Startup.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.manop.mashop.Startup.MainActivity" />
-        </activity>
+            android:theme="@style/AppTheme.NoActionBarTransparent"/>
+        <!--android:parentActivityName=".Startup.MainActivity">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.PARENT_ACTIVITY"-->
+        <!--android:value="com.example.manop.mashop.Startup.MainActivity"-->
+
         <activity android:name=".Startup.RegisterActivity" />
         <activity android:name=".Startup.SetupActivity" />
         <activity android:name=".Shop.CreateShop" />

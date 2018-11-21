@@ -48,7 +48,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_email_login">Sign in with E-mail</string>
-    <string name="need_new_account">Create a new one!</string>
+    <string name="need_new_account">Register</string>
     <string name="e_mail_id">  E-mail ID </string>
     <string name="name">Name</string>
     <string name="uname">Username</string>
@@ -70,7 +70,7 @@
     <string name="logOut">Log Out</string>
     <string name="log_in_as">Logged in as\n</string>
     <string name="edit">Edit</string>
-    <string name="enter_your_dispaly_name">Enter your Dispaly Name</string>
+    <string name="enter_your_dispaly_name">Enter your Display Name</string>
     <string name="finish_setup">Finish Setup</string>
     <string name="post_title">Post Title..</string>
     <string name="post_description">Post Description</string>
