@@ -63,7 +63,9 @@
             android:name=".Shop.Shop"
             android:label="@string/title_activity_shop" />
         <activity android:name=".Product.AddProduct" />
-        <activity android:name=".Product.MyProducts"></activity>
+        <activity android:name=".Product.MyProducts" />
+        <activity android:name=".Product.SingleProductActivity" />
+        <activity android:name=".Function.SearchActivity"></activity>
     </application>
 
 </manifest>

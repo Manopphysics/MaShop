@@ -2,7 +2,9 @@ package com.example.manop.mashop.Product;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import com.bumptech.*;
+import com.bumptech.glide.Glide;
+import com.example.manop.mashop.Decorator.ItemOffsetDecoration;
 import com.example.manop.mashop.R;
 
 import android.content.Context;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +38,7 @@ import android.widget.Toast;
 
 
 import com.example.manop.mashop.Startup.LoginActivity;
+import com.example.manop.mashop.Startup.MainActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -45,9 +49,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
+
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -56,13 +59,12 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyProducts extends AppCompatActivity {
-    private RecyclerView mBlogList;
+    private RecyclerView mProductList;
     private DatabaseReference mDatabaseProduct;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDBRefSetup;
     private DatabaseReference mDatabaseLike;
-    private DatabaseReference mDatabaseComment;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FloatingActionButton floatingActionButton;
     private boolean mProcessLike = false;
@@ -76,9 +78,8 @@ public class MyProducts extends AppCompatActivity {
         //====================================================
         setContentView(R.layout.activity_my_products);
         firebaseInit();
-        blogList();
+        productList();
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
-        mDatabaseComment = FirebaseDatabase.getInstance().getReference().child("Blog");
     }
 
     @Override
@@ -93,20 +94,19 @@ public class MyProducts extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
-        mDatabaseComment = FirebaseDatabase.getInstance().getReference().child("Blog");
         mAuth.addAuthStateListener(mAuthListener);//important thing!!!for sign out!!!
-        FirebaseRecyclerAdapter<Product, BloViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Product, BloViewHolder>(
+        FirebaseRecyclerAdapter<Product, ProductViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Product, ProductViewHolder>(
                 Product.class,
-                R.layout.blog_row,
-                BloViewHolder.class,
+                R.layout.product_item,
+                ProductViewHolder.class,
                 mDatabaseProduct) {
             @Override
-            protected void populateViewHolder(final BloViewHolder viewHolder, final Product model, final int position) {
+            protected void populateViewHolder(final ProductViewHolder viewHolder, final Product model, final int position) {
                 final String post_key = getRef(position).getKey();
                 Log.d("POST_KEY:",post_key);
 
                 viewHolder.setTitle(model.getName());
-                viewHolder.setDesc(model.getDescription());
+//                viewHolder.setDesc(model.getDescription());
                 viewHolder.setPrice(model.getPrice());
                 //viewHolder.setUsername(model.get());
                 //viewHolder.setTimeStamp(model.getTimestamp());
@@ -120,7 +120,7 @@ public class MyProducts extends AppCompatActivity {
 //                            String uimage = String.valueOf(dataSnapshot.child("image").getValue());
 //                            Log.d("fgfgfgfg", " " + uimage);
 //                            viewHolder.setUserImage(getApplicationContext(),uimage);
-//                            //Picasso.with(getApplicationContext()).load(uimage).into(circleImageViewProfile);
+//                            //Glide.with(getApplicationContext()).load(uimage).into(circleImageViewProfile);
 //                        }
 //                    }
 //
@@ -131,11 +131,9 @@ public class MyProducts extends AppCompatActivity {
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO: start a new "sing;e post" activity with the xml having image and textview but as a full activity
-                        //Toast.makeText(getApplicationContext(), "You just cliked on blog " + viewHolder.post_title.getText(), Toast.LENGTH_LONG).show();
-//                        Intent singleActivity = new Intent(MainActivity.this, SinglePostActivity.class);
-//                        singleActivity.putExtra("PostID", post_key);
-//                        startActivity(singleActivity);
+                        Intent singleActivity = new Intent(MyProducts.this, SingleProductActivity.class);
+                        singleActivity.putExtra("PostID", post_key);
+                        startActivity(singleActivity);
                     }
                 });
                 //viewHolder.setLikeBtn(post_key);
@@ -162,44 +160,17 @@ public class MyProducts extends AppCompatActivity {
 //                        });
 //                    }
 //                });
-                String Bloguid;
-                DatabaseReference BlogRef = FirebaseDatabase.getInstance().getReference("Product");
-                DatabaseReference keyRef = BlogRef.child(post_key);
+                DatabaseReference ProductRef = FirebaseDatabase.getInstance().getReference("Product");
+                DatabaseReference keyRef = ProductRef.child(post_key);
                 DatabaseReference uidRef = keyRef.child("uid");
 
-                uidRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String mUid = mAuth.getCurrentUser().getUid();
-//                            if(dataSnapshot.getValue(String.class) != null) Log.d("datasnap",dataSnapshot.getValue().toString());
-//                            else Log.d("datasnap","NULL");
-                        if(dataSnapshot.getValue() != null) {
-                            if (dataSnapshot.getValue(String.class).equals(mUid)) {
-                                viewHolder.delPost.setVisibility(View.VISIBLE);
-                                viewHolder.delPost.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
 
-                                        mDatabaseProduct .child(post_key).removeValue();
-                                    }
-                                });
-
-
-                            } else {
-                                viewHolder.delPost.setVisibility(View.GONE);
-                            }
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
 
 
 
             }
         };
-        mBlogList.setAdapter(firebaseRecyclerAdapter);
+        mProductList.setAdapter(firebaseRecyclerAdapter);
     }
 
     private void firebaseInit() {
@@ -223,42 +194,39 @@ public class MyProducts extends AppCompatActivity {
         mDatabaseProduct.keepSynced(true);
     }
 
-    private void blogList() {
-        mBlogList = (RecyclerView) findViewById(R.id.blog_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-        mBlogList.setHasFixedSize(true);
-        mBlogList.setLayoutManager(layoutManager);
+    private void productList() {
+        mProductList = (RecyclerView) findViewById(R.id.product_list);
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        //layoutManager.setReverseLayout(true);
+        //layoutManager.setStackFromEnd(true);
+        mProductList.setHasFixedSize(true);
+        //mProductList.setLayoutManager(layoutManager);
+        mProductList.setLayoutManager(new GridLayoutManager(this, 2));
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
+        mProductList.addItemDecoration(itemDecoration);
     }
 
 
-    public static class BloViewHolder extends RecyclerView.ViewHolder {
-        //TODO: set comment function and new comment activities
+    public static class ProductViewHolder extends RecyclerView.ViewHolder {
         View mView;
         TextView post_title;
         TextView likeCount;
         TextView pricetv;
         ImageButton mLikebtn;
-        ImageButton commentbtn;
-        ImageButton delPost;
         FirebaseAuth mAuth;
         Context context;
         DatabaseReference mDatabaseLike;
-        DatabaseReference mDatabaseComment;
         String DescTrim;
         final String ReadMore = "Read More";
 
-        public BloViewHolder(View itemView) {
+        public ProductViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mLikebtn = (ImageButton) mView.findViewById(R.id.post_like);
-            delPost = (ImageButton) mView.findViewById(R.id.delete_post);
+//            mLikebtn = (ImageButton) mView.findViewById(R.id.post_like);
+//            delPost = (ImageButton) mView.findViewById(R.id.delete_post);
             context = mView.getContext();
             mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
             mDatabaseLike.keepSynced(true);
-            mDatabaseComment = FirebaseDatabase.getInstance().getReference().child("Blog");
-            mDatabaseComment.keepSynced(true);
             mAuth = FirebaseAuth.getInstance();
             post_title = mView.findViewById(R.id.post_title);
             likeCount = mView.findViewById(R.id.post_like_count);
@@ -298,73 +266,53 @@ public class MyProducts extends AppCompatActivity {
             });
         }
         public void setPrice(String price) {
-            pricetv.setText(price);
+            pricetv.setText("฿"+price);
         }
 
         public void setTitle(String title) {
             post_title.setText(title);
         }
 
-        public void setDesc(String DESCRIPTION) {
-            TextView post_description = mView.findViewById(R.id.post_text);
-            try {
-                if (DESCRIPTION.length() >= 200) {
+//        public void setDesc(String DESCRIPTION) {
+//            TextView post_description = mView.findViewById(R.id.post_text);
+//            try {
+//                if (DESCRIPTION.length() >= 200) {
+//
+//                    DescTrim = DESCRIPTION.substring(0, 199);
+//                    DescTrim += "... \n\n" + ReadMore;
+//                    Spannable spannable = new SpannableString(DescTrim);
+//                    spannable.setSpan(new ForegroundColorSpan(Color.BLUE), 204, 214, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                    post_description.setText(spannable, TextView.BufferType.SPANNABLE);
+//                }
+//                //post_description.setText(DescTrim);
+//                else {
+//                    post_description.setText(DESCRIPTION);
+//                }
+//            }catch (Exception se){se.printStackTrace();}
+//        }
 
-                    DescTrim = DESCRIPTION.substring(0, 199);
-                    DescTrim += "... \n\n" + ReadMore;
-                    Spannable spannable = new SpannableString(DescTrim);
-                    spannable.setSpan(new ForegroundColorSpan(Color.BLUE), 204, 214, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    post_description.setText(spannable, TextView.BufferType.SPANNABLE);
-                }
-                //post_description.setText(DescTrim);
-                else {
-                    post_description.setText(DESCRIPTION);
-                }
-            }catch (Exception se){se.printStackTrace();}
-        }
-
-        public void setUsername(String username) {
-            TextView post_username = mView.findViewById(R.id.post_username);
-            post_username.setText(username);
-        }
+//        public void setUsername(String username) {
+//            TextView post_username = mView.findViewById(R.id.post_username);
+//            post_username.setText(username);
+//        }
 
         public void updateLikeCount(long count){
             likeCount.setText(Long.toString(count));
         }
-        public void setTimeStamp(String timeStamp){
-            TextView blog_date = (TextView) mView.findViewById(R.id.blog_date);
-            blog_date.setText(timeStamp);
-        }
+//        public void setTimeStamp(String timeStamp){
+//            TextView product_date = (TextView) mView.findViewById(R.id.product_date);
+//            product_date.setText(timeStamp);
+//        }
         public void setImage(final Context ctx, final String IMAGE) {
             final ImageView post_image = mView.findViewById(R.id.post_image);
-            Picasso.with(ctx)
+            Glide.with(ctx)
                     .load(IMAGE)
-                    .networkPolicy(NetworkPolicy.OFFLINE)
-                    .into(post_image, new Callback() {
-                        @Override
-                        public void onSuccess() {
+                    .into(post_image);
+
                         }
 
-                        @Override
-                        public void onError() {
-                            //if error occured try again by getting the image from online
-                            Picasso.with(ctx)
-                                    .load(IMAGE)
-                                    .error(R.drawable.one)
-                                    .into(post_image, new Callback() {
-                                        @Override
-                                        public void onSuccess() {
-                                        }
-
-                                        @Override
-                                        public void onError() {
-                                            Toast.makeText(ctx, "failed to load image !", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        }
-                    });
         }
-    }
+
 
     @Override
     public void onBackPressed() {

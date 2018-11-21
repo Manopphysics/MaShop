@@ -23,7 +23,7 @@
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="0.1dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
@@ -42,13 +42,15 @@
         ads:layout_constraintVertical_bias="1.0" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/blog_list"
+        android:id="@+id/product_list"
+        android:background="#e7e7e7"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="4dp"
         android:layout_weight="1"
+        android:padding="@dimen/item_offset"
         android:scrollbars="none"
         ads:layout_constraintBottom_toTopOf="@+id/adView"
         ads:layout_constraintHorizontal_bias="0.0"
