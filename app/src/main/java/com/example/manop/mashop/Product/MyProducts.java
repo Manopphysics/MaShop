@@ -67,6 +67,7 @@ public class MyProducts extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mCurrentUser;
     private DatabaseReference mDatabaseUsers;
+    private DatabaseReference mDatabaseShop;
     private DatabaseReference mDBRefSetup;
     private DatabaseReference mDatabaseLike;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -101,9 +102,9 @@ public class MyProducts extends AppCompatActivity {
         mAuth.addAuthStateListener(mAuthListener);//important thing!!!for sign out!!!
         FirebaseRecyclerAdapter<Product, ProductViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Product, ProductViewHolder>(
                 Product.class,
-                R.layout.product_item,
+                R.layout.card_brand_home,
                 ProductViewHolder.class,
-                mDatabaseProduct) {
+                mDatabaseShop) {
             @Override
             protected void populateViewHolder(final ProductViewHolder viewHolder, final Product model, final int position) {
                 final String post_key = getRef(position).getKey();
@@ -140,26 +141,7 @@ public class MyProducts extends AppCompatActivity {
                         startActivity(singleActivity);
                     }
                 });
-                mDatabaseProduct.child(post_key).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String getuid = mCurrentUser.getUid();
-                        try{
-                        if(dataSnapshot.child("uid").getValue(String.class).equals(getuid)){
-                            viewHolder.setVisible(true);
-                        }
-                        else {
-                            viewHolder.setVisible(false);
-                            //viewHolder.itemView.setLayoutParams(new LinearLayout.LayoutParams(0,0));
-                        }
-                    }catch(Exception e){ e.printStackTrace();}
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
                 //viewHolder.setLikeBtn(post_key);
 //                viewHolder.mLikebtn.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -215,6 +197,7 @@ public class MyProducts extends AppCompatActivity {
         mDatabaseProduct= FirebaseDatabase.getInstance().getReference().child("Product");
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDBRefSetup = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabaseShop = FirebaseDatabase.getInstance().getReference().child("Shop").child(mCurrentUser.getUid()).child("product");
         mDatabaseUsers.keepSynced(true);
         mDatabaseProduct.keepSynced(true);
 
@@ -264,14 +247,6 @@ public class MyProducts extends AppCompatActivity {
 //                    Log.d("MAinactivity", "someText");
 //                }
 //            });
-        }
-        public void setVisible(boolean isVisible){
-            if(isVisible){
-                mView.setVisibility(View.VISIBLE);
-            }
-            else {
-                mView.setVisibility(View.GONE);
-            }
         }
         public void setLikeBtn(final String post_key) {
             Log.d("MAINLIKE",mDatabaseLike.toString());

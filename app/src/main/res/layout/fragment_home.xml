@@ -40,18 +40,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+                <Button
+                    android:id="@+id/visit_shop"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:background="@color/orange"
+                    android:text="Visit Shops "
+                    android:layout_margin="5dp"/>
+                <Button
+                    android:id="@+id/search_products"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:background="@color/blue_violet"
+                    android:text="Search Products"
+                    android:layout_margin="5dp"/>
+                <Button
+                    android:id="@+id/chat_seller"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:background="@color/lawn_green"
+                    android:text="Chat with seller!"
+                    android:layout_margin="5dp"/>
+                <!--<include layout="@layout/card_brand_home" />-->
 
-                <include layout="@layout/card_brand_home" />
+                <!--<include layout="@layout/card_brand_home" />-->
 
-                <include layout="@layout/card_brand_home" />
+                <!--<include layout="@layout/card_brand_home" />-->
 
-                <include layout="@layout/card_brand_home" />
+                <!--<include layout="@layout/card_brand_home" />-->
 
-                <include layout="@layout/card_brand_home" />
+                <!--<include layout="@layout/card_brand_home" />-->
 
-                <include layout="@layout/card_brand_home" />
-
-                <include layout="@layout/card_brand_home" />
+                <!--<include layout="@layout/card_brand_home" />-->
             </LinearLayout>
         </HorizontalScrollView>
 

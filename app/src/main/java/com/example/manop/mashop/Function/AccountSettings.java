@@ -266,8 +266,7 @@ public class AccountSettings extends BaseActivity {
      */
     private static class NavigationAdapter extends CacheFragmentStatePagerAdapter {
 
-        private static final String[] TITLES = new String[]{"Details","Account","Liked Products","Followed Shops"};
-
+        private static final String[] TITLES = new String[]{"Details"};
         private int mScrollY;
 
         public NavigationAdapter(FragmentManager fm) {

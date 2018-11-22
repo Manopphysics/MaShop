@@ -82,7 +82,7 @@
         android:text="0 Likes" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/wish_button"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
@@ -97,7 +97,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignBottom="@+id/singleTitle"
-        android:layout_alignEnd="@+id/imageButton"
+        android:layout_alignEnd="@+id/wish_button"
         android:background="@color/transparent"
         app:srcCompat="@drawable/ic_chat_black_24dp" />
 

@@ -46,7 +46,7 @@ public class ChatInteractor implements ChatContract.Interactor {
         final String room_type_2 = chat.receiverUid + "_" + chat.senderUid;
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-
+        databaseReference.keepSynced(true);
         databaseReference.child(Constants.ARG_CHAT_ROOMS).getRef().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

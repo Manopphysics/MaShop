@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/shoptitle" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/shopImage"
         android:layout_width="150dp"
         android:layout_height="0dp"
         android:layout_marginBottom="43dp"
@@ -56,7 +56,7 @@
         android:text="Add new product"
         app:layout_constraintBottom_toTopOf="@+id/del_shop_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/shopImage" />
 
     <Button
         android:id="@+id/del_shop_btn"

@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.manop.mashop.Adapter.PagerAdapter;
@@ -28,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 
 public class Shop extends AppCompatActivity {
@@ -36,6 +38,7 @@ public class Shop extends AppCompatActivity {
     private Button addProd;
     private Button delShop;
     private Button myProd;
+    private ImageView shopImage;
     private DatabaseReference shopDB;
     private DatabaseReference UserDB;
     private FirebaseUser currentUser;
@@ -49,8 +52,11 @@ public class Shop extends AppCompatActivity {
         shopDB.child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                shopname.setText(dataSnapshot.child("name").getValue(String.class));
-                shopdesc.setText(dataSnapshot.child("description").getValue(String.class));
+                try {
+                    shopname.setText(dataSnapshot.child("name").getValue(String.class));
+                    shopdesc.setText(dataSnapshot.child("description").getValue(String.class));
+                    Picasso.with(Shop.this).load(dataSnapshot.child("image").getValue().toString()).into(shopImage);
+                }catch(Exception e){e.printStackTrace();}
             }
 
             @Override
@@ -96,6 +102,7 @@ public class Shop extends AppCompatActivity {
         //UserDB.keepSynced(true);
     }
     public void bindView(){
+        shopImage = (ImageView) findViewById(R.id.shopImage);
         shopname = (TextView) findViewById(R.id.shoptitle);;
         shopdesc = (TextView) findViewById(R.id.shopdesc);
         addProd = (Button) findViewById(R.id.add_prod_btn);

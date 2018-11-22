@@ -1,11 +1,13 @@
 package com.example.manop.mashop.Product;
 
 import android.graphics.Paint;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -13,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.manop.mashop.Chat.ChatActivity;
-import com.example.manop.mashop.Chat.ChatActivityOld;
-import com.example.manop.mashop.Chat.UserListingActivity;
 import com.example.manop.mashop.R;
 import com.example.manop.mashop.Startup.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,8 +34,12 @@ public class SingleProductActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private Button deleteBtn;
     private ImageButton chat_button;
+    private ImageButton wish_button;
     private FirebaseAuth mAuth;
     private DatabaseReference mShop;
+    private DatabaseReference mDatabaseLike;
+    private TextView like_count;
+    private boolean mProcessLike = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +60,63 @@ public class SingleProductActivity extends AppCompatActivity {
         pDiscountPrice = (TextView) findViewById(R.id.product_discount);
         chat_button = (ImageButton) findViewById(R.id.chat_button);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Product");
+        mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Like");
+        wish_button = (ImageButton) findViewById(R.id.wish_button);
         mShop = FirebaseDatabase.getInstance().getReference().child("Shop");
         post_key = getIntent().getExtras().getString("PostID");
+        like_count = (TextView) findViewById(R.id.like_count);
         deleteBtn = (Button)findViewById(R.id.deleteBtn);
         mAuth = FirebaseAuth.getInstance();
+        Log.d("MAINLIKE",mDatabaseLike.toString());
+        mDatabaseLike.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long count = 0;
+                String likcount;
+                if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
+                    count = dataSnapshot.child(post_key).getChildrenCount();
+                    if(count == 1){likcount =Long.toString(count)+" Like";  like_count.setText(likcount);}
+                    else if (count > 1){likcount =Long.toString(count)+" Likes";  like_count.setText(likcount);}
+                    wish_button.setImageResource(R.drawable.ic_yes_heart_colored);
+                } else {
+                    count = dataSnapshot.child(post_key).getChildrenCount();
+                    if(count == 1){likcount =Long.toString(count)+" Like";  like_count.setText(likcount);}
+                    else if (count > 1 || count == 0){likcount =Long.toString(count)+" Likes";  like_count.setText(likcount);}
+                    wish_button.setImageResource(R.drawable.ic_no_heart_gray);
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        wish_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mProcessLike = true;
+                mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (mProcessLike) {
+                            if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
+                                mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).removeValue();
+                                mProcessLike = false;
+                            } else {
+                                mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).setValue("RandomValue");
+                                mProcessLike = false;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            }
+        });
+
+
         chat_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
