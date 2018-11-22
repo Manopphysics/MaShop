@@ -102,7 +102,7 @@ public class MyProducts extends AppCompatActivity {
         mAuth.addAuthStateListener(mAuthListener);//important thing!!!for sign out!!!
         FirebaseRecyclerAdapter<Product, ProductViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Product, ProductViewHolder>(
                 Product.class,
-                R.layout.card_brand_home,
+                R.layout.product_item,
                 ProductViewHolder.class,
                 mDatabaseShop) {
             @Override
@@ -276,11 +276,15 @@ public class MyProducts extends AppCompatActivity {
             });
         }
         public void setPrice(String price) {
-            pricetv.setText("฿"+price);
+            try {
+                pricetv.setText("฿" + price);
+            }catch(Exception e){e.printStackTrace();}
         }
 
         public void setTitle(String title) {
-            post_title.setText(title);
+            try {
+                post_title.setText(title);
+            }catch(Exception e){e.printStackTrace();}
         }
 
 //        public void setDesc(String DESCRIPTION) {

@@ -16,11 +16,11 @@
         android:id="@+id/deleteBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/delete_bin"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="11dp"
         android:background="#FFEA0404"
+        android:drawableLeft="@drawable/delete_bin"
         android:text="delete product"
         android:textColor="#fff"
         android:textStyle="bold" />
@@ -29,10 +29,8 @@
         android:id="@+id/singleTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/product_discount"
-        android:layout_marginTop="12dp"
         android:text="Post Title"
         android:textColor="#100d0d"
         android:textSize="20sp"
@@ -73,13 +71,11 @@
     <TextView
         android:id="@+id/like_count"
         android:layout_width="wrap_content"
-        android:textColor="@color/green"
         android:layout_height="wrap_content"
         android:layout_above="@+id/singleDesc"
-        android:layout_marginStart="10dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="18dp"
-        android:text="0 Likes" />
+        android:layout_alignStart="@+id/singleDesc"
+        android:text="0 Likes"
+        android:textColor="@color/green" />
 
     <ImageButton
         android:id="@+id/wish_button"
@@ -100,6 +96,32 @@
         android:layout_alignEnd="@+id/wish_button"
         android:background="@color/transparent"
         app:srcCompat="@drawable/ic_chat_black_24dp" />
+
+    <TextView
+        android:id="@+id/quantity_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/minus_btn"
+        android:layout_toEndOf="@+id/product_price"
+        android:text="0" />
+
+    <Button
+        android:id="@+id/minus_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_above="@+id/like_count"
+        android:layout_toEndOf="@+id/product_discount"
+        android:background="@color/transparent"
+        android:text="-" />
+
+    <Button
+        android:id="@+id/plus_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_above="@+id/quantity_tv"
+        android:layout_alignStart="@+id/minus_btn"
+        android:background="@color/transparent"
+        android:text="+" />
 
 
 </RelativeLayout>

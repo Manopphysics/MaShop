@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.manop.mashop.R;
@@ -35,6 +36,8 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -53,6 +56,10 @@ public class AddProduct extends AppCompatActivity {
     private FirebaseUser mCurrentUser;
     private DatabaseReference mDatabaseUSer;
     private DatabaseReference mDatabaseShop;
+    private TextView product_quantity;
+    private Button add_btn;
+    private Button reduce_btn;
+    private int quantity = 0;
 
 
     @Override
@@ -80,9 +87,32 @@ public class AddProduct extends AppCompatActivity {
         mSubmitBtn = (Button) findViewById(R.id.btn);
         mSelectImage = (ImageButton) findViewById(R.id.imageButton2);
         mDatabaseShop = FirebaseDatabase.getInstance().getReference().child("Shop");
+        product_quantity = (TextView) findViewById(R.id.product_quantity);
+        reduce_btn = (Button) findViewById(R.id.reduce_btn);
+        add_btn = (Button) findViewById(R.id.add_btn);
     }
 
     private void clickEvents() {
+        reduce_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(quantity <= 0 ){
+                    Toast.makeText(AddProduct.this,"Cannot reduce quantity anymore!",Toast.LENGTH_SHORT).show();
+                }
+                else if(quantity >= 0 ){
+                    quantity -= 1;
+                    product_quantity.setText(Integer.toString(quantity));
+                }
+            }
+        });
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantity += 1;
+                product_quantity.setText(Integer.toString(quantity));
+
+            }
+        });
         mSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +139,7 @@ public class AddProduct extends AppCompatActivity {
         final String title_val = mPostTitle.getText().toString().trim();
         final String desc_val = mPostDesc.getText().toString().trim();
         final String price_val = mProductPrice.getText().toString().trim();
+        final String prod_quan = Integer.toString(quantity);
 
         if (!TextUtils.isEmpty(title_val) && !TextUtils.isEmpty(desc_val) && mImageUri != null) {
             //can post
@@ -129,7 +160,8 @@ public class AddProduct extends AppCompatActivity {
                             newPost.child("description").setValue(desc_val);
                             newPost.child("IMAGE").setValue(downloadUrl.toString());
                             newPost.child("uid").setValue(mCurrentUser.getUid());
-                            newPost.child("price").setValue(price_val).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            newPost.child("price").setValue(price_val);
+                            newPost.child("quantity").setValue(prod_quan).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Intent intent  = new Intent(AddProduct.this, Shop.class);

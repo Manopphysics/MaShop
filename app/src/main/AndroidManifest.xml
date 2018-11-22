@@ -71,7 +71,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Function.AccountSettings" />
         <activity android:name=".Function.MapsActivity" />
-        <activity android:name=".Shop.ShopListActivity"></activity>
+        <activity android:name=".Shop.ShopListActivity" />
+        <activity android:name=".Shop.PlaceNewOrder"></activity>
     </application>
 
 </manifest>

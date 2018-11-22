@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.manop.mashop.Chat.ChatActivity;
 import com.example.manop.mashop.R;
@@ -24,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 public class SingleProductActivity extends AppCompatActivity {
 
@@ -40,6 +43,10 @@ public class SingleProductActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseLike;
     private TextView like_count;
     private boolean mProcessLike = false;
+    private Button minus_btn;
+    private Button plus_btn;
+    private TextView quantity;
+    private int pquantity = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +59,9 @@ public class SingleProductActivity extends AppCompatActivity {
 
 
 
-
+        plus_btn = (Button) findViewById(R.id.plus_btn);
+        minus_btn = (Button) findViewById(R.id.minus_btn);
+        quantity = (TextView) findViewById(R.id.quantity_tv);
         singelImage = (ImageView)findViewById(R.id.singleImageview);
         singleTitle = (TextView)findViewById(R.id.singleTitle);
         singleDesc = (TextView)findViewById(R.id.singleDesc);
@@ -68,6 +77,34 @@ public class SingleProductActivity extends AppCompatActivity {
         deleteBtn = (Button)findViewById(R.id.deleteBtn);
         mAuth = FirebaseAuth.getInstance();
         Log.d("MAINLIKE",mDatabaseLike.toString());
+
+        plus_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pquantity += 1;
+                quantity.setText(Integer.toString(pquantity));
+                FirebaseDatabase.getInstance().getReference().child("Product").child(post_key).child("quantity")
+                        .setValue(Integer.toString(pquantity));
+                FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid())
+                        .child("product").child(post_key).child("quantity").setValue(Integer.toString(pquantity));
+            }
+        });
+        minus_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(pquantity <= 0 ){
+                    Toast.makeText(SingleProductActivity.this,"Cannot reduce quantity anymore!",Toast.LENGTH_SHORT).show();
+                }
+                else if(pquantity >= 0 ){
+                    pquantity -= 1;
+                    quantity.setText(Integer.toString(pquantity));
+                    FirebaseDatabase.getInstance().getReference().child("Product").child(post_key).child("quantity")
+                            .setValue(Integer.toString(pquantity));
+                    FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid())
+                            .child("product").child(post_key).child("quantity").setValue(Integer.toString(pquantity));
+                }
+            }
+        });
         mDatabaseLike.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -155,6 +192,8 @@ public class SingleProductActivity extends AppCompatActivity {
 
             }
         });
+        plus_btn.setVisibility(View.INVISIBLE);
+        minus_btn.setVisibility(View.INVISIBLE);
         deleteBtn.setVisibility(View.INVISIBLE);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,9 +215,11 @@ public class SingleProductActivity extends AppCompatActivity {
                     String post_desc = (String) dataSnapshot.child("description").getValue();
                     String post_image = (String) dataSnapshot.child("IMAGE").getValue();
                     String product_price = (String) dataSnapshot.child("price").getValue();
+                    String pquan = (String) dataSnapshot.child("quantity").getValue();
                     product_price = product_price.replaceAll("[-+.^:,]", "");
                     String post_uid = (String) dataSnapshot.child("uid").getValue();
-
+                    pquantity = Integer.parseInt(pquan);
+                    quantity.setText(pquan);
                     singleTitle.setText(post_title);
                     singleDesc.setText(post_desc);
                     productPrice.setText("฿" + product_price);
@@ -189,6 +230,8 @@ public class SingleProductActivity extends AppCompatActivity {
                     if (mAuth.getCurrentUser().getUid().equals(post_uid)) {
 
                         deleteBtn.setVisibility(View.VISIBLE);
+                        plus_btn.setVisibility(View.VISIBLE);
+                        minus_btn.setVisibility(View.VISIBLE);
                     }
                 }catch(Exception e){e.printStackTrace();;}
             }
