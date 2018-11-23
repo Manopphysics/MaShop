@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements
             mDatabaseUsers.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    // NullPointerException when shop is deleted!!!
                     if (dataSnapshot.child(currentUserID).child("seller").getValue(String.class).equals("false")) {
                         //showItemReg();
                         //hideItemShop();
