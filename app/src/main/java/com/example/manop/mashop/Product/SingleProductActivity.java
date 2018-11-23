@@ -1,15 +1,12 @@
 package com.example.manop.mashop.Product;
 
-import android.app.ActionBar;
 import android.graphics.Paint;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,8 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 public class SingleProductActivity extends AppCompatActivity {
 
     private ImageView singelImage;
@@ -41,7 +36,7 @@ public class SingleProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_product);
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
@@ -86,7 +81,7 @@ public class SingleProductActivity extends AppCompatActivity {
                 Double dummyDiscount = Double.parseDouble(product_price);
                 pDiscountPrice.setText(Double.toString(dummyDiscount+(0.04)*dummyDiscount));
                 pDiscountPrice.setPaintFlags(pDiscountPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                Picasso.with(SingleProductActivity.this).load(post_image).into(singelImage);
+                Picasso.get().load(post_image).into(singelImage);
                 if (mAuth.getCurrentUser().getUid().equals(post_uid)){
 
                     deleteBtn.setVisibility(View.VISIBLE);

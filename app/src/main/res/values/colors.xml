@@ -162,4 +162,13 @@
     <color name="dark_blue">#00008B</color>
     <color name="navy">#000080</color>
 
+    <color name="bg_activity_detail">#292631</color>
+    <color name="btn_shine">#f64959</color>
+    <color name="btn_shine_fill">#FF6666</color>
+    <color name="text_desc_activity_detail">#68666e</color>
+    <color name="text_runtime_activity_detail">#7f7e83</color>
+    <color name="text_more_activity_detail">#7bc9c2</color>
+
+    <color name="detail_list_item_view">#cccccc</color>
+    <color name="detail_list_item_text">#111</color>
 </resources>
