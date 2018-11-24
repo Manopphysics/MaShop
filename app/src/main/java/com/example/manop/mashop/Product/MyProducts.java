@@ -2,7 +2,7 @@ package com.example.manop.mashop.Product;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
+import com.bumptech.*;
 import com.bumptech.glide.Glide;
 import com.example.manop.mashop.Decorator.ItemOffsetDecoration;
 import com.example.manop.mashop.R;
@@ -18,26 +18,45 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.manop.mashop.Startup.LoginActivity;
+import com.example.manop.mashop.Startup.MainActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.NetworkPolicy;
+
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyProducts extends AppCompatActivity {
     private RecyclerView mProductList;
     private DatabaseReference mDatabaseProduct;
     private FirebaseAuth mAuth;
+    private FirebaseUser mCurrentUser;
     private DatabaseReference mDatabaseUsers;
+    private DatabaseReference mDatabaseShop;
     private DatabaseReference mDBRefSetup;
     private DatabaseReference mDatabaseLike;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -74,7 +93,7 @@ public class MyProducts extends AppCompatActivity {
                 Product.class,
                 R.layout.product_item,
                 ProductViewHolder.class,
-                mDatabaseProduct) {
+                mDatabaseShop) {
             @Override
             protected void populateViewHolder(final ProductViewHolder viewHolder, final Product model, final int position) {
                 final String post_key = getRef(position).getKey();
@@ -162,9 +181,11 @@ public class MyProducts extends AppCompatActivity {
                 }//if there is no curreent user then only move to liginActivity
             }
         };
+        mCurrentUser = mAuth.getCurrentUser();
         mDatabaseProduct= FirebaseDatabase.getInstance().getReference().child("Product");
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDBRefSetup = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabaseShop = FirebaseDatabase.getInstance().getReference().child("Shop").child(mCurrentUser.getUid()).child("product");
         mDatabaseUsers.keepSynced(true);
         mDatabaseProduct.keepSynced(true);
     }
@@ -199,6 +220,7 @@ public class MyProducts extends AppCompatActivity {
             mView = itemView;
 //            mLikebtn = (ImageButton) mView.findViewById(R.id.post_like);
 //            delPost = (ImageButton) mView.findViewById(R.id.delete_post);
+
             context = mView.getContext();
             mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
             mDatabaseLike.keepSynced(true);
@@ -241,11 +263,15 @@ public class MyProducts extends AppCompatActivity {
             });
         }
         public void setPrice(String price) {
-            pricetv.setText("฿"+price);
+            try {
+                pricetv.setText("฿" + price);
+            }catch(Exception e){e.printStackTrace();}
         }
 
         public void setTitle(String title) {
-            post_title.setText(title);
+            try {
+                post_title.setText(title);
+            }catch(Exception e){e.printStackTrace();}
         }
 
 //        public void setDesc(String DESCRIPTION) {

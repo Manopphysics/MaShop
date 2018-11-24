@@ -1,6 +1,7 @@
 package com.example.manop.mashop.Startup;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -77,7 +78,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         bindViews();
         onClicks();
     }
+    public static void startIntent(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
 
+    public static void startIntent(Context context, int flags) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.setFlags(flags);
+        context.startActivity(intent);
+    }
     private void bindViews() {
         mAuth = FirebaseAuth.getInstance();
 

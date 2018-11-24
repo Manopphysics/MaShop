@@ -8,10 +8,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.manop.mashop.R;
@@ -30,21 +32,30 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
+import org.w3c.dom.Text;
 
 public class AddProduct extends AppCompatActivity {
 
     private Button mSubmitBtn;
-    private static final int GALLERY_REQUEST = 999;
     private ImageButton mSelectImage;
     private EditText mPostTitle;
+    private static final int GALLERY_REQUEST = 1;
     private EditText mPostDesc;
     private EditText mProductPrice;
-    private Uri mImageUri;
+    private Uri mImageUri = null;
     private StorageReference mStorageRef;
-    private DatabaseReference mDatabaseShop;
+    private DatabaseReference mDatabaseProduct;
     private ProgressDialog mprogressbar;
     private FirebaseUser mCurrentUser;
     private DatabaseReference mDatabaseUSer;
+    private DatabaseReference mDatabaseShop;
+    private TextView product_quantity;
+    private Button add_btn;
+    private Button reduce_btn;
+    private int quantity = 0;
 
 
     @Override
@@ -64,16 +75,40 @@ public class AddProduct extends AppCompatActivity {
 
     private void bindViews() {
         mprogressbar = new ProgressDialog(this);
-        mDatabaseShop = FirebaseDatabase.getInstance().getReference().child("Product");
+        mDatabaseProduct = FirebaseDatabase.getInstance().getReference().child("Product");
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mPostTitle = (EditText) findViewById(R.id.editText1);
         mPostDesc = (EditText) findViewById(R.id.editText2);
         mProductPrice = (EditText) findViewById(R.id.editText3);
         mSubmitBtn = (Button) findViewById(R.id.btn);
         mSelectImage = (ImageButton) findViewById(R.id.imageButton2);
+        mDatabaseShop = FirebaseDatabase.getInstance().getReference().child("Shop");
+        product_quantity = (TextView) findViewById(R.id.product_quantity);
+        reduce_btn = (Button) findViewById(R.id.reduce_btn);
+        add_btn = (Button) findViewById(R.id.add_btn);
     }
 
     private void clickEvents() {
+        reduce_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(quantity <= 0 ){
+                    Toast.makeText(AddProduct.this,"Cannot reduce quantity anymore!",Toast.LENGTH_SHORT).show();
+                }
+                else if(quantity >= 0 ){
+                    quantity -= 1;
+                    product_quantity.setText(Integer.toString(quantity));
+                }
+            }
+        });
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantity += 1;
+                product_quantity.setText(Integer.toString(quantity));
+
+            }
+        });
         mSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +135,7 @@ public class AddProduct extends AppCompatActivity {
         final String title_val = mPostTitle.getText().toString().trim();
         final String desc_val = mPostDesc.getText().toString().trim();
         final String price_val = mProductPrice.getText().toString().trim();
+        final String prod_quan = Integer.toString(quantity);
 
         if (!TextUtils.isEmpty(title_val) && !TextUtils.isEmpty(desc_val) && mImageUri != null) {
             //can post
@@ -111,7 +147,7 @@ public class AddProduct extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     final Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    final DatabaseReference newPost = mDatabaseShop.push();//cret uniquid
+                    final DatabaseReference newPost = mDatabaseProduct.push();//cret uniquid
                     mDatabaseUSer.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -120,7 +156,8 @@ public class AddProduct extends AppCompatActivity {
                             newPost.child("description").setValue(desc_val);
                             newPost.child("IMAGE").setValue(downloadUrl.toString());
                             newPost.child("uid").setValue(mCurrentUser.getUid());
-                            newPost.child("price").setValue(price_val).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            newPost.child("price").setValue(price_val);
+                            newPost.child("quantity").setValue(prod_quan).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Intent intent  = new Intent(AddProduct.this, Shop.class);
@@ -150,15 +187,48 @@ public class AddProduct extends AppCompatActivity {
                 }
             });
         }
-    }
 
+        mDatabaseProduct.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()) {
+//                   Log.d("productUID",  ds.child("uid").getValue().toString());
+                    try {
+                        if ((ds.child("uid").getValue().toString()).equals(mCurrentUser.getUid())) {
+                            mDatabaseShop.child(mCurrentUser.getUid()).child("product").child((ds.getKey())).setValue(ds.getValue());
+                        }
+                    }catch(Exception e){e.printStackTrace();}
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
-            mImageUri = data.getData();
-            mSelectImage.setImageURI(mImageUri);
+            Uri imageUri = data.getData();
+            CropImage.activity(imageUri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1, 1)
+                    .start(this);
+
         }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                mImageUri = result.getUri();
+                mSelectImage.setImageURI(mImageUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+                Log.d("setupError", error + "");
+            }
+        }
+    }
 
     }
-}

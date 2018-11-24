@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.manop.mashop.Product.AddProduct;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 
 public class Shop extends AppCompatActivity {
@@ -31,6 +33,8 @@ public class Shop extends AppCompatActivity {
     private Button addProd;
     private Button delShop;
     private Button myProd;
+    private Button view_statistics;
+    private ImageView shopImage;
     private DatabaseReference shopDB;
     private DatabaseReference UserDB;
     private FirebaseUser currentUser;
@@ -44,8 +48,11 @@ public class Shop extends AppCompatActivity {
         shopDB.child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                shopname.setText(dataSnapshot.child("name").getValue(String.class));
-                shopdesc.setText(dataSnapshot.child("description").getValue(String.class));
+                try {
+                    shopname.setText(dataSnapshot.child("name").getValue(String.class));
+                    shopdesc.setText(dataSnapshot.child("description").getValue(String.class));
+                    Picasso.get().load(dataSnapshot.child("image").getValue().toString()).into(shopImage);
+                }catch(Exception e){e.printStackTrace();}
             }
 
             @Override
@@ -82,6 +89,14 @@ public class Shop extends AppCompatActivity {
                 startActivity(myprod);
             }
         });
+
+        view_statistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent stats = new Intent(Shop.this,ShopStatistics.class);
+                startActivity(stats);
+            }
+        });
     }
     public void firebaseInit(){
         shopDB = FirebaseDatabase.getInstance().getReference().child("Shop");
@@ -91,10 +106,12 @@ public class Shop extends AppCompatActivity {
         //UserDB.keepSynced(true);
     }
     public void bindView(){
+        shopImage = (ImageView) findViewById(R.id.shopImage);
         shopname = (TextView) findViewById(R.id.shoptitle);;
         shopdesc = (TextView) findViewById(R.id.shopdesc);
         addProd = (Button) findViewById(R.id.add_prod_btn);
         myProd = (Button) findViewById(R.id.btn_my_product);
         delShop = (Button) findViewById(R.id.del_shop_btn);
+        view_statistics = (Button ) findViewById(R.id.view_statistics);
     }
 }

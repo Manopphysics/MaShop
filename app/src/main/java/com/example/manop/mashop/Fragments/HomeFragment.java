@@ -1,6 +1,7 @@
 package com.example.manop.mashop.Fragments;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,16 +12,37 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
+import com.arlib.floatingsearchview.util.Util;
 import com.example.manop.mashop.Adapter.Slider_Pager_Adapter;
+import com.example.manop.mashop.Chat.UserListingActivity;
+import com.example.manop.mashop.Function.SearchActivity;
 import com.example.manop.mashop.R;
+import com.example.manop.mashop.Shop.ShopListActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,6 +60,9 @@ public class HomeFragment extends Fragment{
     private LinearLayout pages_dots;
     private TextView[] dots;
     private final String TAG = "BlankFragment";
+    private Button visit_shop;
+    private Button search_product;
+    private Button chat_seller;
 
 
 
@@ -53,8 +78,32 @@ public class HomeFragment extends Fragment{
 
         images_slider = rootview.findViewById(R.id.image_page_slider);
         pages_dots = rootview.findViewById(R.id.image_page_dots);
+        visit_shop = (Button) rootview.findViewById(R.id.visit_shop);
+        search_product = (Button) rootview.findViewById(R.id.search_products);
+        chat_seller = (Button) rootview.findViewById(R.id.chat_seller);
 //        Toolbar tb = rootview.findViewById(R.id.toolbar);
 //        ((AppCompatActivity)getActivity()).setSupportActionBar(tb);
+        visit_shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent visit = new Intent(getActivity(), ShopListActivity.class);
+                startActivity(visit);
+            }
+        });
+        search_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent search = new Intent(getActivity(), SearchActivity.class);
+                startActivity(search);
+            }
+        });
+        chat_seller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chat = new Intent(getActivity(), UserListingActivity.class);
+                startActivity(chat);
+            }
+        });
         timer = new Timer();
         initSlider();
         scheduleSlider();
@@ -75,6 +124,7 @@ public class HomeFragment extends Fragment{
         slider_image_list.add(R.drawable.slider2);
         slider_image_list.add(R.drawable.slider3);
         slider_image_list.add(R.drawable.slider4);
+        //slider_image_list.add(R.drawable.one);
 
         sliderPagerAdapter = new Slider_Pager_Adapter(getActivity(), slider_image_list);
         images_slider.setAdapter(sliderPagerAdapter);
@@ -119,7 +169,7 @@ public class HomeFragment extends Fragment{
             public void run() {
                 handler.post(update);
             }
-        }, 500, 4000);
+        }, 200, 3000);
     }
 
     public void addBottomDots(int currentPage) {

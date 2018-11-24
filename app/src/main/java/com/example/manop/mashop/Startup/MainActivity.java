@@ -10,11 +10,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.example.manop.mashop.Chat.UserListingActivity;
 import com.example.manop.mashop.Fragments.HomeFragment;
+import com.example.manop.mashop.Function.AccountSettings;
 import com.example.manop.mashop.Function.SearchActivity;
+import com.example.manop.mashop.Product.SingleProductActivity;
 import com.example.manop.mashop.Shop.CreateShop;
+import com.example.manop.mashop.Fragments.FragmentTest;
 import com.example.manop.mashop.R;
 import com.example.manop.mashop.Shop.Shop;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +31,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +54,14 @@ public class MainActivity extends AppCompatActivity implements
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        final CircleImageView nav_profile_image = (CircleImageView) navigationView.getHeaderView(0).
+                findViewById(R.id.nav_profile_image);
+        nav_profile_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 //
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
@@ -71,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements
                         //hideItemReg();
                         //showItemShop();
                     }
+                    String profile_image = (String) dataSnapshot.child(currentUserID).child("image").getValue(String.class);
+                    Picasso.get().load(profile_image).into(nav_profile_image);
                 }
 
                 @Override
@@ -90,6 +110,10 @@ public class MainActivity extends AppCompatActivity implements
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,
                         new HomeFragment()).commit();
                 break;
+            case R.id.nav_chats:
+                UserListingActivity.startActivity(MainActivity.this,
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                break;
             case R.id.nav_reg_shop:
                 Intent createshop = new Intent(MainActivity.this,CreateShop.class);
                 startActivity(createshop);
@@ -98,6 +122,10 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.nav_my_shop:
                 Intent myshop = new Intent(MainActivity.this,Shop.class);
                 startActivity(myshop);
+                break;
+            case R.id.nav_account_settings:
+                Intent accset = new Intent(MainActivity.this, AccountSettings.class);
+                startActivity(accset);
                 break;
             case R.id.nav_logout:
                 logout();
