@@ -180,13 +180,15 @@ public class PlaceNewOrder extends AppCompatActivity {
                 final DatabaseReference sellHistory =
                 FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid())
                         .child("sell_history").push();
-                FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid())
-                        .child("sell_history").addValueEventListener(new ValueEventListener() {
+
+                //sellHistory.child("total_price").setValue(Integer.parseInt(product.getPrice()) * Integer.parseInt(product.getQuantity()));
+
+                FirebaseDatabase.getInstance().getReference().child("Users")
+                        .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         sellHistory.setValue(product);
-                        sellHistory.child("total_price").setValue(Integer.parseInt(product.getPrice()) * Integer.parseInt(product.getQuantity()));
-                    }
+                        }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

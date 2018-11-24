@@ -6,45 +6,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.manop.mashop.Shop.ShopStatistics">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selling history details"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_semibold"/>
 
     <com.jjoe64.graphview.GraphView
+        android:layout_marginTop="24dp"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:id="@+id/scatterPlot"/>
+        android:layout_height="400dp"
+        android:id="@+id/barChart"/>
 
     <Button
-        android:text="Add Point"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
+        android:id="@+id/moreHistory"
+        android:textAllCaps="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnAddPt"
-        android:layout_below="@+id/scatterPlot"/>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/button_bg"
+        android:text="More Selling History Details"
+        android:fontFamily="@font/nunito_semibold"
+        android:gravity="center" />
 
-    <EditText
-        android:background="@android:drawable/editbox_background"
-        android:textAlignment="center"
-        android:hint="x"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:inputType="numberSigned"
-        android:ems="10"
-        android:layout_below="@+id/scatterPlot"
-        android:layout_alignParentStart="true"
-        android:id="@+id/numX"/>
+    <!--<Button-->
+        <!--android:text="Add Point"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/btnAddPt"-->
+        <!--android:layout_below="@+id/scatterPlot"/>-->
 
-    <EditText
-        android:background="@android:drawable/editbox_background"
-        android:textAlignment="center"
-        android:hint="y"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:inputType="numberSigned"
-        android:ems="10"
-        android:layout_below="@+id/numX"
-        android:layout_alignParentStart="true"
-        android:id="@+id/numY"/>
+    <!--<EditText-->
+        <!--android:background="@android:drawable/editbox_background"-->
+        <!--android:textAlignment="center"-->
+        <!--android:hint="x"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:inputType="numberSigned"-->
+        <!--android:ems="10"-->
+        <!--android:layout_below="@+id/scatterPlot"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:id="@+id/numX"/>-->
+
+    <!--<EditText-->
+        <!--android:background="@android:drawable/editbox_background"-->
+        <!--android:textAlignment="center"-->
+        <!--android:hint="y"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:inputType="numberSigned"-->
+        <!--android:ems="10"-->
+        <!--android:layout_below="@+id/numX"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:id="@+id/numY"/>-->
 
 
 

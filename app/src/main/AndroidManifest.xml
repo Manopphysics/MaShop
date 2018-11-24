@@ -75,7 +75,8 @@
         <activity android:name=".Shop.ShopListActivity" />
         <activity android:name=".Shop.PlaceNewOrder" />
         <activity android:name=".Shop.PlaceNewOrderList" />
-        <activity android:name=".Shop.ShopStatistics"></activity>
+        <activity android:name=".Shop.ShopStatistics" />
+        <activity android:name=".Shop.SellingHistory"></activity>
     </application>
 
 </manifest>
