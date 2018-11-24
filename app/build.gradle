@@ -72,6 +72,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:10.2.1'
 
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.jjoe64:graphview:4.2.2'
 
     // event bus
     implementation 'org.greenrobot:eventbus:3.0.0'

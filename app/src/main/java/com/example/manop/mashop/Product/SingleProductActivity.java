@@ -47,6 +47,9 @@ public class SingleProductActivity extends AppCompatActivity {
     private Button plus_btn;
     private TextView quantity;
     private int pquantity = 0;
+    private String chat_email;
+    private String chat_uid;
+    private String chat_tok;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,10 +173,11 @@ public class SingleProductActivity extends AppCompatActivity {
                         mShop.child(uid).child("user").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                ChatActivity.startActivity(SingleProductActivity.this,
-                                        dataSnapshot.child("email").getValue(String.class),
-                                        dataSnapshot.child("uid").getValue(String.class),
-                                        dataSnapshot.child("firebaseToken").getValue(String.class));
+
+                                        chat_email = dataSnapshot.child("email").getValue(String.class);
+                                        chat_uid = dataSnapshot.child("uid").getValue(String.class);
+                                        chat_tok = dataSnapshot.child("firebaseToken").getValue(String.class);
+
                             }
 
                             @Override
@@ -188,9 +192,14 @@ public class SingleProductActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
 
-            }
+                }
+                );
+
+                ChatActivity.startActivity(SingleProductActivity.this,
+                        chat_email,
+                        chat_uid,
+                        chat_tok);}
         });
         plus_btn.setVisibility(View.INVISIBLE);
         minus_btn.setVisibility(View.INVISIBLE);

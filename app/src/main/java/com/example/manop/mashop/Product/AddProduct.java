@@ -210,18 +210,6 @@ public class AddProduct extends AppCompatActivity {
 
             }
         });
-//        mDatabaseProduct.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(DataSnapshot ds: dataSnapshot.getChildren())
-//                    Log.d("Products",ds.getKey());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -1,16 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.manop.mashop.Shop.PlaceNewOrder">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/singleImageview_pno"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop" />
+
+    <Button
+        android:id="@+id/deleteBtn_pno"
+        android:layout_width="0.00001dp"
+        android:layout_height="0.0001dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="11dp"
+        android:background="@color/transparent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/singleTitle_pno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/minus_btn_pno"
+        android:layout_below="@+id/singleImageview_pno"
+        android:layout_marginTop="18dp"
+        android:text="Post Title"
+        android:textColor="#100d0d"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/singleDesc_pno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/minus_btn_pno"
+        android:layout_below="@+id/plus_btn_pno"
+        android:layout_marginTop="47dp"
+        android:text="Post Description" />
+
+    <TextView
+        android:id="@+id/product_price_pno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PLACE NEW ORDER!"
-        tools:layout_editor_absoluteX="150dp"
-        tools:layout_editor_absoluteY="229dp" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_alignStart="@+id/singleTitle_pno"
+        android:layout_below="@+id/singleTitle_pno"
+        android:layout_marginTop="13dp"
+        android:text="฿0"
+        android:textColor="@color/orange_red"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/quantity_tv_pno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignBaseline="@+id/plus_btn_pno"
+        android:layout_alignBottom="@+id/plus_btn_pno"
+        android:layout_marginStart="39dp"
+        android:layout_toEndOf="@+id/minus_btn_pno"
+        android:text="0" />
+
+    <Button
+        android:id="@+id/minus_btn_pno"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/textView6"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/deleteBtn_pno"
+        android:background="@drawable/button_bg"
+        android:text="-"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/plus_btn_pno"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/minus_btn_pno"
+        android:layout_marginStart="65dp"
+        android:layout_toEndOf="@+id/quantity_tv_pno"
+        android:background="@drawable/button_bg"
+        android:text="+" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/product_price_pno"
+        android:layout_marginEnd="28dp"
+        android:text="Quantity left at shop:" />
+
+    <TextView
+        android:id="@+id/quan_left_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/minus_btn_pno"
+        android:layout_alignBottom="@+id/minus_btn_pno"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_marginStart="35dp"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        android:text="0" />
+
+    <Button
+        android:id="@+id/place_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/deleteBtn_pno"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_bg"
+        android:text="Place Order!" />
+
+
+</RelativeLayout>

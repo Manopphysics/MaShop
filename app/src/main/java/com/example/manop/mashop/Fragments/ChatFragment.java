@@ -28,6 +28,7 @@ import com.example.manop.mashop.Chat.ChatPresenter;
 import com.example.manop.mashop.Function.PushNotificationEvent;
 import com.example.manop.mashop.R;
 import com.example.manop.mashop.Shop.PlaceNewOrder;
+import com.example.manop.mashop.Shop.PlaceNewOrderList;
 import com.example.manop.mashop.Utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -127,7 +128,7 @@ public class ChatFragment extends Fragment implements ChatContract.View, TextVie
         String senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String receiverFirebaseToken = getArguments().getString(Constants.ARG_FIREBASE_TOKEN);
 
-        if(message.equals("place new order")){
+        if(message.equals("pno")){
             mETxtMessage.setText("");
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -139,7 +140,7 @@ public class ChatFragment extends Fragment implements ChatContract.View, TextVie
                     .setMessage("Are you sure you want to place a new order?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent order = new Intent(getActivity(), PlaceNewOrder.class);
+                            Intent order = new Intent(getActivity(), PlaceNewOrderList.class);
                             startActivity(order);
                         }
                     })

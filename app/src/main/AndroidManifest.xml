@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".MyApplication"
@@ -72,7 +73,9 @@
         <activity android:name=".Function.AccountSettings" />
         <activity android:name=".Function.MapsActivity" />
         <activity android:name=".Shop.ShopListActivity" />
-        <activity android:name=".Shop.PlaceNewOrder"></activity>
+        <activity android:name=".Shop.PlaceNewOrder" />
+        <activity android:name=".Shop.PlaceNewOrderList" />
+        <activity android:name=".Shop.ShopStatistics"></activity>
     </application>
 
 </manifest>

@@ -38,6 +38,7 @@ public class Shop extends AppCompatActivity {
     private Button addProd;
     private Button delShop;
     private Button myProd;
+    private Button view_statistics;
     private ImageView shopImage;
     private DatabaseReference shopDB;
     private DatabaseReference UserDB;
@@ -93,6 +94,14 @@ public class Shop extends AppCompatActivity {
                 startActivity(myprod);
             }
         });
+
+        view_statistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent stats = new Intent(Shop.this,ShopStatistics.class);
+                startActivity(stats);
+            }
+        });
     }
     public void firebaseInit(){
         shopDB = FirebaseDatabase.getInstance().getReference().child("Shop");
@@ -108,5 +117,6 @@ public class Shop extends AppCompatActivity {
         addProd = (Button) findViewById(R.id.add_prod_btn);
         myProd = (Button) findViewById(R.id.btn_my_product);
         delShop = (Button) findViewById(R.id.del_shop_btn);
+        view_statistics = (Button ) findViewById(R.id.view_statistics);
     }
 }
