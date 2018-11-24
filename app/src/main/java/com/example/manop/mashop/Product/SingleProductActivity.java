@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,12 +40,9 @@ public class SingleProductActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-
-
-
         singelImage = (ImageView)findViewById(R.id.singleImageview);
         singleTitle = (TextView)findViewById(R.id.singleTitle);
-        singleDesc = (TextView)findViewById(R.id.singleDesc);
+        singleDesc = (TextView)findViewById(R.id.singleShortDesc);
         productPrice = (TextView) findViewById(R.id.product_price);
         pDiscountPrice = (TextView) findViewById(R.id.product_discount);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Product");
