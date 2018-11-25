@@ -100,7 +100,7 @@ public class SetupActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference().child("ProfileImages");
         mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mSetupImage = (ImageButton) findViewById(R.id.setupImagebtn);
-        mNameField = (EditText) findViewById(R.id.setupName);
+        mNameField = (EditText) findViewById(R.id.setName);
         mFinishBtn = (Button) findViewById(R.id.finishbtn);
         mProgress = new ProgressDialog(this);
     }

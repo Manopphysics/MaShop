@@ -18,18 +18,19 @@
         android:background="@drawable/ic_upload_pic"
         android:scaleType="centerCrop" />
 
-    <EditText
-        android:id="@+id/setupName"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/setupImagebtn"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:hint="@string/enter_your_dispaly_name"
-        android:padding="16dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/black" />
-
+        android:layout_below="@id/setupImagebtn"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:padding="16dp" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/setName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_your_dispaly_name"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
