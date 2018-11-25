@@ -232,40 +232,39 @@
 
 <!--</LinearLayout>-->
 <!--</RelativeLayout>-->
-<RelativeLayout android:layout_width="match_parent"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Button
-        android:id="@+id/chat_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary" android:layout_alignParentBottom="true"
-        android:drawableStart="@drawable/ic_chat_black_24dp"
-        android:text="Chat" />
+    <!--<Button-->
+        <!--android:id="@+id/chat_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@color/colorPrimary" android:layout_alignParentBottom="true"-->
+        <!--android:drawableStart="@drawable/ic_chat_black_24dp"-->
+        <!--android:text="Chat" />-->
 
-    <Button
-        android:id="@+id/deleteBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/delete_bin"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="#FFEA0404"
-        android:text="Delete product"
-        android:textColor="#fff"
-        android:textStyle="bold" />
-
-
-
+    <!--<Button-->
+        <!--android:id="@+id/deleteBtn"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:drawableLeft="@drawable/delete_bin"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:background="#FFEA0404"-->
+        <!--android:text="Delete product"-->
+        <!--android:textColor="#fff"-->
+        <!--android:textStyle="bold" />-->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_activity_detail"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/root_view"
@@ -284,12 +283,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/movie_detail_card"
+                android:id="@+id/product_detail_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/activity_detail_detail_card_margin_top"
-                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_small"
                 app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="0dp"
@@ -304,8 +303,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_large"
-                    android:paddingLeft="@dimen/padding_medium"
-                    android:paddingTop="@dimen/padding_large">
+                    android:layout_marginRight="@dimen/margin_large"
+                    android:paddingTop="@dimen/padding_large"
+                    android:paddingBottom="@dimen/padding_large">
 
                     <com.an.customfontview.CustomTextView
                         android:id="@+id/singleTitle"
@@ -320,7 +320,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:textFontPath="fonts/gt_medium.otf"/>
 
                     <com.an.customfontview.CustomTextView
                         android:id="@+id/product_price"
@@ -331,7 +332,8 @@
                         android:text="฿0"
                         android:textColor="@color/orange_red"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:textFontPath="fonts/gt_medium.otf"/>
                     <TextView
                         android:id="@+id/product_discount"
                         android:layout_width="wrap_content"
@@ -340,50 +342,49 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:text="฿0" />
 
-                    <Button
-                        android:id="@+id/minus_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/transparent"
-                        android:text="-"
-                        android:textSize="@dimen/font_medium"
-                        app:layout_constraintTop_toTopOf="@+id/product_price"
-                        app:layout_constraintStart_toEndOf="@id/product_price"/>
+                    <!--<Button-->
+                        <!--android:id="@+id/minus_btn"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/transparent"-->
+                        <!--android:text="-"-->
+                        <!--android:textSize="@dimen/font_medium"-->
+                        <!--app:layout_constraintTop_toTopOf="@+id/product_price"-->
+                        <!--app:layout_constraintStart_toEndOf="@id/product_price"/>-->
 
-                    <Button
-                        android:id="@+id/plus_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/transparent"
-                        android:text="+"
-                        android:textSize="@dimen/font_medium"
-                        android:paddingEnd="@dimen/margin_medium"
-                        app:layout_constraintTop_toTopOf="@+id/product_price"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-                    <TextView
-                        android:id="@+id/quantity_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="@dimen/font_large"
-                        app:layout_constraintTop_toTopOf="@+id/product_price"
-                        app:layout_constraintStart_toEndOf="@id/plus_btn"
-                        app:layout_constraintEnd_toEndOf="@id/minus_btn"/>
+                    <!--<Button-->
+                        <!--android:id="@+id/plus_btn"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/transparent"-->
+                        <!--android:text="+"-->
+                        <!--android:textSize="@dimen/font_medium"-->
+                        <!--android:paddingEnd="@dimen/margin_medium"-->
+                        <!--app:layout_constraintTop_toTopOf="@+id/product_price"-->
+                        <!--app:layout_constraintEnd_toEndOf="parent"/>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/quantity_tv"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="0"-->
+                        <!--android:textSize="@dimen/font_large"-->
+                        <!--app:layout_constraintTop_toTopOf="@+id/product_price"-->
+                        <!--app:layout_constraintStart_toEndOf="@id/plus_btn"-->
+                        <!--app:layout_constraintEnd_toEndOf="@id/minus_btn"/>-->
 
                     <com.an.customfontview.CustomTextView
                         android:id="@+id/DescTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/padding_medium"
-
-                        android:paddingTop="@dimen/margin"
-                        android:paddingEnd="@dimen/margin_xlarge"
-                        android:paddingBottom="@dimen/margin_large"
+                        android:textStyle="bold"
+                        android:paddingTop="@dimen/margin_xxlarge"
                         android:text="Product Description"
                         android:textColor="@color/text_desc_activity_detail"
-                        android:textSize="@dimen/font_small_medium"
+                        android:textSize="@dimen/font_large"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/product_discount"/>
+                        app:layout_constraintTop_toBottomOf="@id/product_discount"
+                        app:textFontPath="fonts/gt_medium.otf"/>
 
                     <com.an.customfontview.CustomTextView
                         android:id="@+id/singleShortDesc"
@@ -391,7 +392,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/padding_medium"
                         android:lineSpacingExtra="5dp"
-                        android:paddingTop="@dimen/margin"
                         android:paddingEnd="@dimen/margin_xlarge"
                         android:paddingBottom="@dimen/margin_large"
                         android:text="Detail"
@@ -399,10 +399,95 @@
                         android:textColor="@color/text_desc_activity_detail"
                         android:textSize="@dimen/font_medium"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/DescTitle"/>
+                        app:layout_constraintTop_toBottomOf="@id/DescTitle"
+                        app:textFontPath="fonts/gt_medium.otf"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/Seller_card"
+                android:layout_width="match_parent"
+                android:layout_height="148dp"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginTop="@dimen/padding"
+                android:layout_marginBottom="@dimen/activity_detail_detail_card_margin_top"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="0dp"
+                app:layout_constraintStart_toStartOf="@id/product_detail_card"
+                app:layout_constraintTop_toBottomOf="@+id/product_detail_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_large"
+                    android:layout_marginRight="@dimen/margin_large"
+                    android:paddingTop="@dimen/padding_large">
+
+                    <com.an.customfontview.CustomTextView
+                        android:id="@+id/seller_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin_large"
+                        android:paddingBottom="@dimen/margin_large"
+                        android:text="Product Option"
+                        android:textSize="@dimen/font_large"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.an.customfontview.CustomTextView
+                        android:id="@+id/quantity_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/padding_small"
+                        android:text="Set Quantity"
+                        android:textSize="@dimen/font_medium_large"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/seller_title"
+                        app:textFontPath="fonts/gt_medium.otf" />
+
+                    <Button
+                        android:id="@+id/minus_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:text="-"
+                        android:textSize="@dimen/font_medium"
+                        app:layout_constraintEnd_toStartOf="@id/quantity_tv"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/quantity_title" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/quantity_tv"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/font_large"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/quantity_title" /><!--app:layout_constraintStart_toEndOf="@id/minus_btn"-->
+                    <!--app:layout_constraintEnd_toStartOf="@id/plus_btn"-->
+                    <Button
+                        android:id="@+id/plus_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:text="+"
+                        android:textSize="@dimen/font_medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@id/quantity_tv"
+                        app:layout_constraintTop_toBottomOf="@id/quantity_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/fav_view"
                 android:layout_width="@dimen/design_fab_size_mini"
@@ -410,7 +495,7 @@
                 android:layout_marginTop="@dimen/fav_button_margin_top"
                 android:layout_marginRight="@dimen/margin_large"
                 android:background="@drawable/ic_fav"
-                app:layout_constraintRight_toRightOf="@+id/movie_detail_card"
+                app:layout_constraintRight_toRightOf="@+id/product_detail_card"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_editor_absoluteX="310dp"
                 app:layout_editor_absoluteY="310dp">
@@ -450,4 +535,50 @@
             app:layout_constraintTop_toBottomOf="@id/fav_view" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:id="@+id/buyerButtonGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <Button
+            android:id="@+id/store_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Store"/>
+        <Button
+            android:id="@+id/chat_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@color/colorPrimary"
+            android:drawableStart="@drawable/ic_chat_black_24dp"
+            android:text="Chat" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/sellerButtonGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/delete_bin"
+        android:background="#FFEA0404"
+        android:text="Delete product"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_weight="3"/>
+    </LinearLayout>
+
 </RelativeLayout>

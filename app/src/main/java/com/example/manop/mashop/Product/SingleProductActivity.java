@@ -1,7 +1,6 @@
 package com.example.manop.mashop.Product;
 
 import android.graphics.Paint;
-import android.media.Image;
 import android.os.Bundle;
 
 
@@ -11,14 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.manop.mashop.Chat.ChatActivity;
 import com.example.manop.mashop.R;
 import com.example.manop.mashop.Startup.MainActivity;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,47 +29,37 @@ import com.squareup.picasso.Picasso;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.an.customfontview.CustomTextView;
 
-import org.w3c.dom.Text;
-
 public class SingleProductActivity extends AppCompatActivity {
 
-    private ImageView singelImage;
+    private ImageView singleImage;
     private CustomTextView singleTitle, singleDesc, productPrice;
-    private TextView pDiscountPrice;
+    private TextView pDiscountPrice, quantity;
     String post_key = null;
     String uid;
     private DatabaseReference mDatabase;
-    private Button deleteBtn;
-    private Button chat_button;
+    private Button deleteBtn, chat_button, plus_btn, minus_btn;
     private ShineButton wish_button;
     private FirebaseAuth mAuth;
-    private DatabaseReference mShop;
-    private DatabaseReference mDatabaseLike;
+    private DatabaseReference mShop, mDatabaseLike;
     private TextView like_count;
     private boolean mProcessLike = false;
-    private Button minus_btn;
-    private Button plus_btn;
-    private TextView quantity;
     private int pquantity = 0;
-    private String chat_email;
-    private String chat_uid;
-    private String chat_tok;
+    private String chat_email, chat_uid, chat_tok;
+    private LinearLayout seller_btn_group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_product);
 
-        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-
-
+//        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayShowHomeEnabled(true);
 
         plus_btn = (Button) findViewById(R.id.plus_btn);
         minus_btn = (Button) findViewById(R.id.minus_btn);
         quantity = (TextView) findViewById(R.id.quantity_tv);
-        singelImage = (ImageView)findViewById(R.id.singleImageview);
+        singleImage = (ImageView)findViewById(R.id.singleImageview);
         singleTitle = (CustomTextView)findViewById(R.id.singleTitle);
         singleDesc = (CustomTextView) findViewById(R.id.singleShortDesc);
         productPrice = (CustomTextView) findViewById(R.id.product_price);
@@ -83,6 +73,7 @@ public class SingleProductActivity extends AppCompatActivity {
         post_key = getIntent().getExtras().getString("PostID");
         like_count = (TextView) findViewById(R.id.like_count);
         deleteBtn = (Button)findViewById(R.id.deleteBtn);
+        seller_btn_group = findViewById(R.id.sellerButtonGroup);
         mAuth = FirebaseAuth.getInstance();
         Log.d("MAINLIKE",mDatabaseLike.toString());
 
@@ -123,6 +114,7 @@ public class SingleProductActivity extends AppCompatActivity {
                     if(count == 1){likcount =Long.toString(count)+" Like";  like_count.setText(likcount);}
                     else if (count > 1){likcount =Long.toString(count)+" Likes";  like_count.setText(likcount);}
 //                    wish_button.setImageResource(R.drawable.ic_yes_heart_colored);
+                    wish_button.setChecked(true);
                 } else {
                     count = dataSnapshot.child(post_key).getChildrenCount();
                     if(count == 1){likcount =Long.toString(count)+" Like";  like_count.setText(likcount);}
@@ -208,7 +200,8 @@ public class SingleProductActivity extends AppCompatActivity {
         });
         plus_btn.setVisibility(View.INVISIBLE);
         minus_btn.setVisibility(View.INVISIBLE);
-        deleteBtn.setVisibility(View.INVISIBLE);
+        seller_btn_group.setVisibility(View.INVISIBLE);
+        quantity.setEnabled(false);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -241,18 +234,19 @@ public class SingleProductActivity extends AppCompatActivity {
                     Double dummyDiscount = Double.parseDouble(product_price);
                     pDiscountPrice.setText(Double.toString(dummyDiscount + (0.04) * dummyDiscount));
                     pDiscountPrice.setPaintFlags(pDiscountPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    Picasso.get().load(post_image).into(singelImage);
+                    Picasso.get().load(post_image).into(singleImage);
                     if (mAuth.getCurrentUser().getUid().equals(post_uid)) {
 
-                        deleteBtn.setVisibility(View.VISIBLE);
+                        seller_btn_group.setVisibility(View.VISIBLE);
                         plus_btn.setVisibility(View.VISIBLE);
                         minus_btn.setVisibility(View.VISIBLE);
+                        quantity.setEnabled(true);
                     }
                 }catch(Exception e){e.printStackTrace();;}
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Snackbar.make(seller_btn_group, "Firebase Error!!", Snackbar.LENGTH_LONG);
             }
         });
     }
