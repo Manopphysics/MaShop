@@ -138,6 +138,8 @@ public class SetupActivity extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             String downloadUri = taskSnapshot.getDownloadUrl().toString();
                             mDatabseUsers.child(user_id).child("name").setValue(name);
+                            mDatabseUsers.child(user_id).child("email").setValue(mAuth.getCurrentUser().getEmail());
+                            mDatabseUsers.child(user_id).child("uid").setValue(mAuth.getCurrentUser().getUid());
                             mDatabseUsers.child(user_id).child("image").setValue(downloadUri);
                             mDatabseUsers.child(user_id).child("token").setValue(tokenString);
                             mDatabseUsers.child(user_id).child("seller").setValue("false");

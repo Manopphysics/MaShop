@@ -1,10 +1,11 @@
 package com.example.manop.mashop.Shop;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Vibrator;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.manop.mashop.Function.Email;
+import com.example.manop.mashop.Function.GMailSender;
+import com.example.manop.mashop.Function.MyCallback;
 import com.example.manop.mashop.Product.Product;
 import com.example.manop.mashop.Product.SingleProductActivity;
 import com.example.manop.mashop.R;
@@ -25,6 +29,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.example.manop.mashop.Chat.ChatActivity;
+
+import java.text.FieldPosition;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class PlaceNewOrder extends AppCompatActivity {
@@ -46,13 +58,17 @@ public class PlaceNewOrder extends AppCompatActivity {
     private String chat_email;
     private String chat_uid;
     private String chat_tok;
+    String receiverUID = null;
+    private String REMAIL;
+    private String history_key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_new_order);
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
@@ -68,6 +84,8 @@ public class PlaceNewOrder extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Product");
         mShop = FirebaseDatabase.getInstance().getReference().child("Shop");
         post_key = getIntent().getExtras().getString("PostID");
+        receiverUID = getIntent().getExtras().getString("RUID");
+        try{Log.d("rruid",REMAIL);}catch (Exception e){e.printStackTrace();Log.d("rruid","RUID is null");}
         mAuth = FirebaseAuth.getInstance();
 
         plus_btn.setOnClickListener(new View.OnClickListener() {
@@ -178,47 +196,69 @@ public class PlaceNewOrder extends AppCompatActivity {
                         .child("product").child(post_key).child("quantity").setValue(Integer.toString(quantity_left-Integer.parseInt(quantity.getText().toString())));
                 //-================ new order history:
                 final DatabaseReference sellHistory =
-                FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid())
-                        .child("sell_history").push();
-                FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid())
-                        .child("sell_history").addValueEventListener(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid())
+                                .child("sell_history").push();
+                history_key = sellHistory.getKey();
+
+                //sellHistory.child("total_price").setValue(Integer.parseInt(product.getPrice()) * Integer.parseInt(product.getQuantity()));
+
+                FirebaseDatabase.getInstance().getReference().child("Users")
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                sellHistory.setValue(product);
+                                String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH.mm").format(new Date());
+                                sellHistory.child("date").setValue(timeStamp);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                Vibrator vibratePhone = (Vibrator) getSystemService(PlaceNewOrder.VIBRATOR_SERVICE);
+                readDataSaleHistory(new MyCallback() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        sellHistory.setValue(product);
-                        sellHistory.child("total_price").setValue(Integer.parseInt(product.getPrice()) * Integer.parseInt(product.getQuantity()));
+                    public void onCallback(String value) {
+
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onCallbackEmailName(String name, String email) {
 
+                    }
+
+                    @Override
+                    public void onCallbackProduct(ArrayList<Product> al) {
+
+                    }
+
+                    @Override
+                    public void onCallbackSaleHistory(String date, String description, String name, String price, String quantity, String buyerName, String buyerEmail) {
+                        Log.d("emailDEBUG",date+" "+description+" "+name+" "+price+" "+quantity+" "+buyerName+" "+buyerEmail);
+                        Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
+                        intent.setType("text/plain");
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Product Order confirmation :"+"Product: "+name);
+                        intent.putExtra(Intent.EXTRA_TEXT, "This email is generated automatically to confirm that you "+"("+
+                        buyerName+")"+" Have Ordered\nProduct name: "+name+"\nProduct Description : "+description+"\n"+"Price: ฿"+price+ "  \nQuantity: "+quantity+"\n"+
+                        "Total price= ฿"+(Double.parseDouble(price)*Double.parseDouble(quantity))+"\n"+
+                        "This order has been placed on: "+date);
+                        intent.setData(Uri.parse("mailto:"+buyerEmail)); // or just "mailto:" for blank
+                        // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+                        try {
+                            startActivityForResult(Intent.createChooser(intent, "Send mail..."),0);
+                            Log.d("emailDEBUG","STARTACTIVITY SUCCESS");
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(PlaceNewOrder.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                            Log.d("emailDEBUG","ERROR");
+                        }
                     }
                 });
 
-                Vibrator vibratePhone = (Vibrator) getSystemService(PlaceNewOrder.VIBRATOR_SERVICE);
-
                 vibratePhone.vibrate(400);
 
-                FirebaseDatabase.getInstance().getReference().child("Product").addValueEventListener(new ValueEventListener() {
-                         @Override
-                         public void onDataChange(DataSnapshot dataSnapshot) {
-                             uid = dataSnapshot.child(post_key).child("uid").getValue(String.class);
-                             mShop.child(uid).child("user").addValueEventListener(new ValueEventListener() {
-                                 @Override
-                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                     chat_email = dataSnapshot.child("email").getValue(String.class);
-                                     chat_uid = dataSnapshot.child("uid").getValue(String.class);
-                                     chat_tok = dataSnapshot.child("firebaseToken").getValue(String.class);
-                                 }
-                                 @Override
-                                 public void onCancelled(DatabaseError databaseError) {}
-                             });}
-                         @Override
-                         public void onCancelled(DatabaseError databaseError) {}});
 
-                ChatActivity.startActivity(PlaceNewOrder.this,
-                        chat_email,
-                        chat_uid,
-                        chat_tok);
             }});
 
 
@@ -239,7 +279,7 @@ public class PlaceNewOrder extends AppCompatActivity {
                     singleTitle.setText(post_title);
                     singleDesc.setText(post_desc);
                     productPrice.setText("฿" + product_price);
-                    Picasso.with(PlaceNewOrder.this).load(post_image).into(singelImage);
+                    Picasso.get().load(post_image).into(singelImage);
                     if (mAuth.getCurrentUser().getUid().equals(post_uid)) {
 
                         plus_btn.setVisibility(View.VISIBLE);
@@ -256,4 +296,66 @@ public class PlaceNewOrder extends AppCompatActivity {
             }
         });
     }
+
+
+
+    public void readDataSaleHistory(final MyCallback mc){
+        readData(new MyCallback() {
+            @Override
+            public void onCallback(final String value) {
+
+            }
+
+            @Override
+            public void onCallbackEmailName(final String name, final String email) {
+                FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid()).child("sell_history").child(history_key)
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                mc.onCallbackSaleHistory(dataSnapshot.child("date").getValue().toString(),
+                                        dataSnapshot.child("description").getValue().toString(),
+                                        dataSnapshot.child("name").getValue().toString(),
+                                        dataSnapshot.child("price").getValue().toString(),
+                                        dataSnapshot.child("quantity").getValue().toString(),
+                                        email, name);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+            }
+
+            @Override
+            public void onCallbackProduct(ArrayList<Product> al) {
+
+            }
+
+
+            @Override
+            public void onCallbackSaleHistory(String date, String description, String name, String price, String quantity, String buyerName, String buyerEmail) {
+
+            }
+        });
+
+
+
+    }
+
+    public void readData(final MyCallback mc){
+        FirebaseDatabase.getInstance().getReference().child("Users").child(receiverUID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mc.onCallbackEmailName(dataSnapshot.child("email").getValue().toString(),
+                                        dataSnapshot.child("name").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

@@ -1,13 +1,18 @@
 package com.example.manop.mashop.Shop;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.manop.mashop.Function.XYValue;
 import com.example.manop.mashop.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,14 +25,23 @@ import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.PointsGraphSeries;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
 import android.app.Activity;
+import android.os.Bundle;
 
+import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class ShopStatistics extends Activity {
 
@@ -44,13 +58,7 @@ public class ShopStatistics extends Activity {
         setContentView(R.layout.activity_shop_statistics);
 
         moreHistory = (Button) findViewById(R.id.moreHistory);
-        moreHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent more = new Intent(ShopStatistics.this,SellingHistory.class);
-                startActivity(more);
-            }
-        });
+
 
         // we get graph view instance
         final GraphView graph = (GraphView) findViewById(R.id.barChart);
@@ -82,7 +90,7 @@ public class ShopStatistics extends Activity {
 
         // customize a little bit viewport
         graph.getGridLabelRenderer().setHumanRounding(true);
-       final  Viewport viewport = graph.getViewport();
+        final  Viewport viewport = graph.getViewport();
 //        viewport.setYAxisBoundsManual(true);
         viewport.setMinY(0);
 //        viewport.setMaxY(10);
@@ -97,8 +105,9 @@ public class ShopStatistics extends Activity {
 //        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
 //        graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
         FirebaseDatabase.getInstance().getReference().child("Shop").child(FirebaseAuth.getInstance().getCurrentUser()
-                    .getUid()).child("sell_history").addValueEventListener(new ValueEventListener() {
-                        int c  = 1;
+                .getUid()).child("sell_history").addValueEventListener(new ValueEventListener() {
+            int c  = 1;
+            int mdp = 10;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds: dataSnapshot.getChildren()) {
@@ -109,7 +118,8 @@ public class ShopStatistics extends Activity {
                         xList.add(x);
                         c++;
                         Log.d("Statis", Double.toString(x) + " : " + Double.toString(y));
-                        addEntry(x, y);
+                        if(c>= mdp) mdp *= 2;
+                        addEntry(x, y,mdp);
                         //        viewport.setYAxisBoundsManual(true);
                         viewport.setMaxY(Collections.max(yList) + 3);
                         viewport.setMaxX(Collections.max(xList) + 1);
@@ -138,208 +148,37 @@ public class ShopStatistics extends Activity {
         series.setDrawValuesOnTop(true);
 
         series.setValuesOnTopColor(Color.RED);
+
+        moreHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    //Write file
+                    Bitmap bitmap = graph.takeSnapshot();
+                    String filename = "bitmap.png";
+                    FileOutputStream stream = ShopStatistics.this.openFileOutput(filename, Context.MODE_PRIVATE);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+                    //Cleanup
+                    stream.close();
+                    bitmap.recycle();
+
+                    //Pop intent
+                    Intent more = new Intent(ShopStatistics.this,SellingHistory.class);
+                    more.putExtra("image", filename);
+                    startActivity(more);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 
     // add random data to graph
-    private void addEntry(int x, int y) {
+    private void addEntry(int x, int y, int mdp) {
         // here, we choose to display max 10 points on the viewport and we scroll to end
-        series.appendData(new DataPoint(x, y),false,10);
+        series.appendData(new DataPoint(x, y),false,mdp);
     }
 
 }
-//import java.util.ArrayList;
-//
-//public class ShopStatistics extends AppCompatActivity {
-//
-//    private static final String TAG = "MainActivity";
-//
-//    //add PointsGraphSeries of DataPoint type
-//    LineGraphSeries<DataPoint> xySeries;
-//
-////    private Button btnAddPt;
-////
-////    private EditText mX,mY;
-//
-//    GraphView mScatterPlot;
-//
-//    //make xyValueArray global
-//    private ArrayList<XYValue> xyValueArray;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_shop_statistics);
-//
-//        //declare variables in oncreate
-////        btnAddPt = (Button) findViewById(R.id.btnAddPt);
-////        mX = (EditText) findViewById(R.id.numX);
-////        mY = (EditText) findViewById(R.id.numY);
-//        mScatterPlot = (GraphView) findViewById(R.id.scatterPlot);
-//        xyValueArray = new ArrayList<>();
-//
-//        init();
-//    }
-//
-//    private void init(){
-//        //declare the xySeries Object
-//        xySeries = new LineGraphSeries<>();
-//
-////        btnAddPt.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-//                //!mX.getText().toString().equals("") && !mY.getText().toString().equals("") ){
-//                    //final double x = Double.parseDouble(mX.getText().toString());
-//                    //final double y = Double.parseDouble(mY.getText().toString());
-//                    //Log.d(TAG, "onClick: Adding a new point. (x,y): (" + x + "," + y + ")" );
-//                    FirebaseDatabase.getInstance().getReference().child("Shop").child(FirebaseAuth.getInstance().getCurrentUser()
-//                    .getUid()).child("sell_history").addValueEventListener(new ValueEventListener() {
-//                        int c = 1;
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                            for(DataSnapshot ds: dataSnapshot.getChildren()) {
-//                                if(c <= dataSnapshot.getChildrenCount()){
-//                                double x = c;
-//                                double y = (double) Double.parseDouble(ds.child("quantity").getValue().toString());
-//                                c++;
-//                                xyValueArray.add(new XYValue(x, y));
-//                                 //init();
-//                            }
-//                                else {
-//                                    toastMessage("OUT OF RECURSIVE YAY! ");
-//                                }
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//
-//
-////            }
-////        });
-//
-//        //little bit of exception handling for if there is no data.
-//        if(xyValueArray.size() != 0){
-//            createScatterPlot();
-//        }else{
-//            Log.d(TAG, "onCreate: No data to plot.");
-//        }
-//    }
-//
-//    private void createScatterPlot() {
-//        Log.d(TAG, "createScatterPlot: Creating scatter plot.");
-//
-//        //sort the array of xy values
-//        xyValueArray = sortArray(xyValueArray);
-//
-//        //add the data to the series
-//        for(int i = 0;i <xyValueArray.size(); i++){
-//            try{
-//                double x = xyValueArray.get(i).getX();
-//                double y = xyValueArray.get(i).getY();
-//                xySeries.appendData(new DataPoint(x,y),true, 1000);
-//            }catch (IllegalArgumentException e){
-//                Log.e(TAG, "createScatterPlot: IllegalArgumentException: " + e.getMessage() );
-//            }
-//        }
-//
-//        //set some properties
-////        xySeries.setShape(PointsGraphSeries.Shape.RECTANGLE);
-//        xySeries.setColor(Color.BLUE);
-////        xySeries.setSize(20f);
-//
-//        //set Scrollable and Scaleable
-////        mScatterPlot.getViewport().setScalable(true);
-////        mScatterPlot.getViewport().setScalableY(true);
-////        mScatterPlot.getViewport().setScrollable(true);
-////        mScatterPlot.getViewport().setScrollableY(true);
-//        xySeries.setTitle("Random Curve 1");
-//        xySeries.setColor(Color.GREEN);
-//        xySeries.setDrawDataPoints(true);
-//        xySeries.setDataPointsRadius(10);
-//        xySeries.setThickness(8);
-//        Paint paint = new Paint();
-//        paint.setStyle(Paint.Style.STROKE);
-//        paint.setStrokeWidth(10);
-//        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
-//        xySeries.setCustomPaint(paint);
-//        //set manual x bounds
-//        mScatterPlot.getViewport().setYAxisBoundsManual(true);
-//        mScatterPlot.getViewport().setMaxY(10);
-//        mScatterPlot.getViewport().setMinY(0);
-//
-//        //set manual y bounds
-//        mScatterPlot.getViewport().setXAxisBoundsManual(true);
-//        mScatterPlot.getViewport().setMaxX(5);
-//        mScatterPlot.getViewport().setMinX(0);
-//
-//        mScatterPlot.addSeries(xySeries);
-//    }
-//
-//    /**
-//     * Sorts an ArrayList<XYValue> with respect to the x values.
-//     * @param array
-//     * @return
-//     */
-//    private ArrayList<XYValue> sortArray(ArrayList<XYValue> array){
-//        /*
-//        //Sorts the xyValues in Ascending order to prepare them for the PointsGraphSeries<DataSet>
-//         */
-//        int factor = Integer.parseInt(String.valueOf(Math.round(Math.pow(array.size(),2))));
-//        int m = array.size() - 1;
-//        int count = 0;
-//        Log.d(TAG, "sortArray: Sorting the XYArray.");
-//
-//
-//        while (true) {
-//            m--;
-//            if (m <= 0) {
-//                m = array.size() - 1;
-//            }
-//            Log.d(TAG, "sortArray: m = " + m);
-//            try {
-//                //print out the y entrys so we know what the order looks like
-//                //Log.d(TAG, "sortArray: Order:");
-//                //for(int n = 0;n < array.size();n++){
-//                //Log.d(TAG, "sortArray: " + array.get(n).getY());
-//                //}
-//                double tempY = array.get(m - 1).getY();
-//                double tempX = array.get(m - 1).getX();
-//                if (tempX > array.get(m).getX()) {
-//                    array.get(m - 1).setY(array.get(m).getY());
-//                    array.get(m).setY(tempY);
-//                    array.get(m - 1).setX(array.get(m).getX());
-//                    array.get(m).setX(tempX);
-//                } else if (tempX == array.get(m).getX()) {
-//                    count++;
-//                    Log.d(TAG, "sortArray: count = " + count);
-//                } else if (array.get(m).getX() > array.get(m - 1).getX()) {
-//                    count++;
-//                    Log.d(TAG, "sortArray: count = " + count);
-//                }
-//                //break when factorial is done
-//                if (count == factor) {
-//                    break;
-//                }
-//            } catch (ArrayIndexOutOfBoundsException e) {
-//                Log.e(TAG, "sortArray: ArrayIndexOutOfBoundsException. Need more than 1 data point to create Plot." +
-//                        e.getMessage());
-//                break;
-//            }
-//        }
-//        return array;
-//    }
-//
-//    /**
-//     * customizable toast
-//     * @param message
-//     */
-//    private void toastMessage(String message){
-//        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
-//    }
-//}

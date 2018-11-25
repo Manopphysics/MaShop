@@ -1,13 +1,18 @@
 package com.example.manop.mashop.Product;
 
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 
 
 import android.content.Intent;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.manop.mashop.Chat.ChatActivity;
+import com.example.manop.mashop.Function.Email;
+import com.example.manop.mashop.Function.MyCallback;
 import com.example.manop.mashop.R;
+import com.example.manop.mashop.Startup.LoginActivity;
 import com.example.manop.mashop.Startup.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,13 +40,16 @@ import com.an.customfontview.CustomTextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class SingleProductActivity extends AppCompatActivity {
 
     private ImageView singelImage;
-    private CustomTextView singleTitle, singleDesc, productPrice;
-    private TextView pDiscountPrice;
+    private TextView singleTitle, singleDesc, productPrice,pDiscountPrice;
     String post_key = null;
     String uid;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseUser mCurrentUser;
     private DatabaseReference mDatabase;
     private Button deleteBtn;
     private Button chat_button;
@@ -54,36 +66,49 @@ public class SingleProductActivity extends AppCompatActivity {
     private String chat_email;
     private String chat_uid;
     private String chat_tok;
+    private ConstraintLayout fav_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_product);
 
-        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
 
-
+        fav_view = (ConstraintLayout) findViewById(R.id.fav_view);
         plus_btn = (Button) findViewById(R.id.plus_btn);
         minus_btn = (Button) findViewById(R.id.minus_btn);
         quantity = (TextView) findViewById(R.id.quantity_tv);
         singelImage = (ImageView)findViewById(R.id.singleImageview);
-        singleTitle = (CustomTextView)findViewById(R.id.singleTitle);
-        singleDesc = (CustomTextView) findViewById(R.id.singleShortDesc);
-        productPrice = (CustomTextView) findViewById(R.id.product_price);
+        singleTitle = (TextView)findViewById(R.id.singleTitle);
+        singleDesc = (TextView)findViewById(R.id.singleShortDesc);
+        productPrice = (TextView) findViewById(R.id.product_price);
         pDiscountPrice = (TextView) findViewById(R.id.product_discount);
         chat_button = (Button) findViewById(R.id.chat_button);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Product");
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Like");
         wish_button = (ShineButton) findViewById(R.id.wish_button);
-        wish_button.init(this);
         mShop = FirebaseDatabase.getInstance().getReference().child("Shop");
         post_key = getIntent().getExtras().getString("PostID");
         like_count = (TextView) findViewById(R.id.like_count);
         deleteBtn = (Button)findViewById(R.id.deleteBtn);
         mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                    Intent loginIntent = new Intent(SingleProductActivity.this, LoginActivity.class);
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(loginIntent);
+                }//if there is no curreent user then only move to liginActivity
+            }
+        };
+        mCurrentUser = mAuth.getCurrentUser();
+
         Log.d("MAINLIKE",mDatabaseLike.toString());
 
         plus_btn.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +133,7 @@ public class SingleProductActivity extends AppCompatActivity {
                     quantity.setText(Integer.toString(pquantity));
                     FirebaseDatabase.getInstance().getReference().child("Product").child(post_key).child("quantity")
                             .setValue(Integer.toString(pquantity));
-                    FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid())
+                    FirebaseDatabase.getInstance().getReference().child("Shop").child(mCurrentUser.getUid())
                             .child("product").child(post_key).child("quantity").setValue(Integer.toString(pquantity));
                 }
             }
@@ -118,16 +143,19 @@ public class SingleProductActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long count = 0;
                 String likcount;
-                if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
+                if (dataSnapshot.child(post_key).hasChild(mCurrentUser.getUid())) {
                     count = dataSnapshot.child(post_key).getChildrenCount();
                     if(count == 1){likcount =Long.toString(count)+" Like";  like_count.setText(likcount);}
                     else if (count > 1){likcount =Long.toString(count)+" Likes";  like_count.setText(likcount);}
-//                    wish_button.setImageResource(R.drawable.ic_yes_heart_colored);
+                    wish_button.setImageResource(R.drawable.ic_yes_heart_colored);
+                    fav_view.setBackground(getResources().getDrawable(R.drawable.ic_yes_heart_colored));
                 } else {
                     count = dataSnapshot.child(post_key).getChildrenCount();
                     if(count == 1){likcount =Long.toString(count)+" Like";  like_count.setText(likcount);}
                     else if (count > 1 || count == 0){likcount =Long.toString(count)+" Likes";  like_count.setText(likcount);}
-//                    wish_button.setImageResource(R.drawable.ic_no_heart_gray);
+                    wish_button.setImageResource(R.drawable.ic_no_heart_gray);
+                    fav_view.setBackground(getResources().getDrawable(R.drawable.ic_no_heart_gray));
+                    wish_button.setBtnColor(R.color.greyColor);
                 }
             }
 
@@ -168,48 +196,67 @@ public class SingleProductActivity extends AppCompatActivity {
 //                UserListingActivity.startActivity(SingleProductActivity.this,
 //                        Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                mDatabase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        Intent chat = new Intent(SingleProductActivity.this,ChatActivity.class);
-                        uid = dataSnapshot.child(post_key).child("uid").getValue(String.class);
-//                        chat.putExtra("shopuid",uid);
-//                        startActivity(chat);
-                        try{Log.d("puid",uid);}catch(Exception e){e.printStackTrace();}
+//            FirebaseDatabase.getInstance().getReference().child("Product").addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+////                        Intent chat = new Intent(SingleProductActivity.this,ChatActivity.class);
+//                        uid = (String) dataSnapshot.child(post_key).child("uid").getValue().toString();
+////                        chat.putExtra("shopuid",uid);
+////                        startActivity(chat);
+//                        Log.d("puid",uid);
+//                        try{Log.d("puid",uid);}catch(Exception e){e.printStackTrace();Log.d("puid","ITS NULL");}
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {}});
+            readData(new MyCallback() {
+                @Override
+                public void onCallback(String value) {
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(value).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    }
+                            chat_email = dataSnapshot.child("email").getValue(String.class);
+                            chat_uid = dataSnapshot.child("uid").getValue(String.class);
+                            chat_tok = dataSnapshot.child("firebaseToken").getValue(String.class);
+                            //Log.d("chat_email",chat_email);
+                            ChatActivity.startActivity(SingleProductActivity.this,
+                                    chat_email,
+                                    chat_uid,
+                                    chat_tok);
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        }
 
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
 
                 }
-                );
-                FirebaseDatabase.getInstance().getReference().child("Users").child(uid).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        chat_email = dataSnapshot.child("email").getValue(String.class);
-                        chat_uid = dataSnapshot.child("uid").getValue(String.class);
-                        chat_tok = dataSnapshot.child("firebaseToken").getValue(String.class);
-                        //Log.d("chat_email",chat_email);
-                        ChatActivity.startActivity(SingleProductActivity.this,
-                                chat_email,
-                                chat_uid,
-                                chat_tok);
+                @Override
+                public void onCallbackEmailName(String name, String email) {
 
-                    }
+                }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCallbackProduct(ArrayList<Product> al) {
 
-                    }
-                });
+                }
 
+                @Override
+                public void onCallbackSaleHistory(String date, String description, String name, String price, String quantity, String buyerName, String buyerEmail) {
 
-            }
-        });
+                }
+
+            });
+                }
+            });
+
         plus_btn.setVisibility(View.INVISIBLE);
         minus_btn.setVisibility(View.INVISIBLE);
         deleteBtn.setVisibility(View.INVISIBLE);
@@ -236,7 +283,6 @@ public class SingleProductActivity extends AppCompatActivity {
                     String pquan = (String) dataSnapshot.child("quantity").getValue();
                     product_price = product_price.replaceAll("[-+.^:,]", "");
                     String post_uid = (String) dataSnapshot.child("uid").getValue();
-
                     pquantity = Integer.parseInt(pquan);
                     quantity.setText(pquan);
                     singleTitle.setText(post_title);
@@ -254,6 +300,21 @@ public class SingleProductActivity extends AppCompatActivity {
                     }
                 }catch(Exception e){e.printStackTrace();;}
             }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void readData(final MyCallback mc){
+        FirebaseDatabase.getInstance().getReference().child("Product").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String uid = (String) dataSnapshot.child(post_key).child("uid").getValue().toString();
+                mc.onCallback(uid);
+            }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

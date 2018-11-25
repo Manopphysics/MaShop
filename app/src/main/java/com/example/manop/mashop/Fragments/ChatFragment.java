@@ -55,6 +55,7 @@ public class ChatFragment extends Fragment implements ChatContract.View, TextVie
 
     private ChatPresenter mChatPresenter;
     private String RUID = "";
+    private String REMAIL = "";
 
     public static ChatFragment newInstance(String receiver,
                                            String receiverUid,
@@ -128,6 +129,7 @@ public class ChatFragment extends Fragment implements ChatContract.View, TextVie
         String receiverUid = getArguments().getString(Constants.ARG_RECEIVER_UID);
         RUID = receiverUid;
         String sender = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        REMAIL = sender;
         String senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String receiverFirebaseToken = getArguments().getString(Constants.ARG_FIREBASE_TOKEN);
 
@@ -145,6 +147,7 @@ public class ChatFragment extends Fragment implements ChatContract.View, TextVie
                         public void onClick(DialogInterface dialog, int which) {
                             Intent order = new Intent(getActivity(), PlaceNewOrderList.class);
                             order.putExtra("RUID",RUID.toString());
+                            order.putExtra("senderEmail",REMAIL.toString());
                             Log.d("ruid",RUID.toString());
                             getActivity().startActivity(order);
                         }

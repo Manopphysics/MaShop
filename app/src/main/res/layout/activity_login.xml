@@ -11,7 +11,7 @@
 
     <EditText
         android:id="@+id/loginemailfield"
-        android:drawableLeft="@drawable/ic_email_black_24dp"
+        android:drawableLeft="@drawable/ic_email_white_24dp"
         android:drawablePadding="20dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -26,7 +26,7 @@
 
     <EditText
         android:id="@+id/loginpasswordfield"
-        android:drawableLeft="@drawable/ic_security_black_24dp"
+        android:drawableLeft="@drawable/ic_security_green_24dp"
         android:drawablePadding="20dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -49,8 +49,7 @@
         android:layout_below="@+id/loginpasswordfield"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:background="@drawable/input_outline2"
-        android:text="@string/login"
+        android:text="LOGIN"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -74,16 +73,17 @@
 
 
         <!--<ImageView-->
-            <!--android:id="@+id/google_sign_in"-->
-            <!--android:layout_width="160dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:layout_marginLeft="5dp"-->
-            <!--android:text="Text"-->
-            <!--android:background="@drawable/google_signin"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:layout_margin="10dp"-->
-            <!--android:textSize="18sp" />-->
+        <!--android:id="@+id/google_sign_in"-->
+        <!--android:layout_width="160dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:text="Text"-->
+        <!--android:background="@drawable/google_signin"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:textSize="18sp" />-->
         <com.google.android.gms.common.SignInButton
+            android:visibility="gone"
             android:id="@+id/google_sign_in"
             android:layout_width="200dp"
             android:layout_height="50dp"

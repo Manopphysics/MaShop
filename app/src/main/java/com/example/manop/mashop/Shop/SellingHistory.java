@@ -3,25 +3,22 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.manop.mashop.Function.Email;
+import com.example.manop.mashop.Function.MyCallback;
 import com.example.manop.mashop.Function.SaleHistory;
 import com.example.manop.mashop.R;
 
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -39,23 +36,22 @@ import com.example.manop.mashop.Product.SingleProductActivity;
 import com.example.manop.mashop.R;
 import com.example.manop.mashop.Startup.MainActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -79,10 +75,18 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SellingHistory extends AppCompatActivity {
     private File pdfFile;
@@ -94,7 +98,7 @@ public class SellingHistory extends AppCompatActivity {
     private RecyclerView mResultList;
 
     private DatabaseReference mUserDatabase;
-
+    Bitmap graphbmp = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +127,18 @@ public class SellingHistory extends AppCompatActivity {
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
         mResultList.addItemDecoration(itemDecoration);
         sellingHistoryList();
+
+        //===========
+
+        String filename = getIntent().getStringExtra("image");
+        try {
+            FileInputStream is = this.openFileInput(filename);
+            graphbmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //===========
 
     }
 
@@ -181,7 +197,7 @@ public class SellingHistory extends AppCompatActivity {
         }
 
         public void setPrice(String price) {
-            history_product_price.setText(price);
+            history_product_price.setText("฿"+price);
         }
 
         public void setName(String title) {
@@ -197,7 +213,7 @@ public class SellingHistory extends AppCompatActivity {
         }
 
         public void setTotalPrice(String tp){
-            history_total_price.setText(tp);
+            history_total_price.setText("฿"+tp);
         }
 
         public void setImage(final Context ctx, final String IMAGE) {
@@ -277,60 +293,67 @@ public class SellingHistory extends AppCompatActivity {
 
     private void createPdf() throws IOException, DocumentException {
 
+
+
         File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Documents");
         if (!docsFolder.exists()) {
             docsFolder.mkdir();
             Log.i("SellingHistory", "Created a new directory for PDF");
         }
-
-        pdfFile = new File(docsFolder.getAbsolutePath(), "NotSure.pdf");
-        OutputStream output = new FileOutputStream(pdfFile);
+        String time = new SimpleDateFormat("dd MM yyyy HH mm ss").format(new Date());
+        pdfFile = new File(docsFolder.getAbsolutePath(), "Sales History "+time+".pdf");
+        final OutputStream output = new FileOutputStream(pdfFile);
 //        Document document = new Document();
 //        PdfWriter.getInstance(document, output);
 //        document.open();
 //        document.add(new Paragraph("TEST BY MANOP"));
 //
 //        document.close();
-        String ShopName = "ShopName";
-        String ShopAddress = "Shop Address";
-        String PhoneNumber = "0854095477";
 //        ArrayList<SaleHistory> saleHistoryList = new ArrayList<SaleHistory>();
 //        saleHistoryList.add(new SaleHistory("Pen", 1, 20));
 //        saleHistoryList.add(new SaleHistory("Pencil", 2, 10));
-        ArrayList<Product> productList = new ArrayList<Product>();
-        productList.add(new Product("Pen","it writes","it a image","UIDxxxxx","50","5"));
-        productList.add(new Product("Pencil","it writes pencil","it a image","UIDxxxxx","5","7"));
-        productList.add(new Product("notebook","it writes and reads","it a image","UIDxxxxx","20","2"));
-        productList.add(new Product("Candy","it sweet","it a image","UIDxxxxx","2","30"));
-        productList.add(new Product("A4 paper","it cool","it a image","UIDxxxxx","1.5","50"));
-        double vat = 0.07;
-        String SellerName = "Seller Name";
-        generateSalesHistoryPdf(productList,vat,output);
+        final ArrayList<Product> productList = new ArrayList<Product>();
+        readData(new MyCallback() {
+            @Override
+            public void onCallback(String value) {
+            }
+
+            @Override
+            public void onCallbackEmailName(String name, String email) {
+
+            }
+
+            @Override
+            public void onCallbackProduct(ArrayList<Product> al) {
+
+                double vat = 0.07;
+                generateSalesHistoryPdf(al,vat,output);
+
+            }
+
+            @Override
+            public void onCallbackSaleHistory(String date, String description, String name, String price, String quantity, String buyerName, String buyerEmail) {
+
+            }
+
+        });
+
         previewPdf();
+
 
     }
     private void generateSalesHistoryPdf(ArrayList<Product> productList, double vat, OutputStream output ){
         Document document = new Document();
 
-//        Chunk shopName = new Chunk("\t" + ShopName + "\n", new Font(Font.FontFamily.TIMES_ROMAN, 18));
-//        Chunk shopAddress = new Chunk("\t" + ShopAddress + "\n", new Font(Font.FontFamily.TIMES_ROMAN, 12));
-//        Chunk phoneNumber = new Chunk("\t" + PhoneNumber + "\n\n", new Font(Font.FontFamily.TIMES_ROMAN, 12));
-
-//        Paragraph parHeadder = new Paragraph();
-//        parHeadder.add(shopName);
-//        parHeadder.add(shopAddress);
-//        parHeadder.add(phoneNumber);
-//        parHeadder.setAlignment(Element.ALIGN_CENTER);
 
         Paragraph space = new Paragraph("\n");
 
         PdfPTable headder = new PdfPTable(new float[]{1, 4});
-//        headder.addCell(parHeadder);
 
         Paragraph purchaseOrder = new Paragraph("Sales History\n", new Font(Font.FontFamily.TIMES_ROMAN, 15));
         purchaseOrder.setAlignment(Element.ALIGN_RIGHT);
-
-        Chunk date = new Chunk("\tDate: " + "1/1/2001" + "\n", new Font(Font.FontFamily.TIMES_ROMAN, 10));
+        String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH.mm").format(new Date());
+        Chunk date = new Chunk("\tDate: " + timeStamp + "\n", new Font(Font.FontFamily.TIMES_ROMAN, 10));
         Chunk no = new Chunk("\tPO Number. _______________\n\n", new Font(Font.FontFamily.TIMES_ROMAN, 10));
         Paragraph dateAndNo = new Paragraph();
         dateAndNo.setAlignment(Element.ALIGN_RIGHT);
@@ -347,11 +370,11 @@ public class SellingHistory extends AppCompatActivity {
         PdfPTable table = new PdfPTable(new float[]{2, 4, 8, 3, 4});
         table.setWidthPercentage(105);
         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell("ITEM");
-        table.addCell("PRODUCT NAME");
-        table.addCell("QUANTITY");
-        table.addCell("UNIT PRICE");
-        table.addCell("PRICE");
+        table.addCell("Order Number");
+        table.addCell("Product Name");
+        table.addCell("Quantity");
+        table.addCell("Unit Price");
+        table.addCell("Total Price");
         table.setHeaderRows(1);
         PdfPCell[] cells = table.getRow(0).getCells();
         for (int j = 0; j < cells.length; j++) {
@@ -416,7 +439,19 @@ public class SellingHistory extends AppCompatActivity {
         try {
             PdfWriter.getInstance(document, output);
             document.open();
-
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            graphbmp.compress(Bitmap.CompressFormat.PNG, 100 , stream);
+            Image myImg = null;
+            try {
+                myImg = Image.getInstance(stream.toByteArray());
+            } catch (BadElementException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            myImg.setAlignment(Image.LEFT);
+            myImg.scaleAbsolute(150,150);
+            document.add(myImg);
             document.add(headder);
             document.add(space);
             document.add(headder2);
@@ -427,8 +462,9 @@ public class SellingHistory extends AppCompatActivity {
         } catch (DocumentException e) {
             e.printStackTrace();
         }
-
-        document.close();
+        try {
+            document.close();
+        }catch(Exception e){e.printStackTrace();}
     }
     private void previewPdf() {
 
@@ -450,6 +486,24 @@ public class SellingHistory extends AppCompatActivity {
         }else{
             Toast.makeText(this,"Download a PDF Viewer to see the generated PDF",Toast.LENGTH_SHORT).show();
         }
+    }
+    public void readData(final MyCallback mc){
+        FirebaseDatabase.getInstance().getReference().child("Shop").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("sell_history").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Product> al = new ArrayList<Product>();
+                for(DataSnapshot ds: dataSnapshot.getChildren()) {
+                    al.add(ds.getValue(Product.class));
+                }
+                mc.onCallbackProduct(al);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

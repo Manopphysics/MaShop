@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.manop.mashop.Startup.MainActivity;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AlertDialog;
@@ -100,6 +102,12 @@ public class UserListingActivity extends AppCompatActivity implements LogoutCont
                     }
                 })
                 .show();
+    }
+    @Override
+    public void onBackPressed(){
+        Intent main = new Intent(UserListingActivity.this, MainActivity.class);
+        main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(main);
     }
 
     @Override

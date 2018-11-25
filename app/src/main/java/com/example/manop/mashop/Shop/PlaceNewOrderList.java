@@ -42,7 +42,7 @@ public class PlaceNewOrderList extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
     private boolean mProcessLike = false;
     private Context context;
-    private String RUID;
+    private String RUID,REMAIL;
 
 
     @Override
@@ -55,6 +55,7 @@ public class PlaceNewOrderList extends AppCompatActivity {
         productList();
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
         RUID = getIntent().getExtras().getString("RUID");
+        REMAIL = getIntent().getExtras().getString("senderEmail");
     }
 
     @Override
@@ -109,6 +110,7 @@ public class PlaceNewOrderList extends AppCompatActivity {
                         Intent singleActivity = new Intent(PlaceNewOrderList.this,PlaceNewOrder.class);
                         singleActivity.putExtra("PostID", post_key);
                         singleActivity.putExtra("RUID",RUID);
+                        singleActivity.putExtra("senderEmail",RUID);
                         startActivity(singleActivity);
                     }
                 });

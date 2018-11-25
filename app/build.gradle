@@ -95,6 +95,7 @@ dependencies {
     implementation 'com.sackcentury:shinebutton:0.2.0'
     implementation 'com.an.customfontview:customfont:0.1.0'
 //    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
 }
 apply plugin: 'com.google.gms.google-services'
 
