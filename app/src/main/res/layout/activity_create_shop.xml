@@ -4,137 +4,188 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="#757575"
     tools:context="com.example.manop.mashop.Shop.CreateShop"
-    tools:layout_editor_absoluteY="81dp">
-    <androidx.cardview.widget.CardView
-        android:id="@+id/img_card"
+    tools:layout_editor_absoluteY="81dp"
+    android:clipChildren="false">
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/account_card"
-        android:layout_alignStart="@id/account_card"
-        android:layout_alignEnd="@id/account_card"
-        android:layout_marginBottom="@dimen/padding_large"
-
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="false">
-
-
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:background="@color/bg_activity_detail"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_large">
-            <com.an.customfontview.CustomTextView
+            android:layout_height="match_parent">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/img_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose your Shop Picture"
-                android:textColor="@color/black"
-                android:textSize="@dimen/font_xlarge"
-                android:textStyle="bold"/>
-            <ImageButton
-                android:id="@+id/shopImagebtn"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/ic_upload_pic"
-                android:scaleType="centerCrop" />
-        </LinearLayout>
+                android:layout_below="@id/account_card"
+                android:layout_alignStart="@id/account_card"
+                android:layout_alignEnd="@id/account_card"
+                android:layout_marginBottom="@dimen/padding_large"
 
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/account_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="@dimen/padding_large"
-        android:layout_marginStart="@dimen/padding_large"
-        android:layout_marginBottom="@dimen/padding_large"
-        android:layout_marginEnd="@dimen/padding_large"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="false">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_large">
-
-            <!--<Textview-->
-                <!--android:id="@+id/textView2"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Shop Account" />-->
-            <com.an.customfontview.CustomTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Account"
-                android:textColor="@color/black"
-                android:textSize="@dimen/font_xlarge"
-                android:textStyle="bold"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/shopname"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Shop Name" />
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="0dp"
+                app:cardPreventCornerOverlap="false">
 
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/shopdesc"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Shop Description"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_large">
+                    <com.an.customfontview.CustomTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Choose your Shop Picture"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_xlarge"
+                        android:textStyle="bold"/>
+                    <ImageButton
+                        android:id="@+id/shopImagebtn"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/ic_upload_pic"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView3"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="51dp"-->
-                <!--android:text="Shop Description" />-->
+            </androidx.cardview.widget.CardView>
 
-
-
-            <!--<TextView-->
-                <!--android:id="@+id/textView5"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Phone Number" />-->
-
-            <EditText
-                android:id="@+id/phonenum"
-                android:layout_width="200dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/account_card"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Phone number" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="@dimen/padding_large"
+                android:layout_marginStart="@dimen/padding_large"
+                android:layout_marginBottom="@dimen/padding_large"
+                android:layout_marginEnd="@dimen/padding_large"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="0dp"
+                app:cardPreventCornerOverlap="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_large">
+
+                    <!--<Textview-->
+                        <!--android:id="@+id/textView2"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Shop Account" />-->
+                    <com.an.customfontview.CustomTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fill your Shop Info"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_xlarge"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/padding_medium"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:layout_marginBottom="@dimen/padding_small">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/shopname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Shop Name" />
 
 
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:passwordToggleEnabled="true"
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:layout_marginBottom="@dimen/padding_small">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/shopdesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Shop Description" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/textView3"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="51dp"-->
+                        <!--android:text="Shop Description" />-->
+
+
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/textView5"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Phone Number" />-->
+
+                    <!--<EditText-->
+                        <!--android:id="@+id/phonenum"-->
+                        <!--android:layout_width="200dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:hint="Phone number" />-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:passwordToggleEnabled="true"
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:layout_marginBottom="@dimen/padding_small">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/phonenum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Phone number"
+                            android:inputType="phone"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+    android:id="@+id/buttonGroup"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:weightSum="3"
+    android:orientation="horizontal"
+    android:background="@color/white">
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancel_action_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:text="Cancel"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/padding_small"
+        android:layout_marginEnd="@dimen/padding_small"/>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_profile"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         style="@style/Widget.MaterialComponents.Button"
-        android:text="Save Profile" />
-
+        android:text="Save Shop Profile"
+        android:layout_weight="2"
+        android:layout_marginEnd="@dimen/padding_small"/>
+</LinearLayout>
 
 </RelativeLayout>
