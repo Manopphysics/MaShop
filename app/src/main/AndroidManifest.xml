@@ -59,13 +59,15 @@
 
         <activity android:name=".Startup.RegisterActivity" />
         <activity android:name=".Startup.SetupActivity" />
-        <activity android:name=".Shop.CreateShop" />
+        <activity android:name=".Shop.CreateShop"
+            android:label="Create Shop"/>
         <activity
             android:name=".Shop.Shop"
             android:label="@string/title_activity_shop" />
         <activity android:name=".Product.AddProduct" />
         <activity android:name=".Product.MyProducts" />
-        <activity android:name=".Product.SingleProductActivity" />
+        <activity android:name=".Product.SingleProductActivity"
+            android:theme="@style/AppTheme.Transparent"/>
         <activity android:name=".Function.SearchActivity" />
         <activity
             android:name=".Chat.ChatActivity"
@@ -78,7 +80,9 @@
         <activity android:name=".Shop.ShopListActivity" />
         <activity android:name=".Shop.PlaceNewOrder" />
         <activity android:name=".Shop.PlaceNewOrderList" />
-        <activity android:name=".Shop.ShopStatistics"></activity>
+        <activity android:name=".Shop.ShopStatistics"/>
+        <activity android:name=".Shop.SellingHistory">
+        </activity>
     </application>
 
 </manifest>
