@@ -110,6 +110,7 @@ public class ShopStatistics extends Activity {
         FirebaseDatabase.getInstance().getReference().child("Shop").child(FirebaseAuth.getInstance().getCurrentUser()
                     .getUid()).child("sell_history").addValueEventListener(new ValueEventListener() {
                         int c  = 1;
+                        int mdp = 10;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds: dataSnapshot.getChildren()) {
@@ -120,7 +121,8 @@ public class ShopStatistics extends Activity {
                         xList.add(x);
                         c++;
                         Log.d("Statis", Double.toString(x) + " : " + Double.toString(y));
-                        addEntry(x, y);
+                        if(c>= mdp) mdp *= 2;
+                        addEntry(x, y,mdp);
                         //        viewport.setYAxisBoundsManual(true);
                         viewport.setMaxY(Collections.max(yList) + 3);
                         viewport.setMaxX(Collections.max(xList) + 1);
@@ -153,9 +155,9 @@ public class ShopStatistics extends Activity {
 
 
     // add random data to graph
-    private void addEntry(int x, int y) {
+    private void addEntry(int x, int y, int mdp) {
         // here, we choose to display max 10 points on the viewport and we scroll to end
-        series.appendData(new DataPoint(x, y),false,10);
+        series.appendData(new DataPoint(x, y),false,mdp);
     }
 
 }

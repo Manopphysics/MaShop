@@ -170,21 +170,7 @@ public class SingleProductActivity extends AppCompatActivity {
                         uid = dataSnapshot.child(post_key).child("uid").getValue(String.class);
 //                        chat.putExtra("shopuid",uid);
 //                        startActivity(chat);
-                        mShop.child(uid).child("user").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                        chat_email = dataSnapshot.child("email").getValue(String.class);
-                                        chat_uid = dataSnapshot.child("uid").getValue(String.class);
-                                        chat_tok = dataSnapshot.child("firebaseToken").getValue(String.class);
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
+                        try{Log.d("puid",uid);}catch(Exception e){e.printStackTrace();}
 
                     }
 
@@ -195,11 +181,29 @@ public class SingleProductActivity extends AppCompatActivity {
 
                 }
                 );
+                FirebaseDatabase.getInstance().getReference().child("Users").child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                ChatActivity.startActivity(SingleProductActivity.this,
-                        chat_email,
-                        chat_uid,
-                        chat_tok);}
+                        chat_email = dataSnapshot.child("email").getValue(String.class);
+                        chat_uid = dataSnapshot.child("uid").getValue(String.class);
+                        chat_tok = dataSnapshot.child("firebaseToken").getValue(String.class);
+                        //Log.d("chat_email",chat_email);
+                        ChatActivity.startActivity(SingleProductActivity.this,
+                                chat_email,
+                                chat_uid,
+                                chat_tok);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+            }
         });
         plus_btn.setVisibility(View.INVISIBLE);
         minus_btn.setVisibility(View.INVISIBLE);

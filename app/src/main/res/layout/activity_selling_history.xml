@@ -14,6 +14,7 @@
         android:fontFamily="@font/nunito_semibold"
         android:textColor="@color/black"
         android:textSize="15dp"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/result_list"
         android:background="#dedede"
@@ -21,8 +22,17 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/search_field"
         android:padding="@dimen/item_offset"
-        android:layout_marginTop="27dp"/>
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="50dp"/>
 
+    <Button
+        android:id="@+id/generate_sales_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_bg"
+        android:text=" Generate Sales History Summary " />
 
 
 </RelativeLayout>

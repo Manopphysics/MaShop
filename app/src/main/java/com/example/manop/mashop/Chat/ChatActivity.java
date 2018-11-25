@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import com.example.manop.mashop.Fragments.ChatFragment;
 import com.example.manop.mashop.MyApplication;
 import com.example.manop.mashop.R;
+import com.example.manop.mashop.Startup.MainActivity;
 import com.example.manop.mashop.Utils.Constants;
 
 public class ChatActivity extends AppCompatActivity {
@@ -65,5 +66,12 @@ public class ChatActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         MyApplication.setChatActivityOpen(false);
+    }
+
+    @Override
+    public  void onBackPressed(){
+        Intent main = new Intent(ChatActivity.this, MainActivity.class);
+        main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK );
+        startActivity(main);
     }
 }

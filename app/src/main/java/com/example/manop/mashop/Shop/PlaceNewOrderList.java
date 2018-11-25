@@ -103,6 +103,7 @@ public class PlaceNewOrderList extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
     private boolean mProcessLike = false;
     private Context context;
+    private String RUID;
 
 
     @Override
@@ -114,6 +115,7 @@ public class PlaceNewOrderList extends AppCompatActivity {
         firebaseInit();
         productList();
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+        RUID = getIntent().getExtras().getString("RUID");
     }
 
     @Override
@@ -167,6 +169,7 @@ public class PlaceNewOrderList extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent singleActivity = new Intent(PlaceNewOrderList.this,PlaceNewOrder.class);
                         singleActivity.putExtra("PostID", post_key);
+                        singleActivity.putExtra("RUID",RUID);
                         startActivity(singleActivity);
                     }
                 });

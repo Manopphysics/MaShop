@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,7 @@ public class ChatFragment extends Fragment implements ChatContract.View, TextVie
     private ChatRecyclerAdapter mChatRecyclerAdapter;
 
     private ChatPresenter mChatPresenter;
+    private String RUID = "";
 
     public static ChatFragment newInstance(String receiver,
                                            String receiverUid,
@@ -124,6 +126,7 @@ public class ChatFragment extends Fragment implements ChatContract.View, TextVie
         String message = mETxtMessage.getText().toString();
         String receiver = getArguments().getString(Constants.ARG_RECEIVER);
         String receiverUid = getArguments().getString(Constants.ARG_RECEIVER_UID);
+        RUID = receiverUid;
         String sender = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         String senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String receiverFirebaseToken = getArguments().getString(Constants.ARG_FIREBASE_TOKEN);
@@ -141,7 +144,9 @@ public class ChatFragment extends Fragment implements ChatContract.View, TextVie
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent order = new Intent(getActivity(), PlaceNewOrderList.class);
-                            startActivity(order);
+                            order.putExtra("RUID",RUID.toString());
+                            Log.d("ruid",RUID.toString());
+                            getActivity().startActivity(order);
                         }
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
