@@ -57,31 +57,38 @@
         <!--android:name="android.support.PARENT_ACTIVITY"-->
         <!--android:value="com.example.manop.mashop.Startup.MainActivity"-->
 
-        <activity android:name=".Startup.RegisterActivity" />
-        <activity android:name=".Startup.SetupActivity" />
+        <activity android:name=".Startup.RegisterActivity"
+            android:label="Create a Buyer Account"/>
+        <activity android:name=".Startup.SetupActivity"
+            android:label="One more step..."/>
         <activity android:name=".Shop.CreateShop"
             android:label="Create a Shop Account"/>
         <activity
             android:name=".Shop.Shop"
             android:label="@string/title_activity_shop" />
-        <activity android:name=".Product.AddProduct" />
+        <activity android:name=".Product.AddProduct"
+            android:label="Let's add your product"/>
         <activity android:name=".Product.MyProducts" />
         <activity android:name=".Product.SingleProductActivity"
             android:theme="@style/AppTheme.NoActionBarTransparent"/>
         <activity android:name=".Function.SearchActivity" />
         <activity
             android:name=".Chat.ChatActivity"
+            android:label="Chat User"
             android:theme="@style/AppTheme.PrimaryColorStatusBar" />
         <activity
             android:name=".Chat.UserListingActivity"
-            android:theme="@style/AppTheme.NoActionBarTransparent" />
+            android:label="Chat Member"
+            android:theme="@style/AppTheme.PrimaryColorStatusBar" />
         <activity android:name=".Function.AccountSettings" />
         <!--<activity android:name=".Function.MapsActivity" />-->
         <activity android:name=".Shop.ShopListActivity" />
         <activity android:name=".Shop.PlaceNewOrder" />
         <activity android:name=".Shop.PlaceNewOrderList" />
-        <activity android:name=".Shop.ShopStatistics"/>
-        <activity android:name=".Shop.SellingHistory">
+        <activity android:name=".Shop.ShopStatistics"
+            android:label=""/>
+        <activity android:name=".Shop.SellingHistory"
+            android:label="Selling History">
         </activity>
     </application>
 

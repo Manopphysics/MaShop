@@ -58,7 +58,7 @@ public class SingleProductActivity extends AppCompatActivity {
 
         plus_btn = (Button) findViewById(R.id.plus_btn);
         minus_btn = (Button) findViewById(R.id.minus_btn);
-        quantity = (TextView) findViewById(R.id.quantity_tv);
+        quantity = (TextView) findViewById(R.id.product_quantity);
         singleImage = (ImageView)findViewById(R.id.singleImageview);
         singleTitle = (CustomTextView)findViewById(R.id.singleTitle);
         singleDesc = (CustomTextView) findViewById(R.id.singleShortDesc);
@@ -242,7 +242,7 @@ public class SingleProductActivity extends AppCompatActivity {
                         minus_btn.setVisibility(View.VISIBLE);
                         quantity.setEnabled(true);
                     }
-                }catch(Exception e){e.printStackTrace();;}
+                }catch(Exception e){e.printStackTrace();}
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

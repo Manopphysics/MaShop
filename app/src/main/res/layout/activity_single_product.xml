@@ -395,12 +395,13 @@
                         android:paddingEnd="@dimen/margin_xlarge"
                         android:paddingBottom="@dimen/margin_large"
                         android:text="Detail"
-                        android:maxLines="5"
+
                         android:textColor="@color/text_desc_activity_detail"
                         android:textSize="@dimen/font_medium"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/DescTitle"
                         app:textFontPath="fonts/gt_medium.otf"/>
+                    <!--android:maxLines="5"-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -411,7 +412,6 @@
                 android:layout_height="148dp"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/padding"
-                android:layout_marginBottom="@dimen/activity_detail_detail_card_margin_top"
                 app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="0dp"
@@ -423,7 +423,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/margin_large"
                     android:layout_marginRight="@dimen/margin_large"
-                    android:paddingTop="@dimen/padding_large">
+                    android:paddingTop="@dimen/padding_large"
+                    android:paddingBottom="@dimen/padding_large">
 
                     <com.an.customfontview.CustomTextView
                         android:id="@+id/seller_title"
@@ -435,16 +436,18 @@
                         android:textSize="@dimen/font_large"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:textFontPath="fonts/gt_medium.otf" />
 
                     <com.an.customfontview.CustomTextView
                         android:id="@+id/quantity_title"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="@dimen/padding_small"
                         android:text="Set Quantity"
                         android:textSize="@dimen/font_medium_large"
                         android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@id/minus_btn"
                         app:layout_constraintTop_toBottomOf="@id/seller_title"
                         app:textFontPath="fonts/gt_medium.otf" />
 
@@ -455,13 +458,13 @@
                         android:background="@color/transparent"
                         android:text="-"
                         android:textSize="@dimen/font_medium"
-                        app:layout_constraintEnd_toStartOf="@id/quantity_tv"
+                        app:layout_constraintEnd_toStartOf="@id/product_quantity"
                         app:layout_constraintHorizontal_chainStyle="packed"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/quantity_title" />
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/quantity_tv"
+                        android:id="@+id/product_quantity"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -471,7 +474,7 @@
                         app:layout_constraintHorizontal_chainStyle="packed"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/quantity_title" /><!--app:layout_constraintStart_toEndOf="@id/minus_btn"-->
-                    <!--app:layout_constraintEnd_toStartOf="@id/plus_btn"-->
+                    <!--app:layout_constraintEnd_toEndOf="@id/plus_btn"-->
                     <Button
                         android:id="@+id/plus_btn"
                         android:layout_width="wrap_content"
@@ -481,7 +484,7 @@
                         android:textSize="@dimen/font_medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toEndOf="@id/quantity_tv"
+                        app:layout_constraintStart_toEndOf="@id/product_quantity"
                         app:layout_constraintTop_toBottomOf="@id/quantity_title" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -549,7 +552,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Store"/>
+            android:text="Store"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_marginStart="@dimen/padding_small"
+            android:layout_marginEnd="@dimen/padding_small"/>
         <Button
             android:id="@+id/chat_button"
             android:layout_width="wrap_content"
@@ -557,7 +563,9 @@
             android:layout_weight="2"
             android:background="@color/colorPrimary"
             android:drawableStart="@drawable/ic_chat_black_24dp"
-            android:text="Chat" />
+            android:text="Chat"
+            android:layout_marginStart="@dimen/padding_small"
+            android:layout_marginEnd="@dimen/padding_small"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/sellerButtonGroup"
@@ -578,7 +586,9 @@
         android:text="Delete product"
         android:textColor="#fff"
         android:textStyle="bold"
-        android:layout_weight="3"/>
+        android:layout_weight="3"
+        android:layout_marginStart="@dimen/padding_small"
+        android:layout_marginEnd="@dimen/padding_small"/>
     </LinearLayout>
 
 </RelativeLayout>
