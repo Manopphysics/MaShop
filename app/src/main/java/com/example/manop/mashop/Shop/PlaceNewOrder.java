@@ -26,10 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.example.manop.mashop.Chat.ChatActivity;
 
-import java.text.FieldPosition;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 public class PlaceNewOrder extends AppCompatActivity {
 
@@ -50,13 +46,11 @@ public class PlaceNewOrder extends AppCompatActivity {
     private String chat_email;
     private String chat_uid;
     private String chat_tok;
-    String receiverUID = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_new_order);
-
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -74,8 +68,6 @@ public class PlaceNewOrder extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Product");
         mShop = FirebaseDatabase.getInstance().getReference().child("Shop");
         post_key = getIntent().getExtras().getString("PostID");
-        receiverUID = getIntent().getExtras().getString("RUID");
-        try{Log.d("rruid",receiverUID);}catch (Exception e){e.printStackTrace();Log.d("rruid","RUID is null");}
         mAuth = FirebaseAuth.getInstance();
 
         plus_btn.setOnClickListener(new View.OnClickListener() {
@@ -188,21 +180,13 @@ public class PlaceNewOrder extends AppCompatActivity {
                 final DatabaseReference sellHistory =
                 FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid())
                         .child("sell_history").push();
-
-                //sellHistory.child("total_price").setValue(Integer.parseInt(product.getPrice()) * Integer.parseInt(product.getQuantity()));
-
-                FirebaseDatabase.getInstance().getReference().child("Users")
-                        .addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("Shop").child(mAuth.getCurrentUser().getUid())
+                        .child("sell_history").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         sellHistory.setValue(product);
-                        StringBuffer stringBuffer = new StringBuffer();
-                        Date now = new Date();
-
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                        simpleDateFormat.format(now, stringBuffer, new FieldPosition(0));
-                        sellHistory.child("date").setValue(now);
-                        }
+                        sellHistory.child("total_price").setValue(Integer.parseInt(product.getPrice()) * Integer.parseInt(product.getQuantity()));
+                    }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -218,16 +202,12 @@ public class PlaceNewOrder extends AppCompatActivity {
                          @Override
                          public void onDataChange(DataSnapshot dataSnapshot) {
                              uid = dataSnapshot.child(post_key).child("uid").getValue(String.class);
-                             FirebaseDatabase.getInstance().getReference().child("Users").child(receiverUID).addValueEventListener(new ValueEventListener() {
+                             mShop.child(uid).child("user").addValueEventListener(new ValueEventListener() {
                                  @Override
                                  public void onDataChange(DataSnapshot dataSnapshot) {
                                      chat_email = dataSnapshot.child("email").getValue(String.class);
                                      chat_uid = dataSnapshot.child("uid").getValue(String.class);
                                      chat_tok = dataSnapshot.child("firebaseToken").getValue(String.class);
-                                     ChatActivity.startActivity(PlaceNewOrder.this,
-                                             chat_email,
-                                             chat_uid,
-                                             chat_tok);
                                  }
                                  @Override
                                  public void onCancelled(DatabaseError databaseError) {}
@@ -235,7 +215,10 @@ public class PlaceNewOrder extends AppCompatActivity {
                          @Override
                          public void onCancelled(DatabaseError databaseError) {}});
 
-
+                ChatActivity.startActivity(PlaceNewOrder.this,
+                        chat_email,
+                        chat_uid,
+                        chat_tok);
             }});
 
 

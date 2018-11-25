@@ -2,20 +2,15 @@ package com.example.manop.mashop.Shop;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.manop.mashop.Adapter.PagerAdapter;
 import com.example.manop.mashop.Product.AddProduct;
 import com.example.manop.mashop.Product.MyProducts;
 import com.example.manop.mashop.R;
@@ -56,7 +51,7 @@ public class Shop extends AppCompatActivity {
                 try {
                     shopname.setText(dataSnapshot.child("name").getValue(String.class));
                     shopdesc.setText(dataSnapshot.child("description").getValue(String.class));
-                    Picasso.with(Shop.this).load(dataSnapshot.child("image").getValue().toString()).into(shopImage);
+                    Picasso.get().load(dataSnapshot.child("image").getValue().toString()).into(shopImage);
                 }catch(Exception e){e.printStackTrace();}
             }
 

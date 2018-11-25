@@ -4,14 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.manop.mashop.R;
@@ -25,7 +24,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -47,14 +45,13 @@ import com.google.firebase.database.ValueEventListener;
 //import com.twitter.sdk.android.core.TwitterSession;
 //import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
-import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,
+        GoogleApiClient.OnConnectionFailedListener {
 
     private EditText mLoginEmailField;
     private EditText mLoginPasswordField;
-    private Button mNewAccount;
-    private Button mLoginButton;
+    private Button mNewAccount, googleSignInButton, mLoginButton;
     private ProgressDialog mProgressbar;
     private DatabaseReference mDatabaseUsers;
     //private SignInButton signInButton;
@@ -71,20 +68,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private GoogleApiClient mGoogleApiClient;
 
-
-
-    private com.google.android.gms.common.SignInButton googleImg;
+//    private com.google.android.gms.common.SignInButton googleImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //AppEventsLogger.activateApp(getApplication());
-
         bindViews();
-
         onClicks();
-
     }
     public static void startIntent(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -104,15 +96,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mProgressbar = new ProgressDialog(this);
 
-        mLoginEmailField = (EditText) findViewById(R.id.loginemailfield);
-        mLoginPasswordField = (EditText) findViewById(R.id.loginpasswordfield);
-        mLoginButton = (Button) findViewById(R.id.loginbtn);
-        mNewAccount = (Button) findViewById(R.id.newaccount);
+        mLoginEmailField = (EditText) findViewById(R.id.loginEmailField);
+        mLoginPasswordField = (EditText) findViewById(R.id.loginPasswordField);
+        mLoginButton = (Button) findViewById(R.id.loginBtn);
+        mNewAccount = (Button) findViewById(R.id.newAccountBtn);
 
-        //signInButton = findViewById(R.id.google_sign_in_button);
+        googleSignInButton = findViewById(R.id.googleSigninBtn);
         //twitterLoginButton = findViewById(R.id.t_login_button);
 
-        googleImg = (com.google.android.gms.common.SignInButton) findViewById(R.id.google_sign_in);
+//        googleImg = (com.google.android.gms.common.SignInButton) findViewById(R.id.google_sign_in);
 
     }
 
@@ -136,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         googleInit();
 
-        googleImg.setOnClickListener(new View.OnClickListener() {
+        googleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUpGoogle();
@@ -161,14 +153,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
             startActivityForResult(signInIntent, RC_SIGN_IN);
         } catch (Exception e) {
+
         }
     }
 
 
-    private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
+//    private void signIn() {
+//        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+//        startActivityForResult(signInIntent, RC_SIGN_IN);
+//    }
 
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {

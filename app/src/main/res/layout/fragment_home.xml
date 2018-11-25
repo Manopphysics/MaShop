@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
-            <android.support.v4.view.ViewPager
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/image_page_slider"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -42,14 +42,14 @@
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
 
-                <android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center">
 
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="200dp"
                         android:layout_height="100dp"
                         app:cardBackgroundColor="#ffc400"
@@ -76,9 +76,9 @@
                             android:textSize="30sp"
                             android:textStyle="bold" />
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         app:cardBackgroundColor="#8de980f2"
@@ -98,10 +98,10 @@
                             android:text="Women Fashion"
                             android:textColor="@color/white"
                             android:textSize="20sp" />
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         app:cardBackgroundColor="#7a8acf"
@@ -121,9 +121,9 @@
                             android:text="Men's Fashion"
                             android:textColor="@color/white"
                             android:textSize="20sp" />
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         app:cardBackgroundColor="#D3A687"
@@ -143,10 +143,10 @@
                             android:text="Beauty &amp; Perfumes"
                             android:textColor="@color/white"
                             android:textSize="20sp" />
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         app:cardBackgroundColor="#ffffff"
@@ -166,10 +166,10 @@
                             android:text="Electronics"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         app:cardBackgroundColor="#30A8B7"
@@ -191,10 +191,10 @@
                             android:textSize="20sp" />
 
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         app:cardBackgroundColor="@color/gray"
@@ -210,10 +210,10 @@
                             android:text="View \nmore"
                             android:textColor="@color/white"
                             android:textSize="20sp" />
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
 
-                </android.support.v7.widget.GridLayout>
+                </androidx.gridlayout.widget.GridLayout>
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -281,4 +281,4 @@
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>

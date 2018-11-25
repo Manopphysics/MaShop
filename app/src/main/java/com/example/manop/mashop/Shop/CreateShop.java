@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -129,7 +129,6 @@ public class CreateShop extends AppCompatActivity {
         submitForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final DatabaseReference shopdb = mDatabase.child(currentUser.getUid());
                 final String name =shopname.getText().toString().trim();
                 final String desc = shopdesc.getText().toString().trim();

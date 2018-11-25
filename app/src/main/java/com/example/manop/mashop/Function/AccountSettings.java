@@ -18,20 +18,17 @@ package com.example.manop.mashop.Function;
 
 import android.annotation.TargetApi;
 import android.content.res.Configuration;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.manop.mashop.Fragments.FlexibleSpaceWithImageBaseFragment;
 import com.example.manop.mashop.Fragments.FlexibleSpaceWithImageScrollViewFragment;
 import com.example.manop.mashop.R;
-import com.example.manop.mashop.Startup.MainActivity;
 import com.example.manop.mashop.Utils.BaseActivity;
 import com.example.manop.mashop.Utils.SlidingTabLayout;
 import com.github.ksoichiro.android.observablescrollview.CacheFragmentStatePagerAdapter;
@@ -48,16 +45,6 @@ import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.squareup.picasso.Picasso;
 
-
-import android.annotation.TargetApi;
-import android.content.res.Configuration;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -133,7 +120,7 @@ public class AccountSettings extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String profile_image = (String) dataSnapshot.child(mCurrentUser.getUid()).child("image").getValue(String.class);
                 String uname = (String) dataSnapshot.child(mCurrentUser.getUid()).child("name").getValue(String.class);
-                Picasso.with(AccountSettings.this).load(profile_image).into(settings_profile_image);
+                Picasso.get().load(profile_image).into(settings_profile_image);
                 titleView.setText(uname);
             }
 

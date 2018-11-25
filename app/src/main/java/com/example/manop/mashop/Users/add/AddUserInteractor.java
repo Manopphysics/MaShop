@@ -1,7 +1,7 @@
 package com.example.manop.mashop.Users.add;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.example.manop.mashop.Chat.User;
 import com.example.manop.mashop.R;

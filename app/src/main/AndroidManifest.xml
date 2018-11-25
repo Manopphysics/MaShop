@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".MyApplication"
@@ -19,16 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-        <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/provider_paths"/>
-        </provider>
-
+        >
         <activity android:name=".Startup.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -85,8 +75,7 @@
         <activity android:name=".Shop.ShopListActivity" />
         <activity android:name=".Shop.PlaceNewOrder" />
         <activity android:name=".Shop.PlaceNewOrderList" />
-        <activity android:name=".Shop.ShopStatistics" />
-        <activity android:name=".Shop.SellingHistory"></activity>
+        <activity android:name=".Shop.ShopStatistics"></activity>
     </application>
 
 </manifest>

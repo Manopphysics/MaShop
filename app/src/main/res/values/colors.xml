@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#00af7b</color>
-    <color name="colorPrimaryDark">#0da305</color>
+    <color name="colorPrimaryDark">#007e4f</color>
+    <color name="colorPrimaryLight">#57e2aa</color>
     <color name="colorAccent">#b71c1c</color>
-    <color name="extraColor">#00b0ff</color>
-    <color name="extraColor2">#ff6f00</color>
+    <color name="colorAccent2">#c6ff00</color>
+    <color name="extraColor">#00e5ff</color>
+    <color name="extraColor2">#ffa733</color>
     <array name="dot_on_page_active">
         <item>#ffffff</item>
         <item>#ffffff</item>
@@ -160,4 +162,13 @@
     <color name="dark_blue">#00008B</color>
     <color name="navy">#000080</color>
 
+    <color name="bg_activity_detail">#292631</color>
+    <color name="btn_shine">#f64959</color>
+    <color name="btn_shine_fill">#FF6666</color>
+    <color name="text_desc_activity_detail">#68666e</color>
+    <color name="text_runtime_activity_detail">#7f7e83</color>
+    <color name="text_more_activity_detail">#7bc9c2</color>
+
+    <color name="detail_list_item_view">#cccccc</color>
+    <color name="detail_list_item_text">#111</color>
 </resources>

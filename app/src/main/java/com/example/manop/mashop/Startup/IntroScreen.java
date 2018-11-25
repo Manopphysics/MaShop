@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -89,7 +89,7 @@ public class IntroScreen extends AppCompatActivity {
         return vp.getCurrentItem() + i;
     }
 
-//  Try to redirect to log in screen after finishing intro but it's not efficient to
+//  Try to redirect to log in screen after finishing intro but it's not efficient
 //    private void launchLogIn(){
 //        preferenceManager.setFirstTimeLaunch(false);
 //        startActivity(new Intent(IntroScreen.this, LoginActivity.class));

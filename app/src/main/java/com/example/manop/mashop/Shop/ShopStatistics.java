@@ -1,17 +1,13 @@
 package com.example.manop.mashop.Shop;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.Paint;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.manop.mashop.Function.XYValue;
 import com.example.manop.mashop.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,21 +20,14 @@ import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
 import android.app.Activity;
-import android.os.Bundle;
 
-import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class ShopStatistics extends Activity {
 
@@ -110,7 +99,6 @@ public class ShopStatistics extends Activity {
         FirebaseDatabase.getInstance().getReference().child("Shop").child(FirebaseAuth.getInstance().getCurrentUser()
                     .getUid()).child("sell_history").addValueEventListener(new ValueEventListener() {
                         int c  = 1;
-                        int mdp = 10;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds: dataSnapshot.getChildren()) {
@@ -121,8 +109,7 @@ public class ShopStatistics extends Activity {
                         xList.add(x);
                         c++;
                         Log.d("Statis", Double.toString(x) + " : " + Double.toString(y));
-                        if(c>= mdp) mdp *= 2;
-                        addEntry(x, y,mdp);
+                        addEntry(x, y);
                         //        viewport.setYAxisBoundsManual(true);
                         viewport.setMaxY(Collections.max(yList) + 3);
                         viewport.setMaxX(Collections.max(xList) + 1);
@@ -155,9 +142,9 @@ public class ShopStatistics extends Activity {
 
 
     // add random data to graph
-    private void addEntry(int x, int y, int mdp) {
+    private void addEntry(int x, int y) {
         // here, we choose to display max 10 points on the viewport and we scroll to end
-        series.appendData(new DataPoint(x, y),false,mdp);
+        series.appendData(new DataPoint(x, y),false,10);
     }
 
 }

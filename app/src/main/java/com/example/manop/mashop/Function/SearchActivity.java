@@ -1,36 +1,23 @@
 package com.example.manop.mashop.Function;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
 import com.example.manop.mashop.Decorator.ItemOffsetDecoration;
-import com.example.manop.mashop.Product.MyProducts;
 import com.example.manop.mashop.Product.Product;
 import com.example.manop.mashop.Product.SingleProductActivity;
 import com.example.manop.mashop.R;
-import com.example.manop.mashop.Startup.MainActivity;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import android.content.Context;
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -41,8 +28,6 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;

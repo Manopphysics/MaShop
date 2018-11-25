@@ -2,12 +2,13 @@ package com.example.manop.mashop.Product;
 
 import android.graphics.Paint;
 import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
 import android.content.Intent;
 import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -25,19 +26,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.sackcentury.shinebuttonlib.ShineButton;
+import com.an.customfontview.CustomTextView;
 
 import org.w3c.dom.Text;
 
 public class SingleProductActivity extends AppCompatActivity {
 
     private ImageView singelImage;
-    private TextView singleTitle, singleDesc, productPrice,pDiscountPrice;
+    private CustomTextView singleTitle, singleDesc, productPrice;
+    private TextView pDiscountPrice;
     String post_key = null;
     String uid;
     private DatabaseReference mDatabase;
     private Button deleteBtn;
-    private ImageButton chat_button;
-    private ImageButton wish_button;
+    private Button chat_button;
+    private ShineButton wish_button;
     private FirebaseAuth mAuth;
     private DatabaseReference mShop;
     private DatabaseReference mDatabaseLike;
@@ -56,7 +60,7 @@ public class SingleProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_product);
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
@@ -66,14 +70,15 @@ public class SingleProductActivity extends AppCompatActivity {
         minus_btn = (Button) findViewById(R.id.minus_btn);
         quantity = (TextView) findViewById(R.id.quantity_tv);
         singelImage = (ImageView)findViewById(R.id.singleImageview);
-        singleTitle = (TextView)findViewById(R.id.singleTitle);
-        singleDesc = (TextView)findViewById(R.id.singleDesc);
-        productPrice = (TextView) findViewById(R.id.product_price);
+        singleTitle = (CustomTextView)findViewById(R.id.singleTitle);
+        singleDesc = (CustomTextView) findViewById(R.id.singleShortDesc);
+        productPrice = (CustomTextView) findViewById(R.id.product_price);
         pDiscountPrice = (TextView) findViewById(R.id.product_discount);
-        chat_button = (ImageButton) findViewById(R.id.chat_button);
+        chat_button = (Button) findViewById(R.id.chat_button);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Product");
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Like");
-        wish_button = (ImageButton) findViewById(R.id.wish_button);
+        wish_button = (ShineButton) findViewById(R.id.wish_button);
+        wish_button.init(this);
         mShop = FirebaseDatabase.getInstance().getReference().child("Shop");
         post_key = getIntent().getExtras().getString("PostID");
         like_count = (TextView) findViewById(R.id.like_count);
@@ -117,12 +122,12 @@ public class SingleProductActivity extends AppCompatActivity {
                     count = dataSnapshot.child(post_key).getChildrenCount();
                     if(count == 1){likcount =Long.toString(count)+" Like";  like_count.setText(likcount);}
                     else if (count > 1){likcount =Long.toString(count)+" Likes";  like_count.setText(likcount);}
-                    wish_button.setImageResource(R.drawable.ic_yes_heart_colored);
+//                    wish_button.setImageResource(R.drawable.ic_yes_heart_colored);
                 } else {
                     count = dataSnapshot.child(post_key).getChildrenCount();
                     if(count == 1){likcount =Long.toString(count)+" Like";  like_count.setText(likcount);}
                     else if (count > 1 || count == 0){likcount =Long.toString(count)+" Likes";  like_count.setText(likcount);}
-                    wish_button.setImageResource(R.drawable.ic_no_heart_gray);
+//                    wish_button.setImageResource(R.drawable.ic_no_heart_gray);
                 }
             }
 
@@ -231,6 +236,7 @@ public class SingleProductActivity extends AppCompatActivity {
                     String pquan = (String) dataSnapshot.child("quantity").getValue();
                     product_price = product_price.replaceAll("[-+.^:,]", "");
                     String post_uid = (String) dataSnapshot.child("uid").getValue();
+
                     pquantity = Integer.parseInt(pquan);
                     quantity.setText(pquan);
                     singleTitle.setText(post_title);
@@ -239,7 +245,7 @@ public class SingleProductActivity extends AppCompatActivity {
                     Double dummyDiscount = Double.parseDouble(product_price);
                     pDiscountPrice.setText(Double.toString(dummyDiscount + (0.04) * dummyDiscount));
                     pDiscountPrice.setPaintFlags(pDiscountPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    Picasso.with(SingleProductActivity.this).load(post_image).into(singelImage);
+                    Picasso.get().load(post_image).into(singelImage);
                     if (mAuth.getCurrentUser().getUid().equals(post_uid)) {
 
                         deleteBtn.setVisibility(View.VISIBLE);

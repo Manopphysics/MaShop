@@ -1,6 +1,6 @@
 package com.example.manop.mashop.Utils;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.example.manop.mashop.R;
