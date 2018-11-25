@@ -30,7 +30,7 @@
             <com.an.customfontview.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose yout Shop Picture"
+                android:text="Choose your Shop Picture"
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_xlarge"
                 android:textStyle="bold"/>
