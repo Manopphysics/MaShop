@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,8 +35,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import org.w3c.dom.Text;
 
 public class AddProduct extends AppCompatActivity {
 
@@ -52,7 +51,7 @@ public class AddProduct extends AppCompatActivity {
     private FirebaseUser mCurrentUser;
     private DatabaseReference mDatabaseUSer;
     private DatabaseReference mDatabaseShop;
-    private TextView product_quantity;
+    private TextInputEditText product_quantity;
     private Button add_btn;
     private Button reduce_btn;
     private int quantity = 0;
@@ -77,13 +76,13 @@ public class AddProduct extends AppCompatActivity {
         mprogressbar = new ProgressDialog(this);
         mDatabaseProduct = FirebaseDatabase.getInstance().getReference().child("Product");
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        mPostTitle = (EditText) findViewById(R.id.editText1);
+        mPostTitle = (EditText) findViewById(R.id.prod_name);
         mPostDesc = (EditText) findViewById(R.id.editText2);
         mProductPrice = (EditText) findViewById(R.id.editText3);
-        mSubmitBtn = (Button) findViewById(R.id.btn);
+        mSubmitBtn = (Button) findViewById(R.id.prod_submit_btn);
         mSelectImage = (ImageButton) findViewById(R.id.imageButton2);
         mDatabaseShop = FirebaseDatabase.getInstance().getReference().child("Shop");
-        product_quantity = (TextView) findViewById(R.id.product_quantity);
+        product_quantity = (TextInputEditText) findViewById(R.id.product_quantity);
         reduce_btn = (Button) findViewById(R.id.reduce_btn);
         add_btn = (Button) findViewById(R.id.add_btn);
     }

@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         mEmailField = findViewById(R.id.email);
         mPasswordField = findViewById(R.id.password);
         mProgress = new ProgressDialog(this);
-        mRegBtn = findViewById(R.id.btn);
+        mRegBtn = findViewById(R.id.prod_submit_btn);
     }
 
     private void startRegister() {

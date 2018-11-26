@@ -1,4 +1,5 @@
 package com.example.manop.mashop.Shop;
+<<<<<<< HEAD
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -52,10 +53,29 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+=======
+
+import android.os.Bundle;
+
+import com.example.manop.mashop.R;
+
+
+import androidx.recyclerview.widget.GridLayoutManager;
+
+import com.bumptech.glide.Glide;
+import com.example.manop.mashop.Decorator.ItemOffsetDecoration;
+import com.example.manop.mashop.Product.Product;
+
+import android.content.Context;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+>>>>>>> 03ad702b609c7d3d5217181358554732c2b3f46f
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+<<<<<<< HEAD
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,17 +114,34 @@ public class SellingHistory extends AppCompatActivity {
     private Button generateSalesHistory;
     private String image;
 
+=======
+import android.widget.TextView;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class SellingHistory extends AppCompatActivity {
+    private EditText mSearchField;
+    private ImageButton mSearchBtn;
+>>>>>>> 03ad702b609c7d3d5217181358554732c2b3f46f
 
     private RecyclerView mResultList;
 
     private DatabaseReference mUserDatabase;
+<<<<<<< HEAD
     Bitmap graphbmp = null;
+=======
+
+>>>>>>> 03ad702b609c7d3d5217181358554732c2b3f46f
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selling_history);
         
         mUserDatabase = FirebaseDatabase.getInstance().getReference("Product");
+<<<<<<< HEAD
 
         generateSalesHistory = (Button) findViewById(R.id.generate_sales_history);
 
@@ -121,6 +158,10 @@ public class SellingHistory extends AppCompatActivity {
             }
 
         });
+=======
+        
+
+>>>>>>> 03ad702b609c7d3d5217181358554732c2b3f46f
         mResultList = (RecyclerView) findViewById(R.id.result_list);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new GridLayoutManager(this, 1));
@@ -128,6 +169,7 @@ public class SellingHistory extends AppCompatActivity {
         mResultList.addItemDecoration(itemDecoration);
         sellingHistoryList();
 
+<<<<<<< HEAD
         //===========
 
         String filename = getIntent().getStringExtra("image");
@@ -140,6 +182,8 @@ public class SellingHistory extends AppCompatActivity {
         }
         //===========
 
+=======
+>>>>>>> 03ad702b609c7d3d5217181358554732c2b3f46f
     }
 
     private void sellingHistoryList() {
@@ -197,7 +241,11 @@ public class SellingHistory extends AppCompatActivity {
         }
 
         public void setPrice(String price) {
+<<<<<<< HEAD
             history_product_price.setText("฿"+price);
+=======
+            history_product_price.setText(price);
+>>>>>>> 03ad702b609c7d3d5217181358554732c2b3f46f
         }
 
         public void setName(String title) {
@@ -213,7 +261,11 @@ public class SellingHistory extends AppCompatActivity {
         }
 
         public void setTotalPrice(String tp){
+<<<<<<< HEAD
             history_total_price.setText("฿"+tp);
+=======
+            history_total_price.setText(tp);
+>>>>>>> 03ad702b609c7d3d5217181358554732c2b3f46f
         }
 
         public void setImage(final Context ctx, final String IMAGE) {
@@ -224,6 +276,7 @@ public class SellingHistory extends AppCompatActivity {
         }
 
     }
+<<<<<<< HEAD
 
     private void createPdfWrapper() throws FileNotFoundException,DocumentException{
 
@@ -506,5 +559,7 @@ public class SellingHistory extends AppCompatActivity {
         });
     }
 
+=======
+>>>>>>> 03ad702b609c7d3d5217181358554732c2b3f46f
 }
 

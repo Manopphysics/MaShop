@@ -51,7 +51,7 @@
         android:padding="10dp" />
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/prod_submit_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/password"

@@ -14,7 +14,10 @@
         android:fontFamily="@font/nunito_semibold"
         android:textColor="@color/black"
         android:textSize="15dp"/>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 03ad702b609c7d3d5217181358554732c2b3f46f
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/result_list"
         android:background="#dedede"
@@ -22,6 +25,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/search_field"
         android:padding="@dimen/item_offset"
+<<<<<<< HEAD
         android:layout_marginTop="27dp"
         android:layout_marginBottom="50dp"/>
 
@@ -33,6 +37,10 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_bg"
         android:text=" Generate Sales History Summary " />
+=======
+        android:layout_marginTop="27dp"/>
+
+>>>>>>> 03ad702b609c7d3d5217181358554732c2b3f46f
 
 
 </RelativeLayout>
