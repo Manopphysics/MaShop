@@ -342,36 +342,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:text="฿0" />
 
-                    <!--<Button-->
-                        <!--android:id="@+id/minus_btn"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:background="@color/transparent"-->
-                        <!--android:text="-"-->
-                        <!--android:textSize="@dimen/font_medium"-->
-                        <!--app:layout_constraintTop_toTopOf="@+id/product_price"-->
-                        <!--app:layout_constraintStart_toEndOf="@id/product_price"/>-->
-
-                    <!--<Button-->
-                        <!--android:id="@+id/plus_btn"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:background="@color/transparent"-->
-                        <!--android:text="+"-->
-                        <!--android:textSize="@dimen/font_medium"-->
-                        <!--android:paddingEnd="@dimen/margin_medium"-->
-                        <!--app:layout_constraintTop_toTopOf="@+id/product_price"-->
-                        <!--app:layout_constraintEnd_toEndOf="parent"/>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/quantity_tv"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="0"-->
-                        <!--android:textSize="@dimen/font_large"-->
-                        <!--app:layout_constraintTop_toTopOf="@+id/product_price"-->
-                        <!--app:layout_constraintStart_toEndOf="@id/plus_btn"-->
-                        <!--app:layout_constraintEnd_toEndOf="@id/minus_btn"/>-->
-
                     <com.an.customfontview.CustomTextView
                         android:id="@+id/DescTitle"
                         android:layout_width="match_parent"
@@ -444,7 +414,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="@dimen/padding_small"
-                        android:text="Set Quantity"
+                        android:text="Quantity"
                         android:textSize="@dimen/font_medium_large"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@id/minus_btn"
@@ -464,7 +434,7 @@
                         app:layout_constraintTop_toBottomOf="@id/quantity_title" />
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/product_quantity"
+                        android:id="@+id/single_product_quantity"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="0"

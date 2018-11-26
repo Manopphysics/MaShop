@@ -94,14 +94,25 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/prod_price_card"
                 android:orientation="horizontal"
+                android:weightSum="3"
                 android:background="@color/white">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/logout_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    style="@style/Widget.MaterialComponents.Button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:text="Log Out"
+                    android:layout_weight="2"
+                    android:layout_marginStart="@dimen/padding_small"
+                    android:layout_marginEnd="@dimen/padding_small"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/save_setting_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Save"
+                    android:layout_weight="1"
                     android:layout_marginStart="@dimen/padding_small"
                     android:layout_marginEnd="@dimen/padding_small"/>
             </LinearLayout>
