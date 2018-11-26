@@ -18,10 +18,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_huge"
         android:layout_toStartOf="@+id/text_view_user_alphabet"
-        android:background="@drawable/chat_rounded_rect_bg"
+        android:background="@drawable/chat_mine_box"
         android:padding="@dimen/padding_small"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/gray"
+        android:textColor="@color/white"
         tools:text="Noice man !" />
 
     <TextView
@@ -30,12 +30,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="@dimen/margin_avg"
-        android:background="@drawable/circle_accent"
+        android:background="@drawable/chat_user_circle"
         android:gravity="center"
         android:maxEms="1"
         android:textAllCaps="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/gray"
+        android:textColor="@color/white_smoke"
         android:textStyle="bold"
         tools:text="a" />
 

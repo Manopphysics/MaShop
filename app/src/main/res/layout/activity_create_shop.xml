@@ -24,9 +24,9 @@
                 android:id="@+id/prod_img_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/prod_info_card"
-                android:layout_alignStart="@id/prod_info_card"
-                android:layout_alignEnd="@id/prod_info_card"
+                android:layout_below="@id/password_card"
+                android:layout_alignStart="@id/password_card"
+                android:layout_alignEnd="@id/password_card"
                 android:layout_marginBottom="@dimen/padding_medium"
 
                 app:cardBackgroundColor="@android:color/white"
@@ -65,7 +65,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/prod_info_card"
+                android:id="@+id/password_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

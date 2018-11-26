@@ -8,23 +8,27 @@
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.example.manop.mashop.Views.CircleImageView
         android:id="@+id/nav_profile_image"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@mipmap/ic_launcher_round"
+        android:layout_gravity="center"/>
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/nav_header_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
+        android:paddingTop="@dimen/padding_large"
         android:text="Mashop Test Nav Drawer"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_gravity="center"/>
 
     <TextView
-        android:id="@+id/emailTextView"
+        android:id="@+id/nav_header_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="mashop.apllication@gmail.com" />
+        android:paddingTop="@dimen/padding_small"
+        android:text="mashop.apllication@gmail.com"
+        android:layout_gravity="center"/>
 </LinearLayout>

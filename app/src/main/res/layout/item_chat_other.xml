@@ -15,12 +15,12 @@
         android:id="@+id/text_view_user_alphabet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/circle_accent"
+        android:background="@drawable/chat_user_circle"
         android:gravity="center"
         android:maxEms="1"
         android:textAllCaps="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/gray"
+        android:textColor="@color/white_smoke"
         android:textStyle="bold"
         tools:text="a" />
 
@@ -33,10 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_huge"
-        android:background="@drawable/chat_rounded_rect_bg"
+        android:background="@drawable/chat_others_box"
         android:padding="@dimen/padding_small"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/gray"
+        android:textColor="@color/black"
         tools:text="Hello mate ! \ntest" />
 
 </LinearLayout>

@@ -16,7 +16,7 @@
         android:id="@+id/text_view_user_alphabet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/circle_accent"
+        android:background="@drawable/chat_user_circle"
         android:gravity="center"
         android:maxEms="1"
         android:textAllCaps="true"

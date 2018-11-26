@@ -60,3 +60,309 @@
         </LinearLayout>
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 </FrameLayout>
+
+
+
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/activity_post"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:background="@android:color/white"-->
+    <!--android:gravity="center"-->
+    <!--tools:context="com.example.manop.mashop.Product.AddProduct">-->
+
+    <!--<androidx.core.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/bg_activity_detail"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true">-->
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+
+            <!--<androidx.cardview.widget.CardView-->
+                <!--android:id="@+id/prod_img_card"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/prod_quan_card"-->
+                <!--android:layout_alignStart="@id/prod_info_card"-->
+                <!--android:layout_alignEnd="@id/prod_info_card"-->
+                <!--android:layout_marginBottom="@dimen/padding_medium"-->
+                <!--android:layout_marginTop="@dimen/margin_small"-->
+                <!--app:cardBackgroundColor="@android:color/white"-->
+                <!--app:cardCornerRadius="2dp"-->
+                <!--app:cardElevation="0dp"-->
+                <!--app:cardPreventCornerOverlap="false">-->
+
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:padding="@dimen/padding_large">-->
+                    <!--<com.an.customfontview.CustomTextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Select your Product Picture"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="@dimen/font_xlarge"-->
+                        <!--android:textStyle="bold"-->
+                        <!--app:textFontPath="fonts/gt_medium.otf"/>-->
+                    <!--<com.an.customfontview.CustomTextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Please tap icon below"-->
+                        <!--android:textColor="@color/gray"-->
+                        <!--android:textSize="@dimen/font_medium"/>-->
+                    <!--<ImageButton-->
+                        <!--android:id="@+id/imageButton2"-->
+                        <!--android:layout_width="200dp"-->
+                        <!--android:layout_height="200dp"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:background="@drawable/ic_upload_pic"-->
+                        <!--android:scaleType="centerCrop" />-->
+                <!--</LinearLayout>-->
+
+            <!--</androidx.cardview.widget.CardView>-->
+
+            <!--<androidx.cardview.widget.CardView-->
+                <!--android:id="@+id/prod_info_card"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_marginTop="@dimen/padding_large"-->
+                <!--android:layout_marginStart="@dimen/padding_medium"-->
+                <!--android:layout_marginBottom="@dimen/padding_medium"-->
+                <!--android:layout_marginEnd="@dimen/padding_medium"-->
+                <!--app:cardBackgroundColor="@android:color/white"-->
+                <!--app:cardCornerRadius="2dp"-->
+                <!--app:cardElevation="0dp"-->
+                <!--app:cardPreventCornerOverlap="false">-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:padding="@dimen/padding_large">-->
+
+                    <!--&lt;!&ndash;<Textview&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/textView2"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Shop Account" />&ndash;&gt;-->
+                    <!--<com.an.customfontview.CustomTextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Fill your Product Info"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="@dimen/font_xlarge"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:layout_marginBottom="@dimen/padding_medium"-->
+                        <!--app:textFontPath="fonts/gt_medium.otf"/>-->
+
+                    <!--<com.google.android.material.textfield.TextInputLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+                        <!--android:layout_marginTop="@dimen/padding_small"-->
+                        <!--android:layout_marginBottom="@dimen/padding_small">-->
+
+                        <!--<com.google.android.material.textfield.TextInputEditText-->
+                            <!--android:id="@+id/prod_name"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:hint="Name"-->
+                            <!--android:inputType="text"-->
+                            <!--android:maxLines="1" />-->
+
+
+                    <!--</com.google.android.material.textfield.TextInputLayout>-->
+
+                    <!--<com.google.android.material.textfield.TextInputLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+                        <!--app:passwordToggleEnabled="true"-->
+                        <!--android:layout_marginTop="@dimen/padding_small"-->
+                        <!--android:layout_marginBottom="@dimen/padding_small">-->
+                        <!--<com.google.android.material.textfield.TextInputEditText-->
+                            <!--android:id="@+id/editText2"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:hint="Description" />-->
+                    <!--</com.google.android.material.textfield.TextInputLayout>-->
+                <!--</LinearLayout>-->
+            <!--</androidx.cardview.widget.CardView>-->
+            <!--<androidx.cardview.widget.CardView-->
+                <!--android:id="@+id/prod_price_card"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/prod_info_card"-->
+                <!--android:layout_alignStart="@id/prod_info_card"-->
+                <!--android:layout_alignEnd="@id/prod_info_card"-->
+                <!--android:layout_marginBottom="@dimen/padding_medium"-->
+
+                <!--app:cardBackgroundColor="@android:color/white"-->
+                <!--app:cardCornerRadius="2dp"-->
+                <!--app:cardElevation="0dp"-->
+                <!--app:cardPreventCornerOverlap="false">-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:padding="@dimen/padding_large">-->
+
+                    <!--&lt;!&ndash;<Textview&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/textView2"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Shop Account" />&ndash;&gt;-->
+                    <!--<com.an.customfontview.CustomTextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Set your price"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="@dimen/font_xlarge"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:layout_marginBottom="@dimen/padding_medium"-->
+                        <!--app:textFontPath="fonts/gt_medium.otf"/>-->
+                    <!--<com.google.android.material.textfield.TextInputLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+                        <!--app:passwordToggleEnabled="true"-->
+                        <!--android:layout_marginTop="@dimen/padding_small"-->
+                        <!--android:layout_marginBottom="@dimen/padding_small">-->
+                        <!--<com.google.android.material.textfield.TextInputEditText-->
+                            <!--android:id="@+id/editText3"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:hint="Original Price"-->
+                            <!--android:inputType="number"/>-->
+                    <!--</com.google.android.material.textfield.TextInputLayout>-->
+                <!--</LinearLayout>-->
+            <!--</androidx.cardview.widget.CardView>-->
+
+            <!--<androidx.cardview.widget.CardView-->
+                <!--android:id="@+id/prod_quan_card"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/prod_price_card"-->
+                <!--android:layout_alignStart="@id/prod_info_card"-->
+                <!--android:layout_alignEnd="@id/prod_info_card"-->
+                <!--android:layout_marginBottom="@dimen/padding_medium"-->
+
+                <!--app:cardBackgroundColor="@android:color/white"-->
+                <!--app:cardCornerRadius="2dp"-->
+                <!--app:cardElevation="0dp"-->
+                <!--app:cardPreventCornerOverlap="false">-->
+
+                <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginLeft="@dimen/margin_large"-->
+                    <!--android:layout_marginRight="@dimen/margin_large"-->
+                    <!--android:paddingTop="@dimen/padding_large"-->
+                    <!--android:paddingBottom="@dimen/padding_large">-->
+
+                    <!--<com.an.customfontview.CustomTextView-->
+                        <!--android:id="@+id/seller_title"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingTop="@dimen/margin_large"-->
+                        <!--android:paddingBottom="@dimen/margin_large"-->
+                        <!--android:text="Add all you want :)"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="@dimen/font_large"-->
+                        <!--android:textStyle="bold"-->
+                        <!--app:layout_constraintStart_toStartOf="parent"-->
+                        <!--app:layout_constraintTop_toTopOf="parent"-->
+                        <!--app:textFontPath="fonts/gt_medium.otf"/>-->
+
+                    <!--<com.an.customfontview.CustomTextView-->
+                        <!--android:id="@+id/quantity_title"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingBottom="@dimen/padding_small"-->
+                        <!--android:text="Quantity"-->
+                        <!--android:textSize="@dimen/font_medium_large"-->
+                        <!--android:textStyle="bold"-->
+                        <!--app:layout_constraintStart_toStartOf="@id/reduce_btn"-->
+                        <!--app:layout_constraintTop_toBottomOf="@id/seller_title"-->
+                        <!--app:textFontPath="fonts/gt_medium.otf" />-->
+
+                    <!--<Button-->
+                        <!--android:id="@+id/reduce_btn"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/transparent"-->
+                        <!--android:text="-"-->
+                        <!--android:textSize="@dimen/font_large"-->
+                        <!--app:layout_constraintEnd_toStartOf="@id/product_quantity"-->
+                        <!--app:layout_constraintHorizontal_chainStyle="packed"-->
+                        <!--app:layout_constraintStart_toStartOf="parent"-->
+                        <!--app:layout_constraintTop_toBottomOf="@id/quantity_title" />-->
+
+                    <!--<com.google.android.material.textfield.TextInputEditText-->
+                        <!--android:id="@+id/product_quantity"-->
+                        <!--android:layout_width="60dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="0"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textSize="@dimen/font_large"-->
+                        <!--app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--app:layout_constraintHorizontal_chainStyle="packed"-->
+                        <!--app:layout_constraintStart_toStartOf="parent"-->
+                        <!--app:layout_constraintTop_toBottomOf="@id/quantity_title" />-->
+                    <!--<Button-->
+                        <!--android:id="@+id/add_btn"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/transparent"-->
+                        <!--android:text="+"-->
+                        <!--android:textSize="@dimen/font_large"-->
+                        <!--app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--app:layout_constraintHorizontal_chainStyle="packed"-->
+                        <!--app:layout_constraintStart_toEndOf="@id/product_quantity"-->
+                        <!--app:layout_constraintTop_toBottomOf="@id/quantity_title" />-->
+
+                <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+            <!--</androidx.cardview.widget.CardView>-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/buttonGroup"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_below="@id/prod_img_card"-->
+                <!--android:weightSum="3"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:background="@color/white">-->
+                <!--<com.google.android.material.button.MaterialButton-->
+                    <!--android:id="@+id/cancel_action_product"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
+                    <!--android:text="Cancel"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_marginStart="@dimen/padding_small"-->
+                    <!--android:layout_marginEnd="@dimen/padding_small"/>-->
+                <!--<com.google.android.material.button.MaterialButton-->
+                    <!--android:id="@+id/prod_submit_btn"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--style="@style/Widget.MaterialComponents.Button"-->
+                    <!--android:text="Upload Product"-->
+                    <!--android:layout_weight="2"-->
+                    <!--android:layout_marginEnd="@dimen/padding_small"/>-->
+            <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+    <!--</androidx.core.widget.NestedScrollView>-->
+
+<!--</RelativeLayout>-->

@@ -32,8 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import de.hdodenhof.circleimageview.CircleImageView;
+import com.example.manop.mashop.Views.CircleImageView;
+//import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -187,7 +187,6 @@ public boolean onOptionsItemSelected(MenuItem item){
         }else{
             super.onBackPressed();
         }
-
     }
     @Override
     public void onStop() {

@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.manop.mashop.R;
@@ -76,10 +75,10 @@ public class AddProduct extends AppCompatActivity {
         mprogressbar = new ProgressDialog(this);
         mDatabaseProduct = FirebaseDatabase.getInstance().getReference().child("Product");
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        mPostTitle = (EditText) findViewById(R.id.prod_name);
-        mPostDesc = (EditText) findViewById(R.id.editText2);
+        mPostTitle = (EditText) findViewById(R.id.pass_txt);
+        mPostDesc = (EditText) findViewById(R.id.retypePass);
         mProductPrice = (EditText) findViewById(R.id.editText3);
-        mSubmitBtn = (Button) findViewById(R.id.prod_submit_btn);
+        mSubmitBtn = (Button) findViewById(R.id.logout_btn);
         mSelectImage = (ImageButton) findViewById(R.id.imageButton2);
         mDatabaseShop = FirebaseDatabase.getInstance().getReference().child("Shop");
         product_quantity = (TextInputEditText) findViewById(R.id.product_quantity);
