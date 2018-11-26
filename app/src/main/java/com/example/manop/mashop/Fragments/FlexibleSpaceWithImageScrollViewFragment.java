@@ -16,23 +16,88 @@
 
 package com.example.manop.mashop.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.manop.mashop.Function.AccountSettings;
 import com.example.manop.mashop.R;
+import com.example.manop.mashop.Startup.SetupActivity;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 import com.github.ksoichiro.android.observablescrollview.Scrollable;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
+
+import androidx.annotation.NonNull;
 
 public class FlexibleSpaceWithImageScrollViewFragment extends FlexibleSpaceWithImageBaseFragment<ObservableScrollView> {
-
+    private Button changeName, changePass, logout;
+    private TextView seller;
+    private FirebaseAuth mAuth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_flexiblespacewithimagescrollview, container, false);
+        changeName = (Button) view.findViewById(R.id.changeName);
+        changePass = (Button) view.findViewById(R.id.changePass);
+        logout = (Button) view.findViewById(R.id.flogout);
+        seller = (TextView) view.findViewById(R.id.seller);
+        mAuth = FirebaseAuth.getInstance();
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+            }
+        });
+        changeName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent setup = new Intent(getActivity(), SetupActivity.class);
+                startActivity(setup);
+            }
+        });
+        changePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                String emailAddress = mAuth.getCurrentUser().getEmail();
 
+                auth.sendPasswordResetEmail( emailAddress)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(),"Email sent to reset password",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+            }
+        });
+        FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                seller.setText(dataSnapshot.child("seller").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         final ObservableScrollView scrollView = (ObservableScrollView) view.findViewById(R.id.scroll);
         // TouchInterceptionViewGroup should be a parent view other than ViewPager.
         // This is a workaround for the issue #117:

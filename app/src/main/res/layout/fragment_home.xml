@@ -50,6 +50,7 @@
 
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/hot_deals"
                         android:layout_width="200dp"
                         android:layout_height="100dp"
                         app:cardBackgroundColor="#ffc400"

@@ -87,7 +87,7 @@ public class MyProducts extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+        mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Like");
         mAuth.addAuthStateListener(mAuthListener);//important thing!!!for sign out!!!
         FirebaseRecyclerAdapter<Product, ProductViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Product, ProductViewHolder>(
                 Product.class,
@@ -105,6 +105,7 @@ public class MyProducts extends AppCompatActivity {
                 //viewHolder.setUsername(model.get());
                 //viewHolder.setTimeStamp(model.getTimestamp());
                 viewHolder.setImage(getApplicationContext(), model.getIMAGE());
+                viewHolder.setLikeBtn(post_key);
                 //viewHolder.setUserImage(getApplicationContext(),model.getUserImage());
 //                DatabaseReference mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 //                mDatabseUsers.addValueEventListener(new ValueEventListener() {
@@ -222,7 +223,7 @@ public class MyProducts extends AppCompatActivity {
 //            delPost = (ImageButton) mView.findViewById(R.id.delete_post);
 
             context = mView.getContext();
-            mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+            mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Like");
             mDatabaseLike.keepSynced(true);
             mAuth = FirebaseAuth.getInstance();
             post_title = mView.findViewById(R.id.post_title);
@@ -246,12 +247,10 @@ public class MyProducts extends AppCompatActivity {
                         count = dataSnapshot.child(post_key).getChildrenCount();
                         if(count == 1){likcount =Long.toString(count)+" Like";  likeCount.setText(likcount);}
                         else if (count > 1){likcount =Long.toString(count)+" Likes";  likeCount.setText(likcount);}
-                        mLikebtn.setImageResource(R.drawable.ic_yes_heart_colored);
                     } else {
                         count = dataSnapshot.child(post_key).getChildrenCount();
                         if(count == 1){likcount =Long.toString(count)+" Like";  likeCount.setText(likcount);}
                         else if (count > 1 || count == 0){likcount =Long.toString(count)+" Likes";  likeCount.setText(likcount);}
-                        mLikebtn.setImageResource(R.drawable.ic_no_heart_gray);
                     }
                 }
 

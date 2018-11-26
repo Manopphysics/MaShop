@@ -71,6 +71,21 @@ public class Shop extends AppCompatActivity {
         delShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference().child("Product").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot ds: dataSnapshot.getChildren()){
+                            if(ds.child("uid").getValue().toString().equals(currentUser.getUid())){
+                               ds.getRef().removeValue();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 shopDB.child(currentUser.getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -113,5 +128,12 @@ public class Shop extends AppCompatActivity {
         myProd = (Button) findViewById(R.id.btn_my_product);
         delShop = (Button) findViewById(R.id.del_shop_btn);
         view_statistics = (Button ) findViewById(R.id.view_statistics);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent main = new Intent(Shop.this, MainActivity.class);
+        main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(main);
     }
 }

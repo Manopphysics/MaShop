@@ -20,7 +20,7 @@
         android:maxEms="1"
         android:textAllCaps="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/gray"
+        android:textColor="@color/black"
         android:textStyle="bold"
         tools:text="a" />
 
@@ -36,7 +36,7 @@
         android:background="@drawable/chat_rounded_rect_bg"
         android:padding="@dimen/padding_small"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/gray"
+        android:textColor="@color/black"
         tools:text="Hello mate ! \ntest" />
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
@@ -28,9 +29,12 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class SearchActivity extends AppCompatActivity {
     private Spinner sort_spinner;
@@ -115,6 +119,7 @@ public class SearchActivity extends AppCompatActivity {
                 viewHolder.setTitle(model.getName());
                 viewHolder.setPrice(model.getPrice());
                 viewHolder.setImage(getApplicationContext(), model.getIMAGE());
+                viewHolder.setLikeBtn(post_key);
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -147,7 +152,7 @@ public class SearchActivity extends AppCompatActivity {
             super(itemView);
             mView = itemView;
             context = mView.getContext();
-            mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+            mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Like");
             mDatabaseLike.keepSynced(true);
             mAuth = FirebaseAuth.getInstance();
             post_title = mView.findViewById(R.id.post_title);
@@ -170,7 +175,31 @@ public class SearchActivity extends AppCompatActivity {
                     .into(post_image);
 
         }
+        public void setLikeBtn(final String post_key) {
+            Log.d("MAINLIKE",mDatabaseLike.toString());
+            mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    long count = 0;
+                    String likcount;
+                    if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
+                        count = dataSnapshot.child(post_key).getChildrenCount();
+                        if(count == 1){likcount =Long.toString(count)+" Like";  likeCount.setText(likcount);}
+                        else if (count > 1){likcount =Long.toString(count)+" Likes";  likeCount.setText(likcount);}
+                    } else {
+                        count = dataSnapshot.child(post_key).getChildrenCount();
+                        if(count == 1){likcount =Long.toString(count)+" Like";  likeCount.setText(likcount);}
+                        else if (count > 1 || count == 0){likcount =Long.toString(count)+" Likes";  likeCount.setText(likcount);}
+                    }
+                }
 
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
     }
 

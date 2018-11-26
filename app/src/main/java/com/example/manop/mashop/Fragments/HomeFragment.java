@@ -34,6 +34,7 @@ import com.example.manop.mashop.Chat.UserListingActivity;
 import com.example.manop.mashop.Function.SearchActivity;
 import com.example.manop.mashop.R;
 import com.example.manop.mashop.Shop.ShopListActivity;
+import com.example.manop.mashop.Startup.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -100,8 +101,8 @@ public class HomeFragment extends Fragment{
         chat_seller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chat = new Intent(getActivity(), UserListingActivity.class);
-                startActivity(chat);
+                UserListingActivity.startActivity(getActivity(),
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             }
         });
         timer = new Timer();

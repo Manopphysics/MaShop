@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.crazyhitty.chdev.ks.firebasechat.ui.activities.LoginActivity">
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -26,7 +25,7 @@
         android:id="@+id/frame_layout_content_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/chat_bg"
+        android:background="@drawable/chatbg"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

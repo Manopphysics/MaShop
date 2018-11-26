@@ -120,6 +120,7 @@ public class AccountSettings extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String profile_image = (String) dataSnapshot.child(mCurrentUser.getUid()).child("image").getValue(String.class);
                 String uname = (String) dataSnapshot.child(mCurrentUser.getUid()).child("name").getValue(String.class);
+                String uemail = (String) dataSnapshot.child(mCurrentUser.getUid()).child("email").getValue().toString();
                 Picasso.get().load(profile_image).into(settings_profile_image);
                 titleView.setText(uname);
             }

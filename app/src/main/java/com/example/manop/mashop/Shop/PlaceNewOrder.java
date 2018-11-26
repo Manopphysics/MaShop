@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.manop.mashop.Function.Email;
-import com.example.manop.mashop.Function.GMailSender;
 import com.example.manop.mashop.Function.MyCallback;
 import com.example.manop.mashop.Product.Product;
 import com.example.manop.mashop.Product.SingleProductActivity;

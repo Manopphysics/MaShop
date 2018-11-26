@@ -1,12 +1,15 @@
 package com.example.manop.mashop.Fragments;
 
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
@@ -39,6 +42,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+import static com.example.manop.mashop.MyApplication.CHANNEL_1_ID;
+
 /**
  * Author:
  * Created on: 8/28/2016 , 10:36 AM
@@ -48,7 +53,7 @@ import java.util.ArrayList;
 public class ChatFragment extends Fragment implements ChatContract.View, TextView.OnEditorActionListener {
     private RecyclerView mRecyclerViewChat;
     private EditText mETxtMessage;
-
+    private NotificationManagerCompat notificationManager;
     private ProgressDialog mProgressDialog;
 
     private ChatRecyclerAdapter mChatRecyclerAdapter;
@@ -87,6 +92,7 @@ public class ChatFragment extends Fragment implements ChatContract.View, TextVie
         View fragmentView = inflater.inflate(R.layout.fragment_chat, container, false);
         bindViews(fragmentView);
         listeners();
+        notificationManager = NotificationManagerCompat.from(getActivity());
         return fragmentView;
     }
 
@@ -190,6 +196,11 @@ public class ChatFragment extends Fragment implements ChatContract.View, TextVie
             mChatRecyclerAdapter = new ChatRecyclerAdapter(new ArrayList<Chat>());
             mRecyclerViewChat.setAdapter(mChatRecyclerAdapter);
         }
+        //===\
+        Notification notif = new NotificationCompat.Builder(getActivity(),CHANNEL_1_ID).setSmallIcon(R.drawable.ic_chat_black_24dp)
+                .setContentTitle("Chat").setContentText(chat.message).setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE).build();
+        notificationManager.notify(1,notif);
         mChatRecyclerAdapter.add(chat);
         mRecyclerViewChat.smoothScrollToPosition(mChatRecyclerAdapter.getItemCount() - 1);
     }

@@ -1,6 +1,7 @@
 package com.example.manop.mashop.Users.all;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 
 import com.example.manop.mashop.Chat.User;
@@ -38,15 +39,43 @@ public class GetUsersInteractor implements GetUsersContract.Interactor {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> dataSnapshots = dataSnapshot.getChildren().iterator();
                 List<User> users = new ArrayList<>();
-                while (dataSnapshots.hasNext()) {
-                    DataSnapshot dataSnapshotChild = dataSnapshots.next();
-                    User user = dataSnapshotChild.getValue(User.class);
-                    if (!TextUtils.equals(user.uid, FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                        users.add(user);
+                Log.d("seller",dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("seller").toString());
+                if((dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("seller").getValue().toString().equals("false"))) {
+                    Log.d("seller", "false out loop");
+                    while (dataSnapshots.hasNext()) {
+                        DataSnapshot dataSnapshotChild = dataSnapshots.next();
+
+                        Log.d("seller", "false in loop");
+                        if (dataSnapshotChild.child("seller").getValue().toString().equals("true")) {
+                            Log.d("seller", "false: true");
+                            User user = dataSnapshotChild.getValue(User.class);
+                            if (!TextUtils.equals(user.uid, FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                Log.d("seller", "added 1");
+                                users.add(user);
+                            }
+                        }
                     }
                 }
+                    if((dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("seller").getValue().toString().equals("true")))
+                    {
+                        while (dataSnapshots.hasNext()) {
+                            DataSnapshot dataSnapshotChild = dataSnapshots.next();
+
+                            Log.d("seller", "true");
+                            if (dataSnapshotChild.child("seller").getValue().toString().equals("false")) {
+                                Log.d("seller", "true: false");
+                                User user = dataSnapshotChild.getValue(User.class);
+                                if (!TextUtils.equals(user.uid, FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                    Log.d("seller", "added 2");
+                                    users.add(user);
+                                }
+                            }
+                        }
+                    }
+                    Log.d("seller","NOTHING HAPPENED");
                 mOnGetAllUsersListener.onGetAllUsersSuccess(users);
-            }
+                }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

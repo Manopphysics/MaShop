@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -56,10 +57,14 @@ public class MainActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
         final CircleImageView nav_profile_image = (CircleImageView) navigationView.getHeaderView(0).
                 findViewById(R.id.nav_profile_image);
+        final TextView nametv = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nameTextView);
+        final TextView emailtv = (TextView) navigationView.getHeaderView(0).findViewById(R.id.emailTextView);
+
         nav_profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent accset = new Intent(MainActivity.this,AccountSettings.class);
+                startActivity(accset);
             }
         });
 //
@@ -78,18 +83,25 @@ public class MainActivity extends AppCompatActivity implements
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // NullPointerException when shop is deleted!!!
-                    if (dataSnapshot.child(currentUserID).child("seller").getValue(String.class).equals("false")) {
+                    try{
+                    if (dataSnapshot.child(currentUserID).child("seller").getValue().toString().equals("false")) {
                         //showItemReg();
                         //hideItemShop();
                         showItem(R.id.nav_reg_shop);
                         hideItem(R.id.nav_my_shop);
-                    } else if (dataSnapshot.child(currentUserID).child("seller").getValue(String.class).equals("true")){
+                    } else if (dataSnapshot.child(currentUserID).child("seller").getValue().toString().equals("true")) {
                         showItem(R.id.nav_my_shop);
                         hideItem(R.id.nav_reg_shop);
                         //hideItemReg();
                         //showItemShop();
-                    }
+                    }}
+                    catch(Exception e){e.printStackTrace();}
+
                     String profile_image = (String) dataSnapshot.child(currentUserID).child("image").getValue(String.class);
+                    String name = (String) dataSnapshot.child(currentUserID).child("name").getValue().toString();
+                    String email = (String) dataSnapshot.child(currentUserID).child("email").getValue().toString();
+                    nametv.setText(name);
+                    emailtv.setText(email);
                     Picasso.get().load(profile_image).into(nav_profile_image);
                 }
 
@@ -104,12 +116,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.nav3:
-                Toast.makeText(this,"NAV 3",Toast.LENGTH_SHORT).show();break;
-            case R.id.nav4:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,
-                        new HomeFragment()).commit();
-                break;
             case R.id.nav_chats:
                 UserListingActivity.startActivity(MainActivity.this,
                         Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
